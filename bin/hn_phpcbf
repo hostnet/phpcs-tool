@@ -16,12 +16,10 @@ use Hostnet\Component\CodeSniffer\HostnetCLI;
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
 
-
 $paths = [
-    __DIR__.'/../vendor/squizlabs/php_codesniffer/CodeSniffer/CLI.php',
-    __DIR__.'/../squizlabs/php_codesniffer/CodeSniffer/CLI.php',
     __DIR__.'/../vendor/autoload.php',
-    __DIR__.'/../autoload.php'
+    __DIR__.'/../autoload.php',
+    __DIR__.'/../../../autoload.php'
 ];
 
 foreach ($paths as $file) {

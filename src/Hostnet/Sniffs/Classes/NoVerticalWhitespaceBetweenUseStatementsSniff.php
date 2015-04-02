@@ -40,7 +40,7 @@ class Hostnet_Sniffs_Classes_NoVerticalWhitespaceBetweenUseStatementsSniff imple
 
         // Reach the end of the current statement
         $stack_ptr = $phpcs_file->findNext([T_SEMICOLON], ($stack_ptr + 1));
-        $end_stmt = $stack_ptr;
+        $end_stmt  = $stack_ptr;
 
         // if there is another 'use' statement, it should be at $stack_ptr + 1
         $next_use   = $phpcs_file->findNext([T_USE], ($stack_ptr + 1));
