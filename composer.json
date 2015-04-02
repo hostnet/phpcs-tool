@@ -4,10 +4,12 @@
     "license": "proprietary",
     "require": {
         "php": ">=5.3",
-        "squizlabs/php_codesniffer": "^2.0.0"
+        "squizlabs/php_codesniffer": "^2.0.0",
+        "composer-plugin-api": "1.0.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^4.0.0"
+        "phpunit/phpunit": "^4.0.0",
+        "composer/composer": "1.0.*@dev"
     },
     "minimum-stability": "stable",
     "repositories": [
