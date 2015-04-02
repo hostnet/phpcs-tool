@@ -1,0 +1,53 @@
+#!/usr/bin/env php
+<?php
+
+use Hostnet\Component\CodeSniffer\HostnetCLI;
+
+/**
+ * PHP Code Beautifier and Fixer
+ *
+ * PHP version 5
+ *
+ * @category  PHP
+ * @package   PHP_CodeSniffer
+ * @author    Greg Sherwood <gsherwood@squiz.net>
+ * @copyright 2006-2014 Squiz Pty Ltd (ABN 77 084 670 600)
+ * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
+ * @link      http://pear.php.net/package/PHP_CodeSniffer
+ */
+
+
+$paths = [
+    __DIR__.'/../vendor/squizlabs/php_codesniffer/CodeSniffer/CLI.php',
+    __DIR__.'/../squizlabs/php_codesniffer/CodeSniffer/CLI.php',
+    __DIR__.'/../vendor/autoload.php',
+    __DIR__.'/../autoload.php'
+];
+
+foreach($paths as $file){
+    if (is_file($file) === true) {
+        include_once $file;
+    }
+}
+
+$hostnet_locations = [
+    __DIR__ . '/../src/',
+    __DIR__ . '/../hostnet/phpcs-tool/src/'
+];
+
+$installed_paths = '';
+foreach($hostnet_locations as $hostnet_location){
+    if(is_dir($hostnet_location)){
+        $installed_paths = $hostnet_location;
+        break;
+    }
+}
+
+$GLOBALS['PHP_CODESNIFFER_CONFIG_DATA'] = [
+    'colors' => true,
+    'default_standard' => 'Hostnet',
+    'installed_paths' => $installed_paths
+];
+
+$cli = new HostnetCLI();
+$cli->runphpcbf();

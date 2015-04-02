@@ -1,0 +1,36 @@
+{
+    "name": "hostnet/phpcs-tool",
+    "description": "PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations of a defined set of coding standards. Hostnet version",
+    "license": "proprietary",
+    "require": {
+        "php": ">=5.3",
+        "squizlabs/php_codesniffer": "^2.0.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.0.0"
+    },
+    "minimum-stability": "stable",
+    "repositories": [
+        {
+            "type":"composer",
+            "url": "http://packagist.hostnetbv.nl"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "" : "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "" : "test/"
+        },
+        "files" : [
+            "vendor/squizlabs/php_codesniffer/tests/Standards/AbstractSniffUnitTest.php"
+        ]
+    },
+    "bin": [
+        "bin/phpcs",
+        "bin/phpcbf"
+    ]
+}
