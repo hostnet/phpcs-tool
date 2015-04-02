@@ -34,13 +34,7 @@
         "bin/hn_phpcbf"
     ],
     "script": {
-        "post-update-cmd": [
-            "rm -Rf vendor/bin/phpcs",
-            "rm -Rf vendor/bin/phpcbf",
-            "ln -s vendor/bin/hn_phpcs vendor/bin/phpcs",
-            "ln -s vendor/bin/hn_phpcbf vendor/bin/phpcbf"
-        ],
-        "post-install-cmd": [
+        "post-autoload-dump": [
             "rm -Rf vendor/bin/phpcs",
             "rm -Rf vendor/bin/phpcbf",
             "ln -s vendor/bin/hn_phpcs vendor/bin/phpcs",
