@@ -35,6 +35,7 @@
     ],
     "script": {
         "post-autoload-dump": [
+            "echo 'Swapping out phpcs'",
             "rm -Rf vendor/bin/phpcs",
             "rm -Rf vendor/bin/phpcbf",
             "ln -s vendor/bin/hn_phpcs vendor/bin/phpcs",
