@@ -60,7 +60,7 @@
     <rule ref="Squiz.Classes.DuplicateProperty"/>
 
     <rule ref="PSR2"/>
-    
+
     <exclude-pattern>*/vendor/*</exclude-pattern>
     <file>src/</file>
     <file>test/</file>

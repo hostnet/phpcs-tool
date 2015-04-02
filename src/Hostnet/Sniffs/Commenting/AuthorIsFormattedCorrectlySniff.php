@@ -8,15 +8,15 @@ class Hostnet_Sniffs_Commenting_AuthorIsFormattedCorrectlySniff implements \PHP_
         return \PHP_CodeSniffer_Tokens::$commentTokens;
     }
 
-    public function process(\PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
     {
 
-        $tokens = $phpcsFile->getTokens();
+        $tokens = $phpcs_file->getTokens();
 
-        $content = $tokens[$stackPtr]['content'];
+        $content = $tokens[$stack_ptr]['content'];
         $matches = array();
         if (preg_match('/@author/', $content, $matches) !== 0) {
-            $contents = $tokens[$stackPtr+2]['content'];
+            $contents = $tokens[$stack_ptr+2]['content'];
             if (preg_match('/([\D]+[\s|-])+([<]{1}[\w\.]+[@]{1}[\w]+[.]{1}[\w]+[>]{1}){1}$/', $contents) === 0) {
                 $type        = 'CommentFound';
                 $comment_msg = trim($contents);
@@ -26,7 +26,7 @@ class Hostnet_Sniffs_Commenting_AuthorIsFormattedCorrectlySniff implements \PHP_
                     $type   = 'CommentFound';
                     $error .= '  "%s"';
                 }
-                $phpcsFile->addError($error, $stackPtr, $type, $data);
+                $phpcs_file->addError($error, $stack_ptr, $type, $data);
             }
         }
     }

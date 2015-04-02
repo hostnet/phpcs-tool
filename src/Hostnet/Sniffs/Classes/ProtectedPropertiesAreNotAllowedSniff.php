@@ -13,26 +13,26 @@ class Hostnet_Sniffs_Classes_ProtectedPropertiesAreNotAllowedSniff implements \P
         return array(T_PROTECTED);
     }
 
-    public function process(\PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
     {
-        $originalStackPtr = $stackPtr;
+        $originalstack_ptr = $stack_ptr;
 
-        $tokens = $phpcsFile->getTokens();
+        $tokens = $phpcs_file->getTokens();
 
         // Move the stack pointer to the next token
-        $stackPtr++;
+        $stack_ptr++;
 
         // Skip whitespace and comments
-        while ($tokens[$stackPtr]['code'] == T_WHITESPACE
-              || $tokens[$stackPtr]['code'] == T_COMMENT) {
-            $stackPtr++;
+        while ($tokens[$stack_ptr]['code'] == T_WHITESPACE
+              || $tokens[$stack_ptr]['code'] == T_COMMENT) {
+            $stack_ptr++;
         }
 
         // Check if the next token is a variable
-        if ($tokens[$stackPtr]['code'] == T_VARIABLE) {
+        if ($tokens[$stack_ptr]['code'] == T_VARIABLE) {
             // If yes: give error
-            $error = 'Protected property "' . $tokens[$stackPtr]['content'] . '" is not allowed.';
-            $phpcsFile->addError($error, $originalStackPtr, 'ProtectedProperty');
+            $error = 'Protected property "' . $tokens[$stack_ptr]['content'] . '" is not allowed.';
+            $phpcs_file->addError($error, $originalstack_ptr, 'ProtectedProperty');
         }
     }
 }

@@ -21,30 +21,30 @@ class Hostnet_Sniffs_Classes_NoVerticalWhitespaceBetweenUseStatementsSniff imple
     /**
      * Processes the tokens that this sniff is interested in.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file where the token was found.
-     * @param int $stackPtr The position in the stack where the token was found.
+     * @param PHP_CodeSniffer_File $phpcs_file The file where the token was found.
+     * @param int $stack_ptr The position in the stack where the token was found.
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
     {
-        $init = $stackPtr;
+        $init = $stack_ptr;
         // only check for use statements that are before the first class declaration
         // classes can have use statements for traits, for which we are not interested in this sniff
-        $first_class_occurence = $phpcsFile->findPrevious([T_CLASS, T_TRAIT], $stackPtr);
-        if ($first_class_occurence > 0 && $stackPtr > $first_class_occurence) {
+        $first_class_occurence = $phpcs_file->findPrevious([T_CLASS, T_TRAIT], $stack_ptr);
+        if ($first_class_occurence > 0 && $stack_ptr > $first_class_occurence) {
             return;
         }
 
-        $tokens = $phpcsFile->getTokens();
+        $tokens = $phpcs_file->getTokens();
 
         // Reach the end of the current statement
-        $stackPtr = $phpcsFile->findNext([T_SEMICOLON], ($stackPtr + 1));
-        $end_stmt = $stackPtr;
+        $stack_ptr = $phpcs_file->findNext([T_SEMICOLON], ($stack_ptr + 1));
+        $end_stmt = $stack_ptr;
 
-        // if there is another 'use' statement, it should be at $stackPtr + 1
-        $next_use   = $phpcsFile->findNext([T_USE], ($stackPtr + 1));
-        $next_class = $phpcsFile->findNext([T_CLASS, T_TRAIT], ($stackPtr + 1));
+        // if there is another 'use' statement, it should be at $stack_ptr + 1
+        $next_use   = $phpcs_file->findNext([T_USE], ($stack_ptr + 1));
+        $next_class = $phpcs_file->findNext([T_CLASS, T_TRAIT], ($stack_ptr + 1));
 
         //There is a class and the next use statement is afte the class definition. skipp it
         if ($next_class && $next_use > $next_class) {
@@ -55,23 +55,22 @@ class Hostnet_Sniffs_Classes_NoVerticalWhitespaceBetweenUseStatementsSniff imple
         for ($i = ($end_stmt + 1); $i <= $next_use; $i++) {
             //the current token ($i) contains an end of line
             //And it's on the next line than the end of the use satement
-            if (stristr($tokens[$i]['content'], "\n") !== false &&
-            $tokens[$i]['line'] != $tokens[$end_stmt]['line']
-            ) {
-                $this->checkForNewlineOrComments($phpcsFile, $i);
+            if (stristr($tokens[$i]['content'], "\n") !== false
+                && $tokens[$i]['line'] != $tokens[$end_stmt]['line']) {
+                $this->checkForNewlineOrComments($phpcs_file, $i);
             }
         }
     }
 
-    private function checkForNewlineOrComments(\PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    private function checkForNewlineOrComments(\PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
     {
-        $tokens = $phpcsFile->getTokens();
-        if ($tokens[$stackPtr]['code'] == T_COMMENT) {
+        $tokens = $phpcs_file->getTokens();
+        if ($tokens[$stack_ptr]['code'] == T_COMMENT) {
             $error = "There shouldn't be anything between 'use' statements.";
-            $phpcsFile->addError($error, $stackPtr, 'VerticalWhitespace');
-        } elseif (strcmp($tokens[$stackPtr]['content'], "\n") == 0) {
+            $phpcs_file->addError($error, $stack_ptr, 'VerticalWhitespace');
+        } elseif (strcmp($tokens[$stack_ptr]['content'], "\n") == 0) {
             $error = "Newline should not be present here ";
-            $phpcsFile->addError($error, $stackPtr, 'VerticalWhitespace');
+            $phpcs_file->addError($error, $stack_ptr, 'VerticalWhitespace');
         }
     }
 }

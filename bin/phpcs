@@ -25,7 +25,7 @@ $paths = [
     __DIR__.'/../autoload.php'
 ];
 
-foreach($paths as $file){
+foreach ($paths as $file) {
     if (is_file($file) === true) {
         include_once $file;
     }
@@ -37,15 +37,15 @@ $hostnet_locations = [
 ];
 
 $installed_paths = '';
-foreach($hostnet_locations as $hostnet_location){
-    if(is_dir($hostnet_location)){
+foreach ($hostnet_locations as $hostnet_location) {
+    if (is_dir($hostnet_location)) {
         $installed_paths = $hostnet_location;
         break;
     }
 }
 
 $GLOBALS['PHP_CODESNIFFER_CONFIG_DATA'] = [
-	  'colors' => true,
+    'colors' => true,
     'default_standard' => 'Hostnet',
     'installed_paths' => $installed_paths
 ];

@@ -18,11 +18,11 @@ abstract class Hostnet_Tests_AbstractPHPCSBridge extends AbstractSniffUnitTest
     protected function setUp()
     {
         $GLOBALS['PHP_CODESNIFFER_CONFIG_DATA'] = [
-        'showSources' => true,
-        'colors' => true,
-        'default_standard' => 'Hostnet',
-        'installed_paths' => __DIR__ . '/../../../src/'
-                ];
+            'showSources' => true,
+            'colors' => true,
+            'default_standard' => 'Hostnet',
+            'installed_paths' => __DIR__ . '/../../../src/'
+        ];
         $GLOBALS['PHP_CODESNIFFER_STANDARD_DIRS'][get_class($this)] = __DIR__ . '/../..';
         $GLOBALS['PHP_CODESNIFFER_SNIFF_CODES']   = [];
         $GLOBALS['PHP_CODESNIFFER_FIXABLE_CODES'] = [];

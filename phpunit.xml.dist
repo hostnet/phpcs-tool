@@ -9,9 +9,8 @@
         </testsuite>
     </testsuites>
     <filter>
-        <blacklist>
-            <directory>./vendor</directory>
-            <directory>./test</directory>
-        </blacklist>
+        <whitelist>
+            <directory>./src</directory>
+        </whitelist>
     </filter>
 </phpunit>

@@ -23,40 +23,40 @@ class Hostnet_Sniffs_Classes_OnlyOneUseStatementPerLineSniff implements \PHP_Cod
     /**
      * Processes the tokens that this sniff is interested in.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file where the token was found.
-     * @param int $stackPtr The position in the stack where the token was found.
+     * @param PHP_CodeSniffer_File $phpcs_file The file where the token was found.
+     * @param int $stack_ptr The position in the stack where the token was found.
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    public function process(\PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
     {
         // only check for use statements that are before the first class declaration
         // classes can have use statements for traits, for which we are not interested in this sniff
-        $first_class_occurence = $phpcsFile->findPrevious([T_CLASS, T_TRAIT], $stackPtr);
-        if ($first_class_occurence > 0 && $stackPtr > $first_class_occurence) {
+        $first_class_occurence = $phpcs_file->findPrevious([T_CLASS, T_TRAIT], $stack_ptr);
+        if ($first_class_occurence > 0 && $stack_ptr > $first_class_occurence) {
             return;
         }
 
-        $tokens = $phpcsFile->getTokens();
+        $tokens = $phpcs_file->getTokens();
 
         // Find the end of the current statement
-        $next_semicolon = $phpcsFile->findNext([T_SEMICOLON], ($stackPtr + 1));
+        $next_semicolon = $phpcs_file->findNext([T_SEMICOLON], ($stack_ptr + 1));
 
         // Find the next newline character
-        $next_newline = $phpcsFile->findNext([T_WHITESPACE], ($stackPtr + 1), null, false, "\n");
+        $next_newline = $phpcs_file->findNext([T_WHITESPACE], ($stack_ptr + 1), null, false, "\n");
 
         // look for commas in the current use statement
-        $next_comma = $phpcsFile->findNext([T_COMMA], ($stackPtr + 1));
+        $next_comma = $phpcs_file->findNext([T_COMMA], ($stack_ptr + 1));
         if ($next_comma > 0 && $next_comma < $next_semicolon) {
             $error = "There should only be one use statement in each line";
-            $phpcsFile->addError($error, $stackPtr, 'MultipleUseInLine');
+            $phpcs_file->addError($error, $stack_ptr, 'MultipleUseInLine');
         }
 
         // look for comments in the middle of use statements
-        $next_comment = $phpcsFile->findNext([T_COMMENT], ($stackPtr + 1));
+        $next_comment = $phpcs_file->findNext([T_COMMENT], ($stack_ptr + 1));
         if ($next_comment > 0 && $next_comment < $next_semicolon) {
             $error = "Inline comments should come after the semicolon";
-            $phpcsFile->addError($error, $stackPtr, 'MultipleUseInLine');
+            $phpcs_file->addError($error, $stack_ptr, 'MultipleUseInLine');
         }
     }
 }
