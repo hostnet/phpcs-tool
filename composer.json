@@ -1,5 +1,6 @@
 {
     "name": "hostnet/phpcs-tool",
+    "type": "composer-plugin",
     "description": "PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations of a defined set of coding standards. Hostnet version",
     "license": "proprietary",
     "require": {
