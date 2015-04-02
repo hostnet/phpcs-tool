@@ -36,15 +36,6 @@
         "bin/hn_phpcs",
         "bin/hn_phpcbf"
     ],
-    "scripts": {
-        "post-autoload-dump": [
-            "echo 'Swapping out phpcs'",
-            "rm -Rf vendor/bin/phpcs",
-            "rm -Rf vendor/bin/phpcbf",
-            "ln -s vendor/bin/hn_phpcs vendor/bin/phpcs",
-            "ln -s vendor/bin/hn_phpcbf vendor/bin/phpcbf"
-        ]
-    },
     "extra": {
         "class":  "Hostnet\\Component\\CodeSniffer\\Installer"
     }
