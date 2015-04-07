@@ -56,13 +56,13 @@ class Installer implements PluginInterface, EventSubscriberInterface
         //replace phpcs
         if (is_file($this->bin_dir . '/phpcs')) {
             unlink($this->bin_dir . '/phpcs');
-            symlink($this->bin_dir . '/hn_phpcs', $this->bin_dir . '/phpcs');
         }
+        symlink($this->bin_dir . '/hn_phpcs', $this->bin_dir . '/phpcs');
 
         //replace phpcbf
         if (is_file($this->bin_dir . '/phpcbf')) {
             unlink($this->bin_dir . '/phpcbf');
-            symlink($this->bin_dir . '/hn_phpcbf', $this->bin_dir . '/phpcbf');
         }
+        symlink($this->bin_dir . '/hn_phpcbf', $this->bin_dir . '/phpcbf');
     }
 }
