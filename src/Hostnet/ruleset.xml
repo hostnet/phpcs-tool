@@ -46,7 +46,6 @@
     <!-- Have 8 chars padding maximum and always show as errors -->
     <rule ref="Generic.Formatting.MultipleStatementAlignment">
         <properties>
-            <property name="maxPadding" value="15"/>
             <property name="ignoreMultiLine" value="true"/>
             <property name="error" value="true"/>
         </properties>
