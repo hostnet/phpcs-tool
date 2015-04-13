@@ -3,8 +3,8 @@ namespace Hostnet\Component\CodeSniffer;
 
 use Composer\Composer;
 use Composer\EventDispatcher\EventSubscriberInterface;
+use Composer\Installer\InstallerEvent;
 use Composer\IO\IOInterface;
-use Composer\Plugin\PluginEvents;
 use Composer\Plugin\PluginInterface;
 
 /**
@@ -46,6 +46,21 @@ class Installer implements PluginInterface, EventSubscriberInterface
                 ['execute', 0]
             ],
         ];
+    }
+
+    /**
+     * This function call is called from the phpcs main composer.json file as an 'pre-dependencies-solving' script.
+     * This function makes sure the Download manager ALWAYS uses source instead of dist to ensure the 'test'-folder of
+     * PHP Code Sniffer is there...
+     *
+     * @param InstallerEvent $event the event fired.
+     */
+    public static function ensureSource(InstallerEvent $event)
+    {
+        $download_manager = $event->getComposer()->getDownloadManager();
+        /*@var $dm \Composer\Downloader\DownloadManager */
+        $download_manager->setPreferDist(false);
+        $download_manager->setPreferSource(true);
     }
 
     /**
