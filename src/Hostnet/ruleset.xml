@@ -39,13 +39,11 @@
     <rule ref="Generic.PHP.NoSilencedErrors"/>
     <rule ref="Generic.PHP.SAPIUsage"/>
 
-    <!-- Disabled because currently duplicated in Hostnet_Sniffs_Strings_UnnecessaryStringConcatSniff -->
-    <!-- While waiting for https://github.com/squizlabs/PHP_CodeSniffer/pull/562/ -->
-    <!-- <rule ref="Generic.Strings.UnnecessaryStringConcat>
+    <rule ref="Generic.Strings.UnnecessaryStringConcat">
         <properties>
             <property name="allowMultiline" value="true"/>
         </properties>
-    </rule> -->
+    </rule>
 
     <rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
     <rule ref="Generic.WhiteSpace.ScopeIndent"/>
