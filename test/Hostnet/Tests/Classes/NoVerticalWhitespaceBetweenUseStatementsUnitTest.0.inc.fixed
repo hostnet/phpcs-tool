@@ -1,0 +1,30 @@
+<?php
+
+use SomeSpace; // comment
+use /* comment */ MoreSpace;
+use  /* another comment */
+    LostIn\Space;
+use
+NewLineAfterUse;
+   use/* no space after use but still valid PHP */MySpace\SubSpace;
+use NameWithAs as Hello;
+use Something;
+/* a big
+ * comment
+ */use SomethingElse;
+  use Silly
+    \
+    Multiline
+  as
+    Wonderful,
+  SillyAgain
+  \
+  DoPeopleReallyDoThis
+  as World;
+
+class SomeClass
+{
+    use SomeTrait;
+
+    use SomeOtherTrait;
+}
