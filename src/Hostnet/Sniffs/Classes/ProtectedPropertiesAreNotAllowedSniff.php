@@ -10,7 +10,7 @@ class Hostnet_Sniffs_Classes_ProtectedPropertiesAreNotAllowedSniff implements \P
 {
     public function register()
     {
-        return array(T_PROTECTED);
+        return [T_PROTECTED];
     }
 
     public function process(\PHP_CodeSniffer_File $phpcs_file, $stack_ptr)

@@ -16,7 +16,7 @@ class Hostnet_Tests_Commenting_AuthorIsFormattedCorrectlyUnitTest extends Hostne
      */
     public function getErrorList($filename = null)
     {
-        switch($filename) {
+        switch ($filename) {
             case 'AuthorIsFormattedCorrectlyUnitTest.0.inc':
                 return array(4 => 1, 9 => 1, 31 => 1);
             case 'AuthorIsFormattedCorrectlyUnitTest.1.inc':

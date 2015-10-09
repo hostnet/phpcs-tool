@@ -13,7 +13,7 @@ class Hostnet_Tests_Classes_NoVerticalWhitespaceBetweenUseStatementsUnitTest ext
      */
     public function getErrorList($filename = null)
     {
-        switch($filename) {
+        switch ($filename) {
             case 'NoVerticalWhitespaceBetweenUseStatementsUnitTest.0.inc':
                 return array(5 => 1, 12 => 1, 14 => 1, 15 => 1, 16 => 1, 18 => 1);
             case 'NoVerticalWhitespaceBetweenUseStatementsUnitTest.1.inc':

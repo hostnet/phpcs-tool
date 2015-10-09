@@ -12,7 +12,7 @@ class Hostnet_Tests_Classes_UseStatementsAlphabeticallyOrderedUnitTest extends H
      */
     public function getErrorList($filename = null)
     {
-        switch($filename) {
+        switch ($filename) {
             case 'UseStatementsAlphabeticallyOrderedUnitTest.0.inc':
                 return [];
             case 'UseStatementsAlphabeticallyOrderedUnitTest.1.inc':

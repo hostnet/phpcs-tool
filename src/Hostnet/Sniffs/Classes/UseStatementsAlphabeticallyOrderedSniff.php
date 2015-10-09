@@ -1,7 +1,9 @@
 <?php
 
 /**
- * Checks if the use statements are alphabetically ordered
+ * Checks if the use statements are alphabetically ordered.
+ *
+ * https://wiki.hostnetbv.nl/Coding_Standards#2.2.3
  *
  * @author Nikos Savvidis <nsavvidis@hostnet.nl>
  */
@@ -13,7 +15,7 @@ class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements 
 
     private $fixed = false;
 
-    private $use_statements = array();
+    private $use_statements = [];
 
     private $after_use_statement = [];
 
@@ -26,14 +28,14 @@ class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements 
      */
     public function register()
     {
-        return array(T_USE, T_CLASS, T_TRAIT);
+        return [T_USE, T_CLASS, T_TRAIT];
     }
 
     /**
      * Processes the tokens that this sniff is interested in.
      *
      * @param PHP_CodeSniffer_File $phpcs_file The file where the token was found.
-     * @param int $stack_ptr The position in the stack where the token was found.
+     * @param int                  $stack_ptr  The position in the stack where the token was found.
      *
      * @return void
      */
@@ -43,9 +45,11 @@ class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements 
             if ($this->initial_use && $this->end_use && $this->fixed) {
                 $this->fixUseStatements($phpcs_file);
             }
-            $this->use_statements = [];
+            $this->use_statements      = [];
             $this->after_use_statement = [];
-            $this->initial_use = $this->end_use = null;
+            $this->initial_use         = null;
+            $this->end_use             = null;
+
             return;
         }
         // only check for use statements that are before the first class declaration
@@ -57,10 +61,10 @@ class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements 
 
         $filename = $phpcs_file->getFilename();
         if ($this->current_file !== $filename) {
-            $this->current_file   = $phpcs_file->getFilename();
-            $this->initial_use    = $stack_ptr;
-            $this->fixed          = false;
-            $this->use_statements = array(); // empty the array for every different file
+            $this->current_file        = $phpcs_file->getFilename();
+            $this->initial_use         = $stack_ptr;
+            $this->fixed               = false;
+            $this->use_statements      = []; // empty the array for every different file
             $this->after_use_statement = [];
         }
 
@@ -92,6 +96,7 @@ class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements 
                             $extra = $this->after_use_statement[$item] . ';';
                         }
                     }
+
                     return "use " . $item . $extra;
                 },
                 $this->use_statements
@@ -110,7 +115,7 @@ class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements 
      * Once created, each statement is appended to the $use_statements array
      *
      * @param PHP_CodeSniffer_File $phpcs_file The file where the token was found.
-     * @param int $stack_ptr the current position in the stack
+     * @param int                  $stack_ptr  the current position in the stack
      *
      * @return void
      */
@@ -127,26 +132,26 @@ class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements 
         }
         $this->end_use = $stack_ptr + 1;
         if (strcasecmp(end($this->use_statements), $current_use_stmt) > 0) {
-            $error = "Use statement $current_use_stmt should be ordered before " . end($this->use_statements);
+            $error       = "Use statement $current_use_stmt should be ordered before " . end($this->use_statements);
             $this->fixed = $phpcs_file->addFixableError($error, $stack_ptr, 'UnorderedUseStatement');
         }
         array_push($this->use_statements, $current_use_stmt);
         if ($tokens[$stack_ptr]['code'] == T_COMMA) {
-            $new_stack_ptr = $phpcs_file->findNext([T_STRING], ($stack_ptr + 1));
-            $this->end_use = $new_stack_ptr + 1;
+            $new_stack_ptr                                = $phpcs_file->findNext([T_STRING], ($stack_ptr + 1));
+            $this->end_use                                = $new_stack_ptr + 1;
             $this->after_use_statement[$current_use_stmt] = $this->copy($tokens, $stack_ptr, $new_stack_ptr);
             $this->createAndCheckStatements($phpcs_file, $new_stack_ptr);
         } elseif ($tokens[$stack_ptr]['code'] == T_WHITESPACE) {
-            $new_stack_ptr = $phpcs_file->findNext([T_AS, T_SEMICOLON], ($stack_ptr + 1));
-            $this->end_use = $new_stack_ptr + 1;
+            $new_stack_ptr                                = $phpcs_file->findNext([T_AS, T_SEMICOLON], ($stack_ptr + 1));
+            $this->end_use                                = $new_stack_ptr + 1;
             $this->after_use_statement[$current_use_stmt] = $this->copy($tokens, $stack_ptr, $new_stack_ptr);
             if ($tokens[$new_stack_ptr]['code'] == T_AS) {
-                $new_stack_ptr = $phpcs_file->findNext([T_COMMA, T_SEMICOLON], ($new_stack_ptr + 1));
-                $this->end_use = $new_stack_ptr + 1;
+                $new_stack_ptr                                = $phpcs_file->findNext([T_COMMA, T_SEMICOLON], ($new_stack_ptr + 1));
+                $this->end_use                                = $new_stack_ptr + 1;
                 $this->after_use_statement[$current_use_stmt] = $this->copy($tokens, $stack_ptr, $new_stack_ptr);
                 if ($tokens[$new_stack_ptr]['code'] == T_COMMA) {
-                    $new_stack_ptr = $phpcs_file->findNext([T_STRING], ($new_stack_ptr + 1));
-                    $this->end_use = $new_stack_ptr + 1;
+                    $new_stack_ptr                                = $phpcs_file->findNext([T_STRING], ($new_stack_ptr + 1));
+                    $this->end_use                                = $new_stack_ptr + 1;
                     $this->after_use_statement[$current_use_stmt] = $this->copy($tokens, $stack_ptr, $new_stack_ptr);
                     $this->createAndCheckStatements($phpcs_file, $new_stack_ptr);
                 }
@@ -160,6 +165,7 @@ class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements 
         for ($i = $initial_ptr; $i < $end_ptr; $i++) {
             $res .= $tokens[$i]['content'];
         }
+
         return $res;
     }
 }

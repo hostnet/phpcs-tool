@@ -26,7 +26,7 @@ class HostnetCLI extends \PHP_CodeSniffer_CLI
      * needs to be loaded.
      *
      * @see PHP_CodeSniffer_CLI::validateStandard()
-     * @param array $standards the requested standard or null when defaulting.
+     * @param  array $standards the requested standard or null when defaulting.
      * @return array of loaded standard
       */
     public function validateStandard($standards)
@@ -41,11 +41,13 @@ class HostnetCLI extends \PHP_CodeSniffer_CLI
                 if (!is_file($default)) {
                     $this->copied = copy($default_dist, $default);
                 }
-                return array(
+
+                return [
                         $default
-                );
+                ];
             }
         }
+
         return parent::validateStandard($standards);
     }
 
@@ -62,6 +64,7 @@ class HostnetCLI extends \PHP_CodeSniffer_CLI
         if (!count($values['extensions'])) {
             $values['extensions'][] = 'php';
         }
+
         return $values;
     }
 

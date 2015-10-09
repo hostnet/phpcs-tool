@@ -4,9 +4,9 @@ class Hostnet_Sniffs_NamingConventions_MethodNameStartsWithGetIsSniff implements
 {
     public function register()
     {
-        return array(
+        return [
             T_FUNCTION
-        );
+        ];
     }
 
     public function process(\PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
@@ -29,11 +29,13 @@ class Hostnet_Sniffs_NamingConventions_MethodNameStartsWithGetIsSniff implements
         if (preg_match('~^get([Ii]s[A-Z0-9]{1}.*)~', $f_name, $matches)) {
             $suggested = 'i' . substr($matches[0], 4);
             $phpcs_file->addError('Invalid method name to get Boolean value. Suggested: ' . $suggested, $ptr);
+
             return;
         }
 
         if (preg_match('~^getis[a-zA-Z0-9]*~', $f_name)) {
             $phpcs_file->addError('Invalid method name, do not use getis(.*)', $ptr);
+
             return;
         }
     }

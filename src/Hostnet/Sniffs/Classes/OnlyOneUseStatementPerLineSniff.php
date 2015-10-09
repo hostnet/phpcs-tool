@@ -17,14 +17,14 @@ class Hostnet_Sniffs_Classes_OnlyOneUseStatementPerLineSniff implements \PHP_Cod
      */
     public function register()
     {
-        return array(T_USE);
+        return [T_USE];
     } // register
 
     /**
      * Processes the tokens that this sniff is interested in.
      *
      * @param PHP_CodeSniffer_File $phpcs_file The file where the token was found.
-     * @param int $stack_ptr The position in the stack where the token was found.
+     * @param int                  $stack_ptr  The position in the stack where the token was found.
      *
      * @return void
      */
