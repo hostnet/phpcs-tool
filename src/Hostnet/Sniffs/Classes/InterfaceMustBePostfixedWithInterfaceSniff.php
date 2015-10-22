@@ -1,22 +1,20 @@
 <?php
 
 /**
- * The name of abstract classes MUST start with the word 'Abstract'.
+ * The name of an interface MUST end with the word 'Interface'.
  *
- * https://wiki.hostnetbv.nl/Coding_Standards#3.1.6
- *
- * @todo Should throw an error instead of a warning.
+ * https://wiki.hostnetbv.nl/Coding_Standards#3.1.7
  *
  * @author Maarten Steltenpool <msteltenpool@hostnet.nl>
  */
-class Hostnet_Sniffs_Classes_AbstractClassesMustBePrefixedWithAbstractSniff implements \PHP_CodeSniffer_Sniff
+class Hostnet_Sniffs_Classes_InterfaceMustBePostfixedWithInterfaceSniff implements \PHP_CodeSniffer_Sniff
 {
     /**
      * @return string[]
      */
     public function register()
     {
-        return [T_ABSTRACT];
+        return [T_INTERFACE];
     }
 
     /**
@@ -35,11 +33,11 @@ class Hostnet_Sniffs_Classes_AbstractClassesMustBePrefixedWithAbstractSniff impl
 
         $ptr    = $stack_ptr + $index;
         $f_name = $phpcs_file->getTokens()[$ptr]['content'];
-        if (preg_match('~^Abstract*~', $f_name)) {
+        if (preg_match('/Interface$/', $f_name)) {
             return;
         }
 
-        $phpcs_file->addWarning('Invalid class name, abstract classes should be prefixed with Abstract.', $ptr);
+        $phpcs_file->addError('Invalid interface name, interface should be postfixed with Interface.', $ptr);
 
         return;
     }
