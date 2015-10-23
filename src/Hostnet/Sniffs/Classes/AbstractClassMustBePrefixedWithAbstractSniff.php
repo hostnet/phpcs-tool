@@ -23,8 +23,13 @@ class Hostnet_Sniffs_Classes_AbstractClassMustBePrefixedWithAbstractSniff implem
      */
     public function process(\PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
     {
-        // Search till class name.
-        $index = 0;
+        // Next should be T_WHITESPACE and then T_CLASS (prevent abstract functions from triggering).
+        $index = 2;
+        if ($phpcs_file->getTokens()[$stack_ptr + $index]['type'] !== 'T_CLASS') {
+            return;
+        }
+
+        // Then find first string.
         while (isset($phpcs_file->getTokens()[$stack_ptr + $index]) &&
             $phpcs_file->getTokens()[$stack_ptr + ($index)]['type'] !== 'T_STRING'
         ) {
