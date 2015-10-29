@@ -1,8 +1,7 @@
 <?php
 
 /**
- * Unit test for ClassAndNamespaceMustBeInPascalCaseSniff.
- *
+ * @covers Hostnet_Sniffs_Classes_ClassAndNamespaceMustBeInPascalCaseSniff
  * @author Maarten Steltenpool <msteltenpool@hostnet.nl>
  */
 class Hostnet_Tests_Classes_ClassAndNamespaceMustBeInPascalCaseUnitTest extends Hostnet_Tests_AbstractPHPCSBridge
@@ -12,8 +11,6 @@ class Hostnet_Tests_Classes_ClassAndNamespaceMustBeInPascalCaseUnitTest extends 
      *
      * The key of the array should represent the line number and the value
      * should represent the number of errors that should occur on that line.
-     *
-     * @param string $filename
      *
      * @return [int => int]
      */
@@ -27,6 +24,8 @@ class Hostnet_Tests_Classes_ClassAndNamespaceMustBeInPascalCaseUnitTest extends 
      *
      * The key of the array should represent the line number and the value
      * should represent the number of warnings that should occur on that line.
+     *
+     * @param string $filename
      *
      * @return [int => int]
      */
