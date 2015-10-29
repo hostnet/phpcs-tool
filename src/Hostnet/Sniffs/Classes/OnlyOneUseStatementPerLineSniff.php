@@ -37,13 +37,8 @@ class Hostnet_Sniffs_Classes_OnlyOneUseStatementPerLineSniff implements \PHP_Cod
             return;
         }
 
-        $tokens = $phpcs_file->getTokens();
-
         // Find the end of the current statement
         $next_semicolon = $phpcs_file->findNext([T_SEMICOLON], ($stack_ptr + 1));
-
-        // Find the next newline character
-        $next_newline = $phpcs_file->findNext([T_WHITESPACE], ($stack_ptr + 1), null, false, "\n");
 
         // look for commas in the current use statement
         $next_comma = $phpcs_file->findNext([T_COMMA], ($stack_ptr + 1));

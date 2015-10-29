@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Unit test for AbstractClassMustBePrefixedWithAbstractSniff
+ * Unit test for AbstractClassMustBePrefixedWithAbstractSniff.
  *
  * @author Maarten Steltenpool <msteltenpool@hostnet.nl>
  */

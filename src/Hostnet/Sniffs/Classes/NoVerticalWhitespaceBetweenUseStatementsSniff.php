@@ -28,7 +28,6 @@ class Hostnet_Sniffs_Classes_NoVerticalWhitespaceBetweenUseStatementsSniff imple
      */
     public function process(\PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
     {
-        $init = $stack_ptr;
         // only check for use statements that are before the first class declaration
         // classes can have use statements for traits, for which we are not interested in this sniff
         $first_class_occurence = $phpcs_file->findPrevious([T_CLASS, T_TRAIT], $stack_ptr);
