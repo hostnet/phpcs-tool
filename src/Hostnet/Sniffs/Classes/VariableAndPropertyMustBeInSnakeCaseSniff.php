@@ -27,7 +27,7 @@ class Hostnet_Sniffs_Classes_VariableAndPropertyMustBeInSnakeCaseSniff implement
     {
         $f_name = $phpcs_file->getTokens()[$stack_ptr]['content'];
         $f_name = str_replace('$','', $f_name);
-        if (preg_match('/^[a-z][a-z0-9_]*[a-z0-9]$/', $f_name)) {
+        if (preg_match('/^[a-z]([a-z0-9_]*[a-z0-9])?$/', $f_name)) {
             return;
         }
 

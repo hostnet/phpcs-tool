@@ -30,6 +30,16 @@ class Hostnet_Tests_Classes_VariableAndPropertyMustBeInSnakeCaseUnitTest extends
     public function getWarningList()
     {
 
-        return [6 => 1, 8 => 1, 9 => 1, 13 => 1, 15 => 1, 16 => 1, 19 => 1, 21 => 1, 22 => 1];
+        return [
+            6 => 1,
+            8 => 1,
+            10 => 1,
+            14 => 1,
+            16 => 1,
+            18 => 1,
+            21 => 1,
+            23 => 1,
+            25 => 1
+        ];
     }
 }
