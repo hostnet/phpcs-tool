@@ -1,20 +1,20 @@
 <?php
 
 /**
- * The name of interfaces MUST end with the word 'Interface'.
+ * The name of traits MUST end with the word 'Trait'.
  *
- * https://wiki.hostnetbv.nl/Coding_Standards#3.1.7
+ * https://wiki.hostnetbv.nl/Coding_Standards#3.1.9
  *
  * @author Maarten Steltenpool <msteltenpool@hostnet.nl>
  */
-class Hostnet_Sniffs_Classes_InterfaceMustBePostfixedWithInterfaceSniff implements \PHP_CodeSniffer_Sniff
+class Hostnet_Sniffs_Classes_TraitMustBePostfixedWithTraitSniff implements \PHP_CodeSniffer_Sniff
 {
     /**
      * @return string[]
      */
     public function register()
     {
-        return [T_INTERFACE];
+        return [T_TRAIT];
     }
 
     /**
@@ -23,7 +23,7 @@ class Hostnet_Sniffs_Classes_InterfaceMustBePostfixedWithInterfaceSniff implemen
      */
     public function process(\PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
     {
-        // Search till interface name.
+        // Search till trait name.
         $index = 0;
         while (isset($phpcs_file->getTokens()[$stack_ptr + $index]) &&
             $phpcs_file->getTokens()[$stack_ptr + ($index)]['type'] !== 'T_STRING'
@@ -33,11 +33,11 @@ class Hostnet_Sniffs_Classes_InterfaceMustBePostfixedWithInterfaceSniff implemen
 
         $ptr    = $stack_ptr + $index;
         $f_name = $phpcs_file->getTokens()[$ptr]['content'];
-        if (preg_match('/Interface$/', $f_name)) {
+        if (preg_match('/Trait$/', $f_name)) {
             return;
         }
 
-        $phpcs_file->addError('Invalid interface name, interface should be postfixed with Interface.', $ptr);
+        $phpcs_file->addError('Invalid trait name, trait should be postfixed with Trait.', $ptr);
 
         return;
     }
