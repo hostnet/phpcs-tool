@@ -4,8 +4,8 @@
     "description": "PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations of a defined set of coding standards. Hostnet version",
     "license": "proprietary",
     "require": {
-        "php": ">=5.3",
-        "squizlabs/php_codesniffer": "^2.3.4 || dev-master@dev",
+        "php": ">=5.5",
+        "squizlabs/php_codesniffer": "^2.3.4",
         "composer-plugin-api": "1.0.0"
     },
     "require-dev": {
