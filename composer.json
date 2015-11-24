@@ -5,7 +5,7 @@
     "license": "proprietary",
     "require": {
         "php": ">=5.5",
-        "squizlabs/php_codesniffer": "^2.3.4",
+        "squizlabs/php_codesniffer": "2.3.4",
         "composer-plugin-api": "1.0.0"
     },
     "require-dev": {
