@@ -12,11 +12,24 @@ class Hostnet_Tests_Classes_TraitMustBePostfixedWithTraitUnitTest extends Hostne
      * The key of the array should represent the line number and the value
      * should represent the number of errors that should occur on that line.
      *
+     * @return [int => int]
+     */
+    public function getErrorList()
+    {
+        return [];
+    }
+
+    /**
+     * Returns the lines where warnings should occur.
+     *
+     * The key of the array should represent the line number and the value
+     * should represent the number of warnings that should occur on that line.
+     *
      * @param string $filename
      *
      * @return [int => int]
      */
-    public function getErrorList($filename = null)
+    public function getWarningList($filename = null)
     {
         switch ($filename) {
             case 'TraitMustBePostfixedWithTraitUnitTest.0.inc':
@@ -28,18 +41,5 @@ class Hostnet_Tests_Classes_TraitMustBePostfixedWithTraitUnitTest extends Hostne
             case 'TraitMustBePostfixedWithTraitUnitTest.3.inc':
                 return [];
         }
-    }
-
-    /**
-     * Returns the lines where warnings should occur.
-     *
-     * The key of the array should represent the line number and the value
-     * should represent the number of warnings that should occur on that line.
-     *
-     * @return [int => int]
-     */
-    public function getWarningList()
-    {
-        return [];
     }
 }
