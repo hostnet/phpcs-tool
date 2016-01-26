@@ -38,6 +38,7 @@ class Installer implements PluginInterface, EventSubscriberInterface
     public function activate(Composer $composer, IOInterface $io)
     {
         $this->bin_dir = $composer->getConfig()->get('bin-dir');
+        $this->io      = $io;
     }
 
     /**
