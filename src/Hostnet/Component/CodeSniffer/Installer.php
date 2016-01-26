@@ -6,6 +6,7 @@ use Composer\EventDispatcher\EventSubscriberInterface;
 use Composer\Installer\InstallerEvent;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
+use Composer\Script\Event;
 
 /**
  * This small composer installer plugin hooks into the post-autoload-dump event and swaps out the phpcs and phpcbf
@@ -21,6 +22,11 @@ class Installer implements PluginInterface, EventSubscriberInterface
      * @var string
      */
     private $bin_dir;
+
+    /**
+     * @var IOInterface
+     **/
+    private $io;
 
     /**
      * Activate this plugin by storing the bin_dir.
@@ -41,11 +47,7 @@ class Installer implements PluginInterface, EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return [
-            'post-autoload-dump' => [
-                ['execute', 0]
-            ],
-        ];
+        return [ 'post-autoload-dump' => 'execute' ];
     }
 
     /**
@@ -64,20 +66,54 @@ class Installer implements PluginInterface, EventSubscriberInterface
     }
 
     /**
+     * Allow configuration from script, to use and test phpcs standalone
+     * @param Event $event the event fired.
+     */
+    public static function configure(Event $event)
+    {
+        self::defaultConfig($event->getComposer()->getConfig()->get('bin-dir'), $event->getIo());
+    }
+
+    /**
+     * Use executable of phpcs to configure prefereces
+     * @param string $setting name of the setting
+     * @param string $value value of the setting
+     * @param string $bin_dir location of the phpcs executable
+     * @param IOInterface $io composer io interface for verbose output
+     */
+    public static function phpcsConfig($setting, $value, $bin_dir, IOInterface $io)
+    {
+
+        $phpcs   = escapeshellarg($bin_dir . '/phpcs');
+        $setting = escapeshellarg($setting);
+        $value   = escapeshellarg($value);
+        if ($io->isVerbose()) {
+            $io->write(`2>&1 $phpcs --config-set $setting $value`);
+        }
+    }
+
+    /**
+     * Set the default config for phpcs to our desired settings
+     * @param string $bin_dir
+     * @param IOInterface $io
+     */
+    public static function defaultConfig($bin_dir, IOInterface $io)
+    {
+        self::phpcsConfig('default_standard', 'Hostnet', $bin_dir, $io);
+        self::phpcsConfig('show_process', 1, $bin_dir, $io);
+        self::phpcsConfig('colors', 1, $bin_dir, $io);
+        self::phpcsConfig('installed_paths', realpath(__DIR__ . '/../../..'), $bin_dir, $io);
+    }
+
+    /**
      * The 'logical'-operation of this Installer.
+     * PHPCS does not define constants for the config options,
+     * doing so ourself would only lead to outdated intel.
+     *
+     * @see https://github.com/squizlabs/PHP_CodeSniffer/wiki/Configuration-Options
      */
     public function execute()
     {
-        //replace phpcs
-        if (is_file($this->bin_dir . '/phpcs')) {
-            unlink($this->bin_dir . '/phpcs');
-        }
-        symlink($this->bin_dir . '/hn_phpcs', $this->bin_dir . '/phpcs');
-
-        //replace phpcbf
-        if (is_file($this->bin_dir . '/phpcbf')) {
-            unlink($this->bin_dir . '/phpcbf');
-        }
-        symlink($this->bin_dir . '/hn_phpcbf', $this->bin_dir . '/phpcbf');
+        self::defaultConfig($this->bin_dir, $this->io);
     }
 }

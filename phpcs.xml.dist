@@ -7,4 +7,5 @@
     <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/>
   </rule>
   <rule ref="PEAR.Classes.ClassDeclaration"/>
+  <exclude-pattern>*.inc</exclude-pattern>
 </ruleset>

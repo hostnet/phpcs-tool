@@ -18,6 +18,21 @@ class Hostnet_Tests_Classes_AbstractClassMustBePrefixedWithAbstractUnitTest exte
      */
     public function getErrorList($filename = null)
     {
+        return [];
+    }
+
+    /**
+     * Returns the lines where warnings should occur.
+     *
+     * The key of the array should represent the line number and the value
+     * should represent the number of warnings that should occur on that line.
+     *
+     * @param string $filename
+     *
+     * @return [int => int]
+     */
+    public function getWarningList($filename = null)
+    {
         switch ($filename) {
             case 'AbstractClassMustBePrefixedWithAbstractUnitTest.0.inc':
                 return [];
@@ -28,18 +43,5 @@ class Hostnet_Tests_Classes_AbstractClassMustBePrefixedWithAbstractUnitTest exte
             case 'AbstractClassMustBePrefixedWithAbstractUnitTest.3.inc':
                 return [];
         }
-    }
-
-    /**
-     * Returns the lines where warnings should occur.
-     *
-     * The key of the array should represent the line number and the value
-     * should represent the number of warnings that should occur on that line.
-     *
-     * @return [int => int]
-     */
-    public function getWarningList()
-    {
-        return [];
     }
 }

@@ -4,12 +4,12 @@
     "description": "PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations of a defined set of coding standards. Hostnet version",
     "license": "proprietary",
     "require": {
-        "php": ">=5.5",
-        "squizlabs/php_codesniffer": "2.3.4",
-        "composer-plugin-api": "1.0.0"
+        "php": ">=5.6",
+        "squizlabs/php_codesniffer": "^2.5.1",
+        "composer-plugin-api": "^1.0.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^4.0.0",
+        "phpunit/phpunit": "^5.0.0",
         "composer/composer": "1.0.*@dev"
     },
     "minimum-stability": "stable",
@@ -32,14 +32,14 @@
             "vendor/squizlabs/php_codesniffer/tests/Standards/AbstractSniffUnitTest.php"
         ]
     },
-    "bin": [
-        "bin/hn_phpcs",
-        "bin/hn_phpcbf"
-    ],
+    "config":  {
+        "bin-dir": "bin"
+    },
     "extra": {
         "class":  "Hostnet\\Component\\CodeSniffer\\Installer"
     },
     "scripts": {
-        "pre-dependencies-solving": "Hostnet\\Component\\CodeSniffer\\Installer::ensureSource"
+        "pre-dependencies-solving": "Hostnet\\Component\\CodeSniffer\\Installer::ensureSource",
+        "post-autoload-dump": "Hostnet\\Component\\CodeSniffer\\Installer::configure"
     }
 }

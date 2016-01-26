@@ -42,7 +42,7 @@ class Hostnet_Sniffs_Classes_AbstractClassMustBePrefixedWithAbstractSniff implem
             return;
         }
 
-        $phpcs_file->addError('Invalid class name, abstract class should be prefixed with Abstract.', $ptr);
+        $phpcs_file->addWarning('Invalid class name, abstract class should be prefixed with Abstract.', $ptr);
 
         return;
     }
