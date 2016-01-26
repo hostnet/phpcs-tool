@@ -88,8 +88,10 @@ class Installer implements PluginInterface, EventSubscriberInterface
         $phpcs   = escapeshellarg($bin_dir . '/phpcs');
         $setting = escapeshellarg($setting);
         $value   = escapeshellarg($value);
+        $output  = `2>&1 $phpcs --config-set $setting $value`;
+
         if ($io->isVerbose()) {
-            $io->write(`2>&1 $phpcs --config-set $setting $value`);
+            $io->write($output);;
         }
     }
 
