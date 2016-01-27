@@ -103,7 +103,6 @@ class Installer implements PluginInterface, EventSubscriberInterface
     public static function defaultConfig($bin_dir, IOInterface $io)
     {
         self::phpcsConfig('default_standard', 'Hostnet', $bin_dir, $io);
-        self::phpcsConfig('show_process', 1, $bin_dir, $io);
         self::phpcsConfig('colors', 1, $bin_dir, $io);
         self::phpcsConfig('installed_paths', realpath(__DIR__ . '/../../..'), $bin_dir, $io);
     }
