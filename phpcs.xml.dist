@@ -5,6 +5,7 @@
     <exclude name="Squiz.Classes.ClassFileName.NoMatch"/>
     <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
     <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/>
+    <exclude name="Hostnet.Classes.ClassAndNamespaceMustBeInPascalCase"/>
   </rule>
   <rule ref="PEAR.Classes.ClassDeclaration"/>
   <exclude-pattern>*.inc</exclude-pattern>

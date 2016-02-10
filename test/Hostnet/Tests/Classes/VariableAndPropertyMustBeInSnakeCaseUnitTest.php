@@ -39,7 +39,10 @@ class Hostnet_Tests_Classes_VariableAndPropertyMustBeInSnakeCaseUnitTest extends
             18 => 1,
             21 => 1,
             23 => 1,
-            25 => 1
+            25 => 1,
+            38 => 1,
+            39 => 1,
+            40 => 1
         ];
     }
 }

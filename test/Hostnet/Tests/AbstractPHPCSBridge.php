@@ -1,5 +1,8 @@
 <?php
-
+// @codingStandardsIgnoreStart
+// Class name is prefixed with Abstract,
+// but the poormans namespaceing is not
+// reconized.
 /**
  * This class acts as a bridge between our unit-tests and the PHPCodeSniffer Unit-Testing framework.
  * It setup the environment; loading our 'code standard' etc.
@@ -8,7 +11,7 @@
  */
 abstract class Hostnet_Tests_AbstractPHPCSBridge extends AbstractSniffUnitTest
 {
-
+// @codingStandardsIgnoreEnd
     /**
      * Prepare our code standard setup, PHP Code Sniffer performs this in:
      * PHP_CodeSniffer_AllTests and PHP_CodeSniffer_TestSuite

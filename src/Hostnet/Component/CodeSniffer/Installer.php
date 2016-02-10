@@ -91,7 +91,7 @@ class Installer implements PluginInterface, EventSubscriberInterface
         $output  = `2>&1 $phpcs --config-set $setting $value`;
 
         if ($io->isVerbose()) {
-            $io->write($output);;
+            $io->write($output);
         }
     }
 

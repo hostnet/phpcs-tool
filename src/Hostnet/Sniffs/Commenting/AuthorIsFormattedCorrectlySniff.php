@@ -5,6 +5,7 @@ class Hostnet_Sniffs_Commenting_AuthorIsFormattedCorrectlySniff implements \PHP_
 
     public function register()
     {
+        // commentTokens is not defined in our code
         return \PHP_CodeSniffer_Tokens::$commentTokens;
     }
 

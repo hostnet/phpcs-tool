@@ -142,16 +142,19 @@ class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements 
             $this->after_use_statement[$current_use_stmt] = $this->copy($tokens, $stack_ptr, $new_stack_ptr);
             $this->createAndCheckStatements($phpcs_file, $new_stack_ptr);
         } elseif ($tokens[$stack_ptr]['code'] == T_WHITESPACE) {
-            $new_stack_ptr                                = $phpcs_file->findNext([T_AS, T_SEMICOLON], ($stack_ptr + 1));
-            $this->end_use                                = $new_stack_ptr + 1;
+            $new_stack_ptr = $phpcs_file->findNext([T_AS, T_SEMICOLON], ($stack_ptr + 1));
+            $this->end_use = $new_stack_ptr + 1;
+
             $this->after_use_statement[$current_use_stmt] = $this->copy($tokens, $stack_ptr, $new_stack_ptr);
             if ($tokens[$new_stack_ptr]['code'] == T_AS) {
-                $new_stack_ptr                                = $phpcs_file->findNext([T_COMMA, T_SEMICOLON], ($new_stack_ptr + 1));
-                $this->end_use                                = $new_stack_ptr + 1;
+                $new_stack_ptr = $phpcs_file->findNext([T_COMMA, T_SEMICOLON], ($new_stack_ptr + 1));
+                $this->end_use = $new_stack_ptr + 1;
+
                 $this->after_use_statement[$current_use_stmt] = $this->copy($tokens, $stack_ptr, $new_stack_ptr);
                 if ($tokens[$new_stack_ptr]['code'] == T_COMMA) {
-                    $new_stack_ptr                                = $phpcs_file->findNext([T_STRING], ($new_stack_ptr + 1));
-                    $this->end_use                                = $new_stack_ptr + 1;
+                    $new_stack_ptr = $phpcs_file->findNext([T_STRING], ($new_stack_ptr + 1));
+                    $this->end_use = $new_stack_ptr + 1;
+
                     $this->after_use_statement[$current_use_stmt] = $this->copy($tokens, $stack_ptr, $new_stack_ptr);
                     $this->createAndCheckStatements($phpcs_file, $new_stack_ptr);
                 }
