@@ -4,10 +4,6 @@
  * Property names and variables MUST be declared in snake case (i.e. $my_property).
  *
  * https://wiki.hostnetbv.nl/Coding_Standards#3.3.1
- *
- * @todo Change from addWarning to addError.
- *
- * @author Maarten Steltenpool <msteltenpool@hostnet.nl>
  */
 class Hostnet_Sniffs_Classes_VariableAndPropertyMustBeInSnakeCaseSniff implements \PHP_CodeSniffer_Sniff
 {

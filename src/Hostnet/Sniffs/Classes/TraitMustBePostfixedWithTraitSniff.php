@@ -4,10 +4,6 @@
  * The name of traits MUST end with the word 'Trait'.
  *
  * https://wiki.hostnetbv.nl/Coding_Standards#3.1.9
- *
- * @todo set to error
- *
- * @author Maarten Steltenpool <msteltenpool@hostnet.nl>
  */
 class Hostnet_Sniffs_Classes_TraitMustBePostfixedWithTraitSniff implements \PHP_CodeSniffer_Sniff
 {
@@ -39,7 +35,7 @@ class Hostnet_Sniffs_Classes_TraitMustBePostfixedWithTraitSniff implements \PHP_
             return;
         }
 
-        $phpcs_file->addWarning('Invalid trait name, trait should be postfixed with Trait.', $ptr);
+        $phpcs_file->addError('Invalid trait name, trait should be postfixed with Trait.', $ptr);
 
         return;
     }

@@ -6,10 +6,6 @@
  *
  * Class names MUST be declared in PascalCase (i.e. XmlFormatter).
  * https://wiki.hostnetbv.nl/Coding_Standards#3.1.2
- *
- * @todo Change from addWarning to addError.
- *
- * @author Maarten Steltenpool <msteltenpool@hostnet.nl>
  */
 class Hostnet_Sniffs_Classes_ClassAndNamespaceMustBeInPascalCaseSniff implements \PHP_CodeSniffer_Sniff
 {
@@ -52,7 +48,7 @@ class Hostnet_Sniffs_Classes_ClassAndNamespaceMustBeInPascalCaseSniff implements
             }
 
             $type = $phpcs_file->getTokens()[$stack_ptr]['content'];
-            $phpcs_file->addWarning(sprintf('Invalid %1$s name, %1$s name should be in PascalCase.', $type), $ptr);
+            $phpcs_file->addError(sprintf('Invalid %1$s name, %1$s name should be in PascalCase.', $type), $ptr);
         }
 
         return;

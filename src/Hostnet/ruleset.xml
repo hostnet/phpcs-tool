@@ -62,6 +62,12 @@
 
     <rule ref="PSR2"/>
 
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="absoluteLineLimit" value="120"/>
+        </properties>
+    </rule>
+
     <!-- Hostnet Default path settings -->
     <exclude-pattern>*/Generated/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>

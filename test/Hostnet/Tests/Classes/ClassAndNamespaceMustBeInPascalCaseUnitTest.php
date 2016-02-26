@@ -2,7 +2,6 @@
 
 /**
  * @covers Hostnet_Sniffs_Classes_ClassAndNamespaceMustBeInPascalCaseSniff
- * @author Maarten Steltenpool <msteltenpool@hostnet.nl>
  */
 class Hostnet_Tests_Classes_ClassAndNamespaceMustBeInPascalCaseUnitTest extends Hostnet_Tests_AbstractPHPCSBridge
 {
@@ -12,24 +11,11 @@ class Hostnet_Tests_Classes_ClassAndNamespaceMustBeInPascalCaseUnitTest extends 
      * The key of the array should represent the line number and the value
      * should represent the number of errors that should occur on that line.
      *
-     * @return [int => int]
-     */
-    public function getErrorList()
-    {
-        return [];
-    }
-
-    /**
-     * Returns the lines where warnings should occur.
-     *
-     * The key of the array should represent the line number and the value
-     * should represent the number of warnings that should occur on that line.
-     *
      * @param string $filename
      *
      * @return [int => int]
      */
-    public function getWarningList($filename = null)
+    public function getErrorList($filename = null)
     {
         switch ($filename) {
             case 'ClassAndNamespaceMustBeInPascalCaseUnitTest.0.inc':
@@ -45,5 +31,20 @@ class Hostnet_Tests_Classes_ClassAndNamespaceMustBeInPascalCaseUnitTest extends 
             case 'ClassAndNamespaceMustBeInPascalCaseUnitTest.5.inc':
                 return [3 => 1];
         }
+    }
+
+    /**
+     * Returns the lines where warnings should occur.
+     *
+     * The key of the array should represent the line number and the value
+     * should represent the number of warnings that should occur on that line.
+     *
+     * @param string $filename
+     *
+     * @return [int => int]
+     */
+    public function getWarningList($filename = null)
+    {
+        return [];
     }
 }
