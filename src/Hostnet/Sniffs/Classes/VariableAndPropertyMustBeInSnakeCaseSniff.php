@@ -47,7 +47,7 @@ class Hostnet_Sniffs_Classes_VariableAndPropertyMustBeInSnakeCaseSniff implement
         }
 
         $name = $phpcs_file->getTokens()[$stack_ptr]['content'];
-        $phpcs_file->addError(sprintf('%1$s is invalid, %1$s should be in snake_case.', $name), $stack_ptr);
+        $phpcs_file->addWarning(sprintf('%1$s is invalid, %1$s should be in snake_case.', $name), $stack_ptr);
 
         return;
     }
