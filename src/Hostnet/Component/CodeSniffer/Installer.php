@@ -7,6 +7,7 @@ use Composer\Installer\InstallerEvent;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
 use Composer\Script\Event;
+use Hostnet\Component\Path\Path;
 
 /**
  * This small composer installer plugin hooks into the post-autoload-dump event and swaps out the phpcs and phpcbf
@@ -105,6 +106,19 @@ class Installer implements PluginInterface, EventSubscriberInterface
         self::phpcsConfig('default_standard', 'Hostnet', $bin_dir, $io);
         self::phpcsConfig('colors', 1, $bin_dir, $io);
         self::phpcsConfig('installed_paths', realpath(__DIR__ . '/../../..'), $bin_dir, $io);
+
+        // Symlink src and test because PHPCS made the paths
+        // relative to the location of the phpunit.xml file
+        // for some reason.
+        $src = __DIR__ . '/../../../Hostnet/src';
+        if (!file_exists($src)) {
+            symlink(realpath(Path::BASE_DIR . '/src'), $src);
+        }
+
+        $test = __DIR__ . '/../../../Hostnet/test';
+        if (!file_exists($test)) {
+            symlink(realpath(Path::BASE_DIR . '/test'), $test);
+        }
     }
 
     /**
