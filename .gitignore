@@ -1,5 +1,4 @@
 bin/
 vendor/
 composer.lock
-src/Hostnet/src
-src/Hostnet/test
+A/B/C/D/Hostnet/ruleset.xml

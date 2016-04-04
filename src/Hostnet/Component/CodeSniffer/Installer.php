@@ -73,7 +73,8 @@ class Installer implements PluginInterface, EventSubscriberInterface
      */
     public static function configure(Event $event)
     {
-        self::defaultConfig($event->getComposer()->getConfig()->get('bin-dir'), $event->getIo());
+        $root = $event->getComposer()->getPackage()->getName() === 'hostnet/phpcs-tool';
+        self::defaultConfig($event->getComposer()->getConfig()->get('bin-dir'), $event->getIo(), $root);
     }
 
     /**
@@ -101,23 +102,15 @@ class Installer implements PluginInterface, EventSubscriberInterface
      * @param string $bin_dir
      * @param IOInterface $io
      */
-    public static function defaultConfig($bin_dir, IOInterface $io)
+    public static function defaultConfig($bin_dir, IOInterface $io, $is_root)
     {
         self::phpcsConfig('default_standard', 'Hostnet', $bin_dir, $io);
         self::phpcsConfig('colors', 1, $bin_dir, $io);
-        self::phpcsConfig('installed_paths', realpath(__DIR__ . '/../../..'), $bin_dir, $io);
-
-        // Symlink src and test because PHPCS made the paths
-        // relative to the location of the phpunit.xml file
-        // for some reason.
-        $src = __DIR__ . '/../../../Hostnet/src';
-        if (!file_exists($src)) {
-            symlink(realpath(Path::BASE_DIR . '/src'), $src);
-        }
-
-        $test = __DIR__ . '/../../../Hostnet/test';
-        if (!file_exists($test)) {
-            symlink(realpath(Path::BASE_DIR . '/test'), $test);
+        if ($is_root) {
+            copy(__DIR__  . '/../../ruleset.xml', __DIR__ . '/../../../../A/B/C/D/Hostnet/ruleset.xml');
+            self::phpcsConfig('installed_paths', realpath(__DIR__ . '/../../../../A/B/C/D'), $bin_dir, $io);
+        } else {
+            self::phpcsConfig('installed_paths', realpath(__DIR__ . '/../../..'), $bin_dir, $io);
         }
     }
 
