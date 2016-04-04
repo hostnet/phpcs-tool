@@ -123,6 +123,6 @@ class Installer implements PluginInterface, EventSubscriberInterface
      */
     public function execute()
     {
-        self::defaultConfig($this->bin_dir, $this->io);
+        self::defaultConfig($this->bin_dir, $this->io, false);
     }
 }
