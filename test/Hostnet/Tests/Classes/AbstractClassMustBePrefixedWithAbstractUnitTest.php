@@ -18,7 +18,16 @@ class Hostnet_Tests_Classes_AbstractClassMustBePrefixedWithAbstractUnitTest exte
      */
     public function getErrorList($filename = null)
     {
-        return [];
+        switch ($filename) {
+            case 'AbstractClassMustBePrefixedWithAbstractUnitTest.0.inc':
+                return [];
+            case 'AbstractClassMustBePrefixedWithAbstractUnitTest.1.inc':
+                return [];
+            case 'AbstractClassMustBePrefixedWithAbstractUnitTest.2.inc':
+                return [3 => 1];
+            case 'AbstractClassMustBePrefixedWithAbstractUnitTest.3.inc':
+                return [];
+        }
     }
 
     /**
@@ -33,15 +42,6 @@ class Hostnet_Tests_Classes_AbstractClassMustBePrefixedWithAbstractUnitTest exte
      */
     public function getWarningList($filename = null)
     {
-        switch ($filename) {
-            case 'AbstractClassMustBePrefixedWithAbstractUnitTest.0.inc':
-                return [];
-            case 'AbstractClassMustBePrefixedWithAbstractUnitTest.1.inc':
-                return [];
-            case 'AbstractClassMustBePrefixedWithAbstractUnitTest.2.inc':
-                return [3 => 1];
-            case 'AbstractClassMustBePrefixedWithAbstractUnitTest.3.inc':
-                return [];
-        }
+        return [];
     }
 }

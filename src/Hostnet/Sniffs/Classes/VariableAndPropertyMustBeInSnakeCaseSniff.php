@@ -4,10 +4,6 @@
  * Property names and variables MUST be declared in snake case (i.e. $my_property).
  *
  * https://wiki.hostnetbv.nl/Coding_Standards#3.3.1
- *
- * @todo Change from addWarning to addError.
- *
- * @author Maarten Steltenpool <msteltenpool@hostnet.nl>
  */
 class Hostnet_Sniffs_Classes_VariableAndPropertyMustBeInSnakeCaseSniff implements \PHP_CodeSniffer_Sniff
 {
@@ -47,7 +43,7 @@ class Hostnet_Sniffs_Classes_VariableAndPropertyMustBeInSnakeCaseSniff implement
         }
 
         $name = $phpcs_file->getTokens()[$stack_ptr]['content'];
-        $phpcs_file->addWarning(sprintf('%1$s is invalid, %1$s should be in snake_case.', $name), $stack_ptr);
+        $phpcs_file->addError(sprintf('%1$s is invalid, %1$s should be in snake_case.', $name), $stack_ptr);
 
         return;
     }
