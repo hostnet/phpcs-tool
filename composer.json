@@ -14,12 +14,6 @@
         "composer/composer": "^1.0.0"
     },
     "minimum-stability": "stable",
-    "repositories": [
-        {
-            "type":"composer",
-            "url": "https://packagist.hostnetbv.nl"
-        }
-    ],
     "autoload": {
         "psr-0": {
             "" : "src/"
