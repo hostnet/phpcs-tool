@@ -15,4 +15,4 @@ before_script:
     - travis_retry composer self-update
     - travis_retry composer --dev update
 
-script: vendor/bin/phpunit
+script: bin/phpunit
