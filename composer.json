@@ -16,12 +16,12 @@
     "minimum-stability": "stable",
     "autoload": {
         "psr-0": {
-            "" : "src/"
+            "Hostnet": "src/"
         }
     },
     "autoload-dev": {
         "psr-0": {
-            "" : "test/"
+            "Hostnet": "test/"
         },
         "files" : [
             "vendor/squizlabs/php_codesniffer/tests/Standards/AbstractSniffUnitTest.php"
@@ -35,6 +35,11 @@
     },
     "scripts": {
         "pre-dependencies-solving": "Hostnet\\Component\\CodeSniffer\\Installer::ensureSource",
-        "post-autoload-dump": "Hostnet\\Component\\CodeSniffer\\Installer::configure"
+        "post-autoload-dump":       "Hostnet\\Component\\CodeSniffer\\Installer::configureAsRoot"
+    },
+    "archive": {
+        "exclude": [
+            "/test"
+        ]
     }
 }
