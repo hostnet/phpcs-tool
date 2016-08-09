@@ -30,6 +30,5 @@ class Hostnet_Tests_NamingConventions_MethodNameStartsWithGetIsUnitTest extends 
     public function getWarningList()
     {
         return array();
-
     }
 }
