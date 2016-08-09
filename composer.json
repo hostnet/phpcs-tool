@@ -1,17 +1,17 @@
 {
-    "name": "hostnet/phpcs-tool",
-    "type": "composer-plugin",
-    "description": "PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations of a defined set of coding standards. Hostnet version",
-    "license": "MIT",
+    "name":              "hostnet/phpcs-tool",
+    "type":              "composer-plugin",
+    "description":       "PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations of a defined set of coding standards. Hostnet version",
+    "license":           "MIT",
     "require": {
-        "php": ">=5.6",
-        "squizlabs/php_codesniffer": "^2.6.0",
-        "composer-plugin-api": "^1.0.0",
-        "hostnet/path-composer-plugin-lib": "^1.0"
+        "php":                              ">=5.6",
+        "composer-plugin-api":              "^1.0.0",
+        "hostnet/path-composer-plugin-lib": "^1.0",
+        "squizlabs/php_codesniffer":        "^2.6.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.3.0",
-        "composer/composer": "^1.0.0"
+        "composer/composer": "^1.0.0",
+        "phpunit/phpunit":   "^5.3.0"
     },
     "minimum-stability": "stable",
     "autoload": {
@@ -23,19 +23,21 @@
         "psr-0": {
             "Hostnet": "test/"
         },
-        "files" : [
+        "files": [
             "vendor/squizlabs/php_codesniffer/tests/Standards/AbstractSniffUnitTest.php"
         ]
     },
-    "config":  {
-        "bin-dir": "bin"
+    "config": {
+        "bin-dir": "bin",
+        "preferred-install": {
+            "squizlabs/php_codesniffer": "source"
+        }
     },
     "extra": {
-        "class":  "Hostnet\\Component\\CodeSniffer\\Installer"
+        "class": "Hostnet\\Component\\CodeSniffer\\Installer"
     },
     "scripts": {
-        "pre-dependencies-solving": "Hostnet\\Component\\CodeSniffer\\Installer::ensureSource",
-        "post-autoload-dump":       "Hostnet\\Component\\CodeSniffer\\Installer::configureAsRoot"
+        "post-autoload-dump": "Hostnet\\Component\\CodeSniffer\\Installer::configureAsRoot"
     },
     "archive": {
         "exclude": [

@@ -36,6 +36,5 @@ class Hostnet_Tests_Commenting_AuthorIsFormattedCorrectlyUnitTest extends Hostne
     public function getWarningList()
     {
         return array();
-
     }
 }

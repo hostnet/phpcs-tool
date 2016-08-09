@@ -9,8 +9,8 @@ use Composer\Plugin\PluginInterface;
 use Hostnet\Component\Path\Path;
 
 /**
- * This small composer installer plugin hooks into the post-autoload-dump event and swaps out the phpcs and phpcbf
- * files for their hostnet counter parts.
+ * This small composer installer plugin hooks into the post-autoload-dump
+ * and configures the Hostnet standard for PHPCS
  *
  * @author Stefan Lenselink <slenselink@hostnet.nl>
  */
@@ -59,20 +59,8 @@ class Installer implements PluginInterface, EventSubscriberInterface
     }
 
     /**
-     * This function call is called from the phpcs main composer.json file as an 'pre-dependencies-solving' script.
-     * This function makes sure the Download manager ALWAYS uses source instead of dist to ensure the 'test'-folder of
-     * PHP Code Sniffer is there...
-     *
-     * @param InstallerEvent $event the event fired.
+     * Configuration for standalone use in a system wide installation senario
      */
-    public static function ensureSource(InstallerEvent $event)
-    {
-        $download_manager = $event->getComposer()->getDownloadManager();
-        /*@var $dm \Composer\Downloader\DownloadManager */
-        $download_manager->setPreferDist(false);
-        $download_manager->setPreferSource(true);
-    }
-
     public static function configureAsRoot()
     {
         $vendor_dir = Path::VENDOR_DIR . '/hostnet/phpcs-tool/src/Hostnet';
@@ -84,6 +72,9 @@ class Installer implements PluginInterface, EventSubscriberInterface
         }
     }
 
+    /**
+     * Configure the Hostnet code style
+     */
     public static function configure()
     {
         $file = Path::VENDOR_DIR . '/squizlabs/php_codesniffer/CodeSniffer.conf';
