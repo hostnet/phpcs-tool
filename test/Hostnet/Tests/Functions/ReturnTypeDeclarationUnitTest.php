@@ -53,7 +53,6 @@ class Hostnet_Tests_Functions_ReturnTypeDeclarationUnitTest extends Hostnet_Test
                     47 => 1,
                     53 => 1,
                     59 => 1,
-                    65 => 1,
                 );
             case 'ReturnTypeDeclarationUnitTest.2.inc':
                 return array(
@@ -66,7 +65,6 @@ class Hostnet_Tests_Functions_ReturnTypeDeclarationUnitTest extends Hostnet_Test
                     47 => 1,
                     53 => 1,
                     59 => 1,
-                    65 => 1,
                 );
             case 'ReturnTypeDeclarationUnitTest.3.inc':
                 return array(
@@ -79,7 +77,6 @@ class Hostnet_Tests_Functions_ReturnTypeDeclarationUnitTest extends Hostnet_Test
                     29 => 1,
                     33 => 1,
                     37 => 1,
-                    41 => 1,
                 );
             case 'ReturnTypeDeclarationUnitTest.4.inc':
                 return array(
@@ -92,7 +89,6 @@ class Hostnet_Tests_Functions_ReturnTypeDeclarationUnitTest extends Hostnet_Test
                     47 => 1,
                     53 => 1,
                     59 => 1,
-                    65 => 1,
                 );
             default:
                 return array();

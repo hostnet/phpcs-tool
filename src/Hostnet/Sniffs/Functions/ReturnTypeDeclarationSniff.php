@@ -4,8 +4,7 @@
  * ReturnTypeDeclarationSniff.
  *
  * Checks for return type declarations if the spacing between a function's
- * closing parenthesis, colon, and return type is correct, and if
- * the return type is lowercase.
+ * closing parenthesis, colon, and return type is correct
  */
 class Hostnet_Sniffs_Functions_ReturnTypeDeclarationSniff implements PHP_CodeSniffer_Sniff
 {
@@ -71,10 +70,6 @@ class Hostnet_Sniffs_Functions_ReturnTypeDeclarationSniff implements PHP_CodeSni
             } elseif ($tokens[$next_separator]['code'] === T_RETURN_TYPE) {
                 $colon_return_type_spacing = $acc;
                 $acc                       = '';
-                if (strtolower($tokens[$next_separator]['content']) !== $tokens[$next_separator]['content']) {
-                    $error = 'All letters in the return type declaration should be lowercase';
-                    $phpcs_file->addError($error, $stack_ptr);
-                }
             } else {
                 $acc .= $tokens[$next_separator]['content'];
             }
