@@ -51,8 +51,8 @@ class Hostnet_Sniffs_Functions_ReturnTypeDeclarationSniff implements PHP_CodeSni
     {
         $tokens = $phpcs_file->getTokens();
 
-        $next_separator = $this->getClosingParenthesis($phpcs_file, $tokens, $stack_ptr);
-        $end_position   = $this->getCharacterAfterReturnTypeDeclaration($phpcs_file, $tokens, $stack_ptr);
+        $closing_parenthesis_position = $this->getClosingParenthesis($phpcs_file, $tokens, $stack_ptr);
+        $end_position                 = $this->getCharacterAfterReturnTypeDeclaration($phpcs_file, $tokens, $stack_ptr);
 
         $find = [
             T_COLON,
@@ -63,13 +63,16 @@ class Hostnet_Sniffs_Functions_ReturnTypeDeclarationSniff implements PHP_CodeSni
         $closing_parenthesis_colon_spacing = $this->closing_parenthesis_colon_spacing;
         $colon_return_type_spacing         = $this->colon_return_type_spacing;
         $acc                               = '';
+        $next_separator                    = $closing_parenthesis_position;
         while (($next_separator = $phpcs_file->findNext($find, $next_separator + 1, $end_position)) !== false) {
             if ($tokens[$next_separator]['code'] === T_COLON) {
                 $closing_parenthesis_colon_spacing = $acc;
                 $acc                               = '';
+                $colon_position                    = $next_separator;
             } elseif ($tokens[$next_separator]['code'] === T_RETURN_TYPE) {
                 $colon_return_type_spacing = $acc;
                 $acc                       = '';
+                $return_type_position      = $next_separator;
             } else {
                 $acc .= $tokens[$next_separator]['content'];
             }
@@ -92,7 +95,28 @@ class Hostnet_Sniffs_Functions_ReturnTypeDeclarationSniff implements PHP_CodeSni
             $error = $expected . ';' . $found;
 
             $error = str_replace(["\r\n", "\n", "\r", "\t"], ['\r\n', '\n', '\r', '\t'], $error);
-            $phpcs_file->addError($error, $stack_ptr);
+            $fix   = $phpcs_file->addFixableError($error, $stack_ptr, 'ReturnTypeDeclarationSpacing');
+            if ($fix === true) {
+                if ($closing_parenthesis_colon_spacing !== $this->closing_parenthesis_colon_spacing) {
+                    $this->fixSpacing(
+                        $phpcs_file,
+                        $tokens,
+                        $this->closing_parenthesis_colon_spacing,
+                        $closing_parenthesis_position,
+                        $colon_position
+                    );
+                }
+
+                if ($colon_return_type_spacing !== $this->colon_return_type_spacing) {
+                    $this->fixSpacing(
+                        $phpcs_file,
+                        $tokens,
+                        $this->colon_return_type_spacing,
+                        $colon_position,
+                        $return_type_position
+                    );
+                }
+            }
         }
     }
 
@@ -148,5 +172,38 @@ class Hostnet_Sniffs_Functions_ReturnTypeDeclarationSniff implements PHP_CodeSni
         }
 
         return $end_position;
+    }
+
+    /**
+     * Fix the spacing between start and end
+     *
+     * @param PHP_CodeSniffer_File $phpcs_file The file being scanned.
+     * @param array $tokens Token stack for this file
+     * @param string $required_spacing Required spacing between start and end
+     * @param int $start Position of the start in the token stack
+     * @param int $end Position of the end in the token stack
+     *
+     * @return void
+     */
+    private function fixSpacing(PHP_COdeSniffer_File $phpcs_file, $tokens, $required_spacing, $start, $end)
+    {
+        //insert whitespace if there is no whitespace, and whitespace is required
+        if (($start + 1) === $end && empty($required_spacing) === false) {
+            $phpcs_file->fixer->addContent(
+                $start,
+                $required_spacing
+            );
+        //otherwise, if there is whitespace, change the whitespace to the required spacing
+        } else {
+            for ($i = ($start + 1); $i < $end; $i++) {
+                if ($tokens[$i]['code'] === T_WHITESPACE) {
+                    if (($i + 1) === $end) {
+                        $phpcs_file->fixer->replaceToken($i, $required_spacing);
+                    } else {
+                        $phpcs_file->fixer->replaceToken($i, '');
+                    }
+                }
+            }
+        }
     }
 }

@@ -14,50 +14,44 @@ public function this(): string
     return;
 }
 
-public function func() :string
+public function func(): string
 {
     return;
 }
 
-public function func() : string
+public function func(): string
 {
     return;
 }
 
-public function func():string
+public function func(): string
 {
     return;
 }
 
-public function func()
-:string{
+public function func(): string{
     return;
 }
 
-public function func()
-:string {
+public function func(): string {
     return;
 }
 
-public function func()
-: string {
+public function func(): string {
     return;
 }
 
-public function func()
-:string
+public function func(): string
 {
     return;
 }
 
-public function func()
-: string
+public function func(): string
 {
     return;
 }
 
-public function func():
-string
+public function func(): string
 {
     return;
 }
