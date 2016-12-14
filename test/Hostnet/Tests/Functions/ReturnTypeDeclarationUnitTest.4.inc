@@ -62,6 +62,11 @@ namespace ReturnTypeVariations
         return;
     };
 
+    $func = function() use($a): striNg
+    {
+        return;
+    };
+
     $func = function() use($a)
     {
         return;

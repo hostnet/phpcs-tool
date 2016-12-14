@@ -62,6 +62,11 @@ string
     return;
 }
 
+public function this(): stRing
+{
+    return;
+}
+
 public function func()
 {
     return;

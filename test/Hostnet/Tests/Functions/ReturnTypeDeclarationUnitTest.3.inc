@@ -38,5 +38,7 @@ interface ReturnTypeVariations
     string
     ;
 
+    public function this(): strIng;
+
     public function func();
 }
