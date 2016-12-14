@@ -62,11 +62,6 @@ class ReturnTypeVariations
         return;
     }
 
-    public function func(): sTring
-    {
-        return;
-    }
-
     public function func()
     {
         return;

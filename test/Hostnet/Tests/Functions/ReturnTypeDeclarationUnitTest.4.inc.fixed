@@ -14,50 +14,44 @@ namespace ReturnTypeVariations
         return;
     };
 
-    $func = function() use($a) :string
+    $func = function() use($a): string
     {
         return;
     };
 
-    $func = function() use($a) : string
+    $func = function() use($a): string
     {
         return;
     };
 
-    $func = function() use($a):string
+    $func = function() use($a): string
     {
         return;
     };
 
-    $func = function() use($a)
-    :string{
+    $func = function() use($a): string{
         return;
     };
 
-    $func = function() use($a)
-    :string {
+    $func = function() use($a): string {
         return;
     };
 
-    $func = function() use($a)
-    : string {
+    $func = function() use($a): string {
         return;
     };
 
-    $func = function() use($a)
-    :string
+    $func = function() use($a): string
     {
         return;
     };
 
-    $func = function() use($a)
-    : string
+    $func = function() use($a): string
     {
         return;
     };
 
-    $func = function() use($a):
-    string
+    $func = function() use($a): string
     {
         return;
     };

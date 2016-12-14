@@ -7,63 +7,57 @@
 // and have a preceding space before the type declaration. Demonstrated in method
 // named `this()`
 
-namespace ReturnTypeVariations
+class ReturnTypeVariations
 {
-    $func = function() use($a): string
+    public function this(): string
     {
         return;
-    };
+    }
 
-    $func = function() use($a) :string
+    public function func(): string
     {
         return;
-    };
+    }
 
-    $func = function() use($a) : string
+    public function func(): string
     {
         return;
-    };
+    }
 
-    $func = function() use($a):string
+    public function func(): string
     {
         return;
-    };
+    }
 
-    $func = function() use($a)
-    :string{
+    public function func(): string{
         return;
-    };
+    }
 
-    $func = function() use($a)
-    :string {
+    public function func(): string {
         return;
-    };
+    }
 
-    $func = function() use($a)
-    : string {
+    public function func(): string {
         return;
-    };
+    }
 
-    $func = function() use($a)
-    :string
+    public function func(): string
     {
         return;
-    };
+    }
 
-    $func = function() use($a)
-    : string
+    public function func(): string
     {
         return;
-    };
+    }
 
-    $func = function() use($a):
-    string
+    public function func(): string
     {
         return;
-    };
+    }
 
-    $func = function() use($a)
+    public function func()
     {
         return;
-    };
+    }
 }

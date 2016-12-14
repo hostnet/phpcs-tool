@@ -11,31 +11,25 @@ interface ReturnTypeVariations
 {
     public function this(): string;
 
-    public function func() :string;
+    public function func(): string;
 
-    public function func() : string;
+    public function func(): string;
 
-    public function func():string;
+    public function func(): string;
 
-    public function func()
-    :string;
+    public function func(): string;
 
-    public function func()
-    :string ;
+    public function func(): string ;
 
-    public function func()
-    : string ;
+    public function func(): string ;
 
-    public function func()
-    :string
+    public function func(): string
     ;
 
-    public function func()
-    : string
+    public function func(): string
     ;
 
-    public function func():
-    string
+    public function func(): string
     ;
 
     public function func();
