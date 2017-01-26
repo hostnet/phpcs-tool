@@ -185,7 +185,7 @@ class Hostnet_Sniffs_Functions_ReturnTypeDeclarationSniff implements PHP_CodeSni
      *
      * @return void
      */
-    private function fixSpacing(PHP_COdeSniffer_File $phpcs_file, $tokens, $required_spacing, $start, $end)
+    private function fixSpacing(PHP_CodeSniffer_File $phpcs_file, $tokens, $required_spacing, $start, $end)
     {
         //insert whitespace if there is no whitespace, and whitespace is required
         if (($start + 1) === $end && empty($required_spacing) === false) {

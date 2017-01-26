@@ -8,7 +8,7 @@
 // named `this()`
 
 namespace ReturnTypes;
-
+class X {
 public function this(): string
 {
     return;
@@ -59,4 +59,5 @@ public function func(): string
 public function func()
 {
     return;
+}
 }
