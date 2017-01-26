@@ -3,7 +3,6 @@ namespace Hostnet\Component\CodeSniffer;
 
 use Composer\Composer;
 use Composer\EventDispatcher\EventSubscriberInterface;
-use Composer\Installer\InstallerEvent;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
 use Hostnet\Component\Path\Path;

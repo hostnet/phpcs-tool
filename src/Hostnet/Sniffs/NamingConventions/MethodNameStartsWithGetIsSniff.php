@@ -26,6 +26,7 @@ class Hostnet_Sniffs_NamingConventions_MethodNameStartsWithGetIsSniff implements
             return;
         }
 
+        $matches = [];
         if (preg_match('~^get([Ii]s[A-Z0-9]{1}.*)~', $f_name, $matches)) {
             $suggested = 'i' . substr($matches[0], 4);
             $phpcs_file->addError('Invalid method name to get Boolean value. Suggested: ' . $suggested, $ptr);
