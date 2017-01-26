@@ -45,16 +45,13 @@ class Hostnet_Tests_Commenting_FileCommentCopyrightUnitTest extends Hostnet_Test
                 1 => 2
             ],
             'FileCommentCopyrightUnitTest.2.inc' => [
-                1 => 1,
-                3 => 1
+                1 => 1
             ],
             'FileCommentCopyrightUnitTest.3.inc' => [
-                1 => 1,
-                5 => 1
+                1 => 1
             ],
             'FileCommentCopyrightUnitTest.4.inc' => [
-                1 => 1,
-                2 => 1
+                1 => 1
             ],
             'FileCommentCopyrightUnitTest.5.inc' => [
                 1 => 1,
@@ -64,15 +61,10 @@ class Hostnet_Tests_Commenting_FileCommentCopyrightUnitTest extends Hostnet_Test
                 1 => 2
             ],
             'FileCommentCopyrightUnitTest.8.inc' => [
-                3 => 1,
-                4 => 1
-            ],
-            'FileCommentCopyrightUnitTest.9.inc' => [
-                4 => 1
+                3 => 1
             ],
             'FileCommentCopyrightUnitTest.10.inc' => [
-                1 => 1,
-                4 => 1
+                1 => 1
             ]
         ];
         if (! isset($list[$filename])) {
