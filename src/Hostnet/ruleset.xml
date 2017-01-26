@@ -59,6 +59,11 @@
 
     <rule ref="Squiz.Classes.ClassFileName"/>
     <rule ref="Squiz.Classes.DuplicateProperty"/>
+    
+    <rule ref="Hostnet.Commenting.FileCommentCopyright.Missing">
+      <type>warning</type>
+    </rule>
+    <exclude name="Hostnet.Commenting.FileCommentCopyright.MissingVersion"/>
 
     <rule ref="PSR2"/>
 
