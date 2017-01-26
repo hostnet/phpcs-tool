@@ -63,11 +63,12 @@ class Hostnet_Tests_Commenting_FileCommentCopyrightUnitTest extends Hostnet_Test
                 ];
             case 'FileCommentCopyrightUnitTest.5.inc':
                 return [
+                    1 => 1,
                     2 => 1
                 ];
             case 'FileCommentCopyrightUnitTest.6.inc':
                 return [
-                    1 => 1
+                    1 => 2
                 ];
             case 'FileCommentCopyrightUnitTest.7.inc':
                 return []
