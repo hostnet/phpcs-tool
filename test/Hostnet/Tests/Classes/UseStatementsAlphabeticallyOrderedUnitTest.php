@@ -1,4 +1,10 @@
 <?php
+/**
+ * @copyright 2015-2017 Hostnet B.V.
+ */
+/**
+ * @copyright 2015-2017 Hostnet B.V.
+ */
 
 class Hostnet_Tests_Classes_UseStatementsAlphabeticallyOrderedUnitTest extends Hostnet_Tests_AbstractPHPCSBridge
 {

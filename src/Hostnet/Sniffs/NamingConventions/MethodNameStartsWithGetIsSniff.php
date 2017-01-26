@@ -1,4 +1,10 @@
 <?php
+/**
+ * @copyright 2017 Hostnet B.V.
+ */
+/**
+ * @copyright 2017 Hostnet B.V.
+ */
 
 class Hostnet_Sniffs_NamingConventions_MethodNameStartsWithGetIsSniff implements \PHP_CodeSniffer_Sniff
 {

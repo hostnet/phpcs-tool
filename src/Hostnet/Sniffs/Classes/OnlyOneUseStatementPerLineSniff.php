@@ -1,4 +1,7 @@
 <?php
+/**
+ * @copyright 2015-2017 Hostnet B.V.
+ */
 
 /**
  * Checks if their is only one use statement in every line.

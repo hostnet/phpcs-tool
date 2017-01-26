@@ -1,4 +1,7 @@
 <?php
+/**
+ * @copyright 2015-2017 Hostnet B.V.
+ */
 
 /**
  * @covers Hostnet_Sniffs_Classes_InterfaceMustBePostfixedWithInterfaceSniff

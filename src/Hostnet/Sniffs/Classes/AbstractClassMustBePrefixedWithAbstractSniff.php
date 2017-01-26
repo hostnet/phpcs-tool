@@ -1,4 +1,7 @@
 <?php
+/**
+ * @copyright 2016-2017 Hostnet B.V.
+ */
 
 /**
  * The name of abstract classes MUST start with the word 'Abstract'.

@@ -1,4 +1,10 @@
 <?php
+/**
+ * @copyright 2016-2017 Hostnet B.V.
+ */
+/**
+ * @copyright 2016-2017 Hostnet B.V.
+ */
 
 class Hostnet_Sniffs_Commenting_AuthorIsFormattedCorrectlySniff implements \PHP_CodeSniffer_Sniff
 {

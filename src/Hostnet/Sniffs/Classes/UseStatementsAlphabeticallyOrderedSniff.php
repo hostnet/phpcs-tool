@@ -1,4 +1,7 @@
 <?php
+/**
+ * @copyright 2016-2017 Hostnet B.V.
+ */
 
 /**
  * Checks if the use statements are alphabetically ordered.

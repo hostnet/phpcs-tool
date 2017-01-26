@@ -1,4 +1,7 @@
 <?php
+/**
+ * @copyright 2016-2017 Hostnet B.V.
+ */
 
 /**
  * @covers Hostnet_Sniffs_Classes_VariableAndPropertyMustBeInSnakeCaseSniff
