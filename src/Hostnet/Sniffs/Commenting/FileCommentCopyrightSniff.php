@@ -74,7 +74,7 @@ class Hostnet_Sniffs_Commenting_FileCommentCopyrightSniff extends PEAR_Sniffs_Co
                 }
             }
             if ($replace) {
-                $fix = $phpcs_file->addFixableWarning('Missing file doc comment lines', 0, 'Missing');
+                $fix = $phpcs_file->addFixableError('Missing file doc comment lines', 0, 'Missing');
                 if ($fix) {
                     $ptr = $phpcs_file->findFirstOnLine([T_OPEN_TAG], 0);
                     $phpcs_file->fixer->addContent(
@@ -120,7 +120,7 @@ class Hostnet_Sniffs_Commenting_FileCommentCopyrightSniff extends PEAR_Sniffs_Co
 
         //No @copyright tag because not returned
         $error = 'Missing ' . $this->copyright_tag . ' tag in file doc-block';
-        $fix   = $phpcs_file->addFixableWarning($error, $stack_ptr, 'MissingCopyrightTag');
+        $fix   = $phpcs_file->addFixableError($error, $stack_ptr, 'MissingCopyrightTag');
         if ($fix) {
             if ($tokens[$tokens[$comment_start]['comment_closer']]['line'] == $tokens[$comment_start]['line']) {
                 $phpcs_file->fixer->replaceToken($tokens[$comment_start]['comment_closer'] - 1, '');
@@ -161,7 +161,7 @@ class Hostnet_Sniffs_Commenting_FileCommentCopyrightSniff extends PEAR_Sniffs_Co
         $ptr    = $phpcs_file->findNext(T_DOC_COMMENT_STRING, $copyright_tag_ptr, $comment_end_ptr);
         if ($ptr === false || $tokens[$ptr]['line'] !== $tokens[$copyright_tag_ptr]['line']) {
             $error = 'Content missing for ' . $this->copyright_tag . ' tag in File comment';
-            $fix   = $phpcs_file->addFixableWarning(
+            $fix   = $phpcs_file->addFixableError(
                 $error,
                 $copyright_tag_ptr,
                 'Empty ' . $this->copyright_tag . ' Tag'
