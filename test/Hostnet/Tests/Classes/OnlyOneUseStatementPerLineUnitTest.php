@@ -1,4 +1,7 @@
 <?php
+/**
+ * @copyright 2015-2017 Hostnet B.V.
+ */
 
 /**
  * Unit test for ProtectedPropertiesAreNotAllowedSniff

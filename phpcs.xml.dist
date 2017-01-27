@@ -10,7 +10,9 @@
   <rule ref="Hostnet.Commenting.FileCommentCopyright.Missing">
       <type>warning</type>
   </rule>
-  <exclude name="Hostnet.Commenting.FileCommentCopyright.MissingVersion"/>
+  <rule ref="Hostnet.Commenting.FileCommentCopyright">
+      <exclude name="Hostnet.Commenting.FileCommentCopyright.MissingVersion"/>
+  </rule>
   <rule ref="PEAR.Classes.ClassDeclaration"/>
   <exclude-pattern>*.inc</exclude-pattern>
 </ruleset>

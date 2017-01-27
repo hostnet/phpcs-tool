@@ -1,4 +1,7 @@
 <?php
+/**
+ * @copyright 2016-2017 Hostnet B.V.
+ */
 
 /**
  * Property names and variables MUST be declared in snake case (i.e. $my_property).

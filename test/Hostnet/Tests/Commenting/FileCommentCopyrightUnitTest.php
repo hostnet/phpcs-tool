@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @copyright 2017 Hostnet B.V.
  */
@@ -41,54 +40,36 @@ class Hostnet_Tests_Commenting_FileCommentCopyrightUnitTest extends Hostnet_Test
      */
     public function getWarningList($filename = '')
     {
-        switch ($filename) {
-            case 'FileCommentCopyrightUnitTest.1.inc':
-                return [
-                    1 => 2
-                ];
-            case 'FileCommentCopyrightUnitTest.2.inc':
-                return [
-                    1 => 1,
-                    3 => 1
-                ];
-            case 'FileCommentCopyrightUnitTest.3.inc':
-                return [
-                    1 => 1,
-                    5 => 1
-                ];
-            case 'FileCommentCopyrightUnitTest.4.inc':
-                return [
-                    1 => 1,
-                    2 => 1
-                ];
-            case 'FileCommentCopyrightUnitTest.5.inc':
-                return [
-                    1 => 1,
-                    2 => 1
-                ];
-            case 'FileCommentCopyrightUnitTest.6.inc':
-                return [
-                    1 => 2
-                ];
-            case 'FileCommentCopyrightUnitTest.7.inc':
-                return []
-                ;
-            case 'FileCommentCopyrightUnitTest.8.inc':
-                return [
-                    3 => 1,
-                    4 => 1
-                ];
-            case 'FileCommentCopyrightUnitTest.9.inc':
-                return [
-                    4 => 1
-                ];
-            case 'FileCommentCopyrightUnitTest.10.inc':
-                return [
-                    1 => 1,
-                    4 => 1
-                    ];
-            default:
-                return [];
+        $list = [
+            'FileCommentCopyrightUnitTest.1.inc' => [
+                1 => 2
+            ],
+            'FileCommentCopyrightUnitTest.2.inc' => [
+                1 => 1
+            ],
+            'FileCommentCopyrightUnitTest.3.inc' => [
+                1 => 1
+            ],
+            'FileCommentCopyrightUnitTest.4.inc' => [
+                1 => 1
+            ],
+            'FileCommentCopyrightUnitTest.5.inc' => [
+                1 => 1,
+                2 => 1
+            ],
+            'FileCommentCopyrightUnitTest.6.inc' => [
+                1 => 2
+            ],
+            'FileCommentCopyrightUnitTest.8.inc' => [
+                3 => 1
+            ],
+            'FileCommentCopyrightUnitTest.10.inc' => [
+                1 => 1
+            ]
+        ];
+        if (! isset($list[$filename])) {
+            return [];
         }
+        return $list[$filename];
     }
 }

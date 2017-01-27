@@ -1,4 +1,7 @@
 <?php
+/**
+ * @copyright 2017 Hostnet B.V.
+ */
 
 /**
  * ReturnTypeDeclarationSniff.
