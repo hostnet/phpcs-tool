@@ -7,9 +7,6 @@
     <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/>
     <exclude name="Hostnet.Classes.ClassAndNamespaceMustBeInPascalCase"/>
   </rule>
-  <rule ref="Hostnet.Commenting.FileCommentCopyright.Missing">
-      <type>warning</type>
-  </rule>
   <rule ref="Hostnet.Commenting.FileCommentCopyright">
       <exclude name="Hostnet.Commenting.FileCommentCopyright.MissingVersion"/>
   </rule>
