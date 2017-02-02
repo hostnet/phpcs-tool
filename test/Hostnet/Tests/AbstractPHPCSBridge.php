@@ -1,8 +1,13 @@
 <?php
+declare(strict_types = 1);
+/**
+ * @copyright 2017 Hostnet B.V.
+ */
+
 // @codingStandardsIgnoreStart
 // Class name is prefixed with Abstract,
-// but the poormans namespaceing is not
-// reconized.
+// but the pear namespaces are not
+// recognized.
 /**
  * This class acts as a bridge between our unit-tests and the PHPCodeSniffer Unit-Testing framework.
  * It setup the environment; loading our 'code standard' etc.

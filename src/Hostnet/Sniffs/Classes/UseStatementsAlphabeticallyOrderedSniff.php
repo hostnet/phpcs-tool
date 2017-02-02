@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 /**
  * @copyright 2016-2017 Hostnet B.V.
  */
@@ -134,7 +135,7 @@ class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements 
             $stack_ptr++;
         }
         $this->end_use = $stack_ptr + 1;
-        if (strcasecmp(end($this->use_statements), $current_use_stmt) > 0) {
+        if (end($this->use_statements) && strcasecmp(end($this->use_statements), $current_use_stmt) > 0) {
             $error       = "Use statement $current_use_stmt should be ordered before " . end($this->use_statements);
             $this->fixed = $phpcs_file->addFixableError($error, $stack_ptr, 'UnorderedUseStatement');
         }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 /**
  * @copyright 2017 Hostnet B.V.
  */
@@ -195,15 +196,15 @@ class Hostnet_Sniffs_Commenting_FileCommentCopyrightSniff extends PEAR_Sniffs_Co
 
             //try git
             $cmd  = sprintf(
-                'git log -1 --reverse --pretty=format:%%ci %s|cut -d"-" -f1',
+                'git log -1 --reverse --pretty=format:%%ci %s 2> /dev/null |cut -d"-" -f1',
                 $filename
             );
-            $year = trim(`$cmd`);
-            if (empty($year) || trim($year) == '') {
+            $year = trim(`$cmd` ?: '');
+            if (empty($year) || $year === '') {
                 $year = $now_year;
             }
 
-            if ($year == $now_year) {
+            if ($year === $now_year) {
                 $this->local_years = $now_year;
             } else {
                 $this->local_years = $year . '-' . $now_year;
