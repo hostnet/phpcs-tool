@@ -30,7 +30,7 @@ class Hostnet_Sniffs_Declares_StrictSniff implements PHP_CodeSniffer_Sniff
      *
      * @return array
      */
-    public function register()
+    public function register(): array
     {
         return [T_OPEN_TAG];
     }
@@ -45,7 +45,7 @@ class Hostnet_Sniffs_Declares_StrictSniff implements PHP_CodeSniffer_Sniff
      *
      * @return int
      */
-    public function process(PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
+    public function process(PHP_CodeSniffer_File $phpcs_file, $stack_ptr): int
     {
         $tokens = $phpcs_file->getTokens();
         $eof    = count($tokens) + 1; // Do not visit this file again for this sniff.
@@ -106,7 +106,7 @@ class Hostnet_Sniffs_Declares_StrictSniff implements PHP_CodeSniffer_Sniff
      * @return bool
      *
      */
-    private function addDeclare(PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
+    private function addDeclare(PHP_CodeSniffer_File $phpcs_file, int $stack_ptr): bool
     {
         return $phpcs_file->fixer->addContent($stack_ptr, 'declare(strict_types = 1);' . $phpcs_file->eolChar);
     }

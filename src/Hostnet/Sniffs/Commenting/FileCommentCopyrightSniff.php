@@ -191,7 +191,6 @@ class Hostnet_Sniffs_Commenting_FileCommentCopyrightSniff extends PEAR_Sniffs_Co
      */
     private function initYears($filename)
     {
-//        return 2017;
         if (!isset($this->years)) {
             $now_year = date('Y');
 
@@ -200,12 +199,12 @@ class Hostnet_Sniffs_Commenting_FileCommentCopyrightSniff extends PEAR_Sniffs_Co
                 'git log -1 --reverse --pretty=format:%%ci %s 2> /dev/null |cut -d"-" -f1',
                 $filename
             );
-            $year = trim(`$cmd`);
-            if (empty($year) || trim($year) == '') {
+            $year = trim(`$cmd` ?: '');
+            if (empty($year) || $year === '') {
                 $year = $now_year;
             }
 
-            if ($year == $now_year) {
+            if ($year === $now_year) {
                 $this->local_years = $now_year;
             } else {
                 $this->local_years = $year . '-' . $now_year;
