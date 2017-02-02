@@ -1,0 +1,10 @@
+<?php
+declare(strict_types = 1);
+    /**
+     * @copyright 2017 Hostnet B.V.
+     */
+    echo 'hi there';
+?>
+<p>
+<?php
+    echo 'how are you doing?';
