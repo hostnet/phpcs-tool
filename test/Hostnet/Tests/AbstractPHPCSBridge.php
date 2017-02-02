@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 // @codingStandardsIgnoreStart
 // Class name is prefixed with Abstract,
 // but the poormans namespaceing is not
