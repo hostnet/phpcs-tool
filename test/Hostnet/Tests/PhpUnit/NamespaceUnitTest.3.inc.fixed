@@ -1,0 +1,14 @@
+<?php
+use PHPUnit\Framework\TestCase;
+
+class NamespaceTest extends TestCase
+{
+
+}
+
+//Comment
+
+class NamespaceTest extends TestCase
+{
+
+}

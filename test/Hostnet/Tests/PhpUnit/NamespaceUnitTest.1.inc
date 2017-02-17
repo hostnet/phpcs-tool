@@ -1,0 +1,8 @@
+<?php
+
+use Exception;
+
+class NamespaceTest extends PHPUnit_Framework_TestCase
+{
+
+}
