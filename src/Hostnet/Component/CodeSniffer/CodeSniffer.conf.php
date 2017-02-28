@@ -9,4 +9,5 @@ $phpCodeSnifferConfig = [
     'colors'           => '1',
     'installed_paths'  => __DIR__ . '/../../hostnet/phpcs-tool/src',
 ];
+//error_reporting(0);
 // @codingStandardsIgnoreEnd

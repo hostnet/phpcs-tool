@@ -72,10 +72,10 @@ class Hostnet_Sniffs_Classes_NoVerticalWhitespaceBetweenUseStatementsSniff imple
             $error = "There shouldn't be anything between 'use' statements.";
             $phpcs_file->addError($error, $stack_ptr, 'VerticalWhitespace');
         } elseif (strcmp($tokens[$stack_ptr]['content'], "\n") == 0) {
-            $error = "Newline should not be present here ";
+            $error = 'Newline should not be present here ';
             $fixed = $phpcs_file->addFixableError($error, $stack_ptr, 'VerticalWhitespace');
             if ($fixed) {
-                $phpcs_file->fixer->replaceToken($stack_ptr, "");
+                $phpcs_file->fixer->replaceToken($stack_ptr, '');
             }
         }
     }
