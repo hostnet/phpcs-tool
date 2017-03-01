@@ -196,7 +196,7 @@ class Hostnet_Sniffs_Commenting_FileCommentCopyrightSniff extends PEAR_Sniffs_Co
 
             //try git
             $cmd  = sprintf(
-                'git log -1 --reverse --pretty=format:%%ci %s 2> /dev/null |cut -d"-" -f1',
+                'git log --reverse --pretty=format:%%ci %s 2> /dev/null |cut -d"-" -f1 | head -n1',
                 $filename
             );
             $year = trim(`$cmd` ?: '');
