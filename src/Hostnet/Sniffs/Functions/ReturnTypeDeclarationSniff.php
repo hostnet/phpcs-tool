@@ -86,12 +86,12 @@ class Hostnet_Sniffs_Functions_ReturnTypeDeclarationSniff implements PHP_CodeSni
             || $colon_return_type_spacing !== $this->colon_return_type_spacing
         ) {
             $expected = sprintf(
-                "Expected \")%s:%sreturntype\"",
+                'Expected ")%s:%sreturntype"',
                 $this->closing_parenthesis_colon_spacing,
                 $this->colon_return_type_spacing
             );
             $found    = sprintf(
-                "found \")%s:%sreturntype\"",
+                'found ")%s:%sreturntype"',
                 $closing_parenthesis_colon_spacing,
                 $colon_return_type_spacing
             );

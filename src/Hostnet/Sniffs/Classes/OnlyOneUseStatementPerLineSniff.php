@@ -47,14 +47,14 @@ class Hostnet_Sniffs_Classes_OnlyOneUseStatementPerLineSniff implements \PHP_Cod
         // look for commas in the current use statement
         $next_comma = $phpcs_file->findNext([T_COMMA], ($stack_ptr + 1));
         if ($next_comma > 0 && $next_comma < $next_semicolon) {
-            $error = "There should only be one use statement in each line";
+            $error = 'There should only be one use statement in each line';
             $phpcs_file->addError($error, $stack_ptr, 'MultipleUseInLine');
         }
 
         // look for comments in the middle of use statements
         $next_comment = $phpcs_file->findNext([T_COMMENT], ($stack_ptr + 1));
         if ($next_comment > 0 && $next_comment < $next_semicolon) {
-            $error = "Inline comments should come after the semicolon";
+            $error = 'Inline comments should come after the semicolon';
             $phpcs_file->addError($error, $stack_ptr, 'MultipleUseInLine');
         }
     }

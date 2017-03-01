@@ -93,7 +93,7 @@ class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements 
             "\n",
             array_map(
                 function ($item) {
-                    $extra = ";";
+                    $extra = ';';
                     if (isset($this->after_use_statement[$item])) {
                         $this->after_use_statement[$item] = rtrim($this->after_use_statement[$item], ", \n");
                         if (!empty($this->after_use_statement[$item])) {
@@ -101,7 +101,7 @@ class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements 
                         }
                     }
 
-                    return "use " . $item . $extra;
+                    return 'use ' . $item . $extra;
                 },
                 $this->use_statements
             )
@@ -126,7 +126,7 @@ class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements 
     private function createAndCheckStatements(\PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
     {
         $tokens           = $phpcs_file->getTokens();
-        $current_use_stmt = "";
+        $current_use_stmt = '';
         while (!in_array($tokens[$stack_ptr]['code'], [T_WHITESPACE, T_SEMICOLON, T_COMMA])) {
             if ($tokens[$stack_ptr]['code'] != T_COMMENT) {
                 //the expression: use MySpace\/*comment*/SubSpace;  is valid PHP
@@ -168,7 +168,7 @@ class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements 
 
     private function copy(array&$tokens, $initial_ptr, $end_ptr)
     {
-        $res = "";
+        $res = '';
         for ($i = $initial_ptr; $i < $end_ptr; $i++) {
             $res .= $tokens[$i]['content'];
         }
