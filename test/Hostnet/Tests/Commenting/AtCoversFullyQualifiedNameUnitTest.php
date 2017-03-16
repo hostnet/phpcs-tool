@@ -3,8 +3,10 @@ declare(strict_types = 1);
 /**
  * @copyright 2017 Hostnet B.V.
  */
-
-class Hostnet_Tests_Commenting_UnitTestCommentCoversUnitTest extends Hostnet_Tests_AbstractPHPCSBridge
+/**
+ * @covers /Hostnet/Sniffs/Commenting/AtCoversFullyQualifiedNameSniff
+ */
+class Hostnet_Tests_Commenting_AtCoversFullyQualifiedNameUnitTest extends Hostnet_Tests_AbstractPHPCSBridge
 {
     /**
      * Returns the lines where errors should occur.
@@ -17,11 +19,10 @@ class Hostnet_Tests_Commenting_UnitTestCommentCoversUnitTest extends Hostnet_Tes
     public function getErrorList($filename = '')
     {
         $list = [
-            'UnitTestCommentCoversUnitTest.php.0.inc' => [
-                11 => 1,
-                27 => 1
+            'AtCoversFullyQualifiedNameUnitTest.php.0.inc' => [
+                3 => 1
             ],
-            'UnitTestCommentCoversUnitTest.php.1.inc' => []
+            'AtCoversFullyQualifiedNameUnitTest.php.1.inc' => []
         ];
 
         if (! isset($list[$filename])) {

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @covers stdClass
+ */
 class MyClass
 {
 
@@ -15,5 +17,12 @@ class MyClass
 
     protected $bleh;
 
+    /**
+     * @covers /Hostnet\Test\TestUnit\Good
+     */
+    /**
+     * @covers Hostnet\Test\TestUnit\Good
+     */
     const COMPLICATED = 'public';
+
 }

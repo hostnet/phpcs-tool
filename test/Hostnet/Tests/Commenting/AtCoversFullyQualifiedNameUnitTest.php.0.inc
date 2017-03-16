@@ -1,19 +1,19 @@
 <?php
 /**
- * @covers \Hostnet\Test\TestUnit\Good
+ * @covers Hostnet\Test\TestUnit\Good
  */
 class MyClass
 {
-
+    // @covers not used here
     private $bar;
 
     /**
-     * @covers Hostnet\Test\TestUnit\Wrong
+     * @covers stdClass
      */
     protected $foo;
 
     /**
-     * @covers \Hostnet\Test\TestUnit\Good
+     * @covers Hostnet\Test\TestUnit\Good
      */
     public function find()
     {
@@ -24,7 +24,8 @@ class MyClass
     protected $bleh;
 
     /**
-     * @covers Hostnet\Test\TestUnit\Wrong
+     * @coversNothing
      */
     const COMPLICATED = 'public';
+
 }
