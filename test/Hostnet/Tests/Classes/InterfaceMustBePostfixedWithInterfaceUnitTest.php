@@ -5,7 +5,7 @@ declare(strict_types = 1);
  */
 
 /**
- * @covers Hostnet_Sniffs_Classes_InterfaceMustBePostfixedWithInterfaceSniff
+ * @covers \Hostnet_Sniffs_Classes_InterfaceMustBePostfixedWithInterfaceSniff
  * @author Maarten Steltenpool <msteltenpool@hostnet.nl>
  */
 class Hostnet_Tests_Classes_InterfaceMustBePostfixedWithInterfaceUnitTest extends Hostnet_Tests_AbstractPHPCSBridge
