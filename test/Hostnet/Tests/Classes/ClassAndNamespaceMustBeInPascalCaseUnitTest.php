@@ -5,7 +5,8 @@ declare(strict_types = 1);
  */
 
 /**
- * @covers Hostnet_Sniffs_Classes_ClassAndNamespaceMustBeInPascalCaseSniff
+ * @covers \Hostnet_Sniffs_Classes_ClassAndNamespaceMustBeInPascalCaseSniff
+
  */
 class Hostnet_Tests_Classes_ClassAndNamespaceMustBeInPascalCaseUnitTest extends Hostnet_Tests_AbstractPHPCSBridge
 {

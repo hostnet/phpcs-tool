@@ -5,7 +5,8 @@ declare(strict_types = 1);
  */
 
 /**
- * @covers Hostnet_Sniffs_Classes_VariableAndPropertyMustBeInSnakeCaseSniff
+ * @covers \Hostnet_Sniffs_Classes_VariableAndPropertyMustBeInSnakeCaseSniff
+
  * @author Maarten Steltenpool <msteltenpool@hostnet.nl>
  */
 class Hostnet_Tests_Classes_VariableAndPropertyMustBeInSnakeCaseUnitTest extends Hostnet_Tests_AbstractPHPCSBridge
