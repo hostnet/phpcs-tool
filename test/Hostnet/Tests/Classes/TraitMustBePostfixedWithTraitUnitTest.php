@@ -5,7 +5,7 @@ declare(strict_types = 1);
  */
 
 /**
- * @covers Hostnet_Sniffs_Classes_TraitMustBePostfixedWithTraitSniff
+ * @covers \Hostnet_Sniffs_Classes_TraitMustBePostfixedWithTraitSniff
  * @author Maarten Steltenpool <msteltenpool@hostnet.nl>
  */
 class Hostnet_Tests_Classes_TraitMustBePostfixedWithTraitUnitTest extends Hostnet_Tests_AbstractPHPCSBridge
