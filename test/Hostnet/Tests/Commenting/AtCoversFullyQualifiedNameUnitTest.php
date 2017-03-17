@@ -20,9 +20,10 @@ class Hostnet_Tests_Commenting_AtCoversFullyQualifiedNameUnitTest extends Hostne
     {
         $list = [
             'AtCoversFullyQualifiedNameUnitTest.php.0.inc' => [
-                3 => 1
-            ],
-            'AtCoversFullyQualifiedNameUnitTest.php.1.inc' => []
+                3  => 1,
+                11 => 1,
+                16 => 1,
+            ]
         ];
 
         if (! isset($list[$filename])) {
