@@ -1,5 +1,8 @@
 <?php
 declare(strict_types = 1);
+
+use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest;
+
 /**
  * @copyright 2017 Hostnet B.V.
  */
@@ -35,6 +38,8 @@ abstract class Hostnet_Tests_AbstractPHPCSBridge extends AbstractSniffUnitTest
         $GLOBALS['PHP_CODESNIFFER_STANDARD_DIRS'][get_class($this)] = __DIR__ . '/../..';
         $GLOBALS['PHP_CODESNIFFER_SNIFF_CODES']                     = [];
         $GLOBALS['PHP_CODESNIFFER_FIXABLE_CODES']                   = [];
+        $GLOBALS['PHP_CODESNIFFER_TEST_DIRS'][get_class($this)]     = [__DIR__ . '/..'];
+
         parent::setUp();
     }
 
