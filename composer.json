@@ -22,6 +22,9 @@
         "psr-0": {
             "Hostnet": "test/"
         },
+        "psr-4": {
+            "PHP_CodeSniffer\\": "/vendor/squizlabs/php_codesniffer/src"
+        },
         "files": [
 	        "test/Hostnet/Tests/PHPUnit_Framework_TestCase.php",
             "vendor/squizlabs/php_codesniffer/tests/Standards/AbstractSniffUnitTest.php"
