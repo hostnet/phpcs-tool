@@ -1,15 +1,5 @@
 <?xml version="1.0"?>
 <ruleset name="Hostnet PHPCodeSniffer Standard">
-  <description>It's a huge shame, but the PHPCodeSniffer Extension, does not follow it's own defined conding standard. But this is because the use of the PHPCS UnitTesting framework depending on certain class-names.</description>
-  <rule ref="Hostnet">
-    <exclude name="Squiz.Classes.ClassFileName.NoMatch"/>
-    <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace"/>
-    <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps"/>
-    <exclude name="Hostnet.Classes.ClassAndNamespaceMustBeInPascalCase"/>
-  </rule>
-  <rule ref="Hostnet.Commenting.FileCommentCopyright">
-      <exclude name="Hostnet.Commenting.FileCommentCopyright.MissingVersion"/>
-  </rule>
-  <rule ref="PEAR.Classes.ClassDeclaration"/>
+  <rule ref="Hostnet"/>
   <exclude-pattern>*.inc</exclude-pattern>
 </ruleset>

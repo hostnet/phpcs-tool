@@ -1,16 +1,23 @@
 <?php
-declare(strict_types = 1);
 /**
  * @copyright 2017 Hostnet B.V.
  */
+
+declare(strict_types=1);
+
+namespace Hostnet\Sniffs\Declares;
+
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Each file should declare strict types = 1, to enable PHP7+ strict mode.
  * Fix included.
  */
-class Hostnet_Sniffs_Declares_StrictSniff implements PHP_CodeSniffer_Sniff
+class StrictSniff implements Sniff
 {
-    const ERROR   = 'declare(strict_types = 1) not found';
+    const ERROR = 'declare(strict_types = 1) not found';
+
     const R_VALUE = [
         T_LNUMBER,                    //integers
         T_STRING,                     //identifiers
@@ -28,7 +35,7 @@ class Hostnet_Sniffs_Declares_StrictSniff implements PHP_CodeSniffer_Sniff
      * The PHP open tag is returned, because we want to find the
      * first statement in the file.
      *
-     * @return array
+     * @return int[]
      */
     public function register(): array
     {
@@ -39,13 +46,13 @@ class Hostnet_Sniffs_Declares_StrictSniff implements PHP_CodeSniffer_Sniff
     /**
      * Processes this test, when one of its tokens is encountered.
      *
-     * @param PHP_CodeSniffer_File $phpcs_file The file being scanned.
-     * @param int                  $stack_ptr The position of the current token
+     * @param File $phpcs_file The file being scanned.
+     * @param int  $stack_ptr The position of the current token
      *                                        in the stack passed in $tokens.
      *
      * @return int
      */
-    public function process(PHP_CodeSniffer_File $phpcs_file, $stack_ptr): int
+    public function process(File $phpcs_file, $stack_ptr): int
     {
         $tokens = $phpcs_file->getTokens();
         $eof    = count($tokens) + 1; // Do not visit this file again for this sniff.
@@ -55,7 +62,7 @@ class Hostnet_Sniffs_Declares_StrictSniff implements PHP_CodeSniffer_Sniff
 
         // No declare found at start of file.
         if (false === $declare) {
-            if ($phpcs_file->addFixableError(self::ERROR, $stack_ptr)) {
+            if ($phpcs_file->addFixableError(self::ERROR, $stack_ptr, 'NoStrict')) {
                 $this->addDeclare($phpcs_file, $stack_ptr);
             }
 
@@ -65,7 +72,7 @@ class Hostnet_Sniffs_Declares_StrictSniff implements PHP_CodeSniffer_Sniff
         // Check type of declare.
         $key = $phpcs_file->findNext(T_STRING, $declare + 1, null, false, 'strict_types', true);
         if (false === $key) {
-            if ($phpcs_file->addFixableError(self::ERROR, $declare)) {
+            if ($phpcs_file->addFixableError(self::ERROR, $declare, 'NoStrict')) {
                 $this->addDeclare($phpcs_file, $stack_ptr);
             }
 
@@ -75,7 +82,7 @@ class Hostnet_Sniffs_Declares_StrictSniff implements PHP_CodeSniffer_Sniff
         // Check if a value assignment exists for this strict_types declare.
         $value = $phpcs_file->findNext(self::R_VALUE, $key + 1, null, false, null, true);
         if (false === $value) {
-            if ($phpcs_file->addFixableError(self::ERROR, $key)) {
+            if ($phpcs_file->addFixableError(self::ERROR, $key, 'NoStrictValue')) {
                 if (false === $phpcs_file->findNext(T_EQUAL, $key, false, null, null, true)) {
                     $phpcs_file->fixer->addContent($key, ' = 1');
                 } else {
@@ -88,7 +95,7 @@ class Hostnet_Sniffs_Declares_StrictSniff implements PHP_CodeSniffer_Sniff
 
         // Check the value for for strict_types === '1'.
         if ('1' !== $tokens[$value]['content']) {
-            if ($phpcs_file->addFixableError(self::ERROR, $value)) {
+            if ($phpcs_file->addFixableError(self::ERROR, $value, 'StrictTurnedOff')) {
                 $phpcs_file->fixer->replaceToken($value, '1');
             }
 
@@ -101,13 +108,14 @@ class Hostnet_Sniffs_Declares_StrictSniff implements PHP_CodeSniffer_Sniff
     /**
      * Add a "declare(strict_types = 1);" statement to $phpcs_file at the $stack_ptr position.
      *
-     * @param PHP_CodeSniffer_File $phpcs_file
-     * @param                      $stack_ptr
+     * @param File $phpcs_file
+     * @param int  $stack_ptr
+     *
      * @return bool
      *
      */
-    private function addDeclare(PHP_CodeSniffer_File $phpcs_file, int $stack_ptr): bool
+    private function addDeclare(File $phpcs_file, int $stack_ptr): bool
     {
-        return $phpcs_file->fixer->addContent($stack_ptr, 'declare(strict_types = 1);' . $phpcs_file->eolChar);
+        return $phpcs_file->fixer->addContent($stack_ptr, 'declare(strict_types=1);' . $phpcs_file->eolChar);
     }
 }

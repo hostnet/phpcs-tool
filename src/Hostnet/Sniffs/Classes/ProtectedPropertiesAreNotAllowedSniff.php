@@ -1,25 +1,36 @@
 <?php
-declare(strict_types = 1);
 /**
- * @copyright 2015-2017 Hostnet B.V.
+ * @copyright 2016-2017 Hostnet B.V.
  */
+declare(strict_types=1);
+
+namespace Hostnet\Sniffs\Classes;
+
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Checks if a property is defined as protected.
- *
- * @author Lian Ien Hemminga-Oei <loei@hostnet.nl>
- * @author Rick Prent <rprent@hostnet.nl>
  */
-class Hostnet_Sniffs_Classes_ProtectedPropertiesAreNotAllowedSniff implements \PHP_CodeSniffer_Sniff
+class ProtectedPropertiesAreNotAllowedSniff implements Sniff
 {
+    /**
+     * @return int[]
+     */
     public function register()
     {
         return [T_PROTECTED];
     }
 
-    public function process(\PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
+    /**
+     * @param File $phpcs_file
+     * @param int  $stack_ptr
+     *
+     * @return void
+     */
+    public function process(File $phpcs_file, $stack_ptr)
     {
-        $originalstack_ptr = $stack_ptr;
+        $original_stack_ptr = $stack_ptr;
 
         $tokens = $phpcs_file->getTokens();
 
@@ -27,16 +38,16 @@ class Hostnet_Sniffs_Classes_ProtectedPropertiesAreNotAllowedSniff implements \P
         $stack_ptr++;
 
         // Skip whitespace and comments
-        while ($tokens[$stack_ptr]['code'] == T_WHITESPACE
-              || $tokens[$stack_ptr]['code'] == T_COMMENT) {
+        while ($tokens[$stack_ptr]['code'] === T_WHITESPACE
+               || $tokens[$stack_ptr]['code'] === T_COMMENT) {
             $stack_ptr++;
         }
 
         // Check if the next token is a variable
-        if ($tokens[$stack_ptr]['code'] == T_VARIABLE) {
+        if ($tokens[$stack_ptr]['code'] === T_VARIABLE) {
             // If yes: give error
             $error = 'Protected property "' . $tokens[$stack_ptr]['content'] . '" is not allowed.';
-            $phpcs_file->addError($error, $originalstack_ptr, 'ProtectedProperty');
+            $phpcs_file->addError($error, $original_stack_ptr, 'ProtectedProperty');
         }
     }
 }

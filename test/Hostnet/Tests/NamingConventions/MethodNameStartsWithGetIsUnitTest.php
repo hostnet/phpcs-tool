@@ -1,14 +1,18 @@
 <?php
-declare(strict_types = 1);
 /**
  * @copyright 2016-2017 Hostnet B.V.
  */
+declare(strict_types=1);
+
+namespace Hostnet\Tests\NamingConventions;
+
+use Hostnet\Tests\AbstractSniffUnitTest;
 
 /**
  * Unit test for MethodNameStartsWithGetIs
  * @author Nico Schoenmaker <nschoenmaker@hostnet.nl>
  */
-class Hostnet_Tests_NamingConventions_MethodNameStartsWithGetIsUnitTest extends Hostnet_Tests_AbstractPHPCSBridge
+class MethodNameStartsWithGetIsUnitTest extends AbstractSniffUnitTest
 {
     /**
      * Returns the lines where errors should occur.

@@ -1,13 +1,17 @@
 <?php
-declare(strict_types = 1);
 /**
- * @copyright 2015-2017 Hostnet B.V.
+ * @copyright 2016-2017 Hostnet B.V.
  */
-/**
- * @copyright 2015-2017 Hostnet B.V.
- */
+declare(strict_types=1);
 
-class Hostnet_Tests_Classes_NoVerticalWhitespaceBetweenUseStatementsUnitTest extends Hostnet_Tests_AbstractPHPCSBridge
+namespace Hostnet\Tests\Classes;
+
+use Hostnet\Tests\AbstractSniffUnitTest;
+
+/**
+ * @covers \Hostnet\Sniffs\Classes\NoVerticalWhitespaceBetweenUseStatementsUnitTest
+ */
+class NoVerticalWhitespaceBetweenUseStatementsUnitTest extends AbstractSniffUnitTest
 {
 
     /**

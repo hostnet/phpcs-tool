@@ -1,14 +1,17 @@
 <?php
-declare(strict_types = 1);
 /**
  * @copyright 2016-2017 Hostnet B.V.
  */
+declare(strict_types=1);
+
+namespace Hostnet\Tests\Classes;
+
+use Hostnet\Tests\AbstractSniffUnitTest;
 
 /**
- * @covers \Hostnet_Sniffs_Classes_ClassAndNamespaceMustBeInPascalCaseSniff
-
+ * @covers \Hostnet\Sniffs\Classes\ClassAndNamespaceMustBeInPascalCaseSniff
  */
-class Hostnet_Tests_Classes_ClassAndNamespaceMustBeInPascalCaseUnitTest extends Hostnet_Tests_AbstractPHPCSBridge
+class ClassAndNamespaceMustBeInPascalCaseUnitTest extends AbstractSniffUnitTest
 {
     /**
      * Returns the lines where errors should occur.
@@ -24,11 +27,11 @@ class Hostnet_Tests_Classes_ClassAndNamespaceMustBeInPascalCaseUnitTest extends 
     {
         switch ($filename) {
             case 'ClassAndNamespaceMustBeInPascalCaseUnitTest.0.inc':
-                return [2 => 4];
+                return [2 => 1];
             case 'ClassAndNamespaceMustBeInPascalCaseUnitTest.1.inc':
                 return [4 => 1];
             case 'ClassAndNamespaceMustBeInPascalCaseUnitTest.2.inc':
-                return [2 => 3];
+                return [2 => 1];
             case 'ClassAndNamespaceMustBeInPascalCaseUnitTest.3.inc':
                 return [4 => 1];
             case 'ClassAndNamespaceMustBeInPascalCaseUnitTest.4.inc':

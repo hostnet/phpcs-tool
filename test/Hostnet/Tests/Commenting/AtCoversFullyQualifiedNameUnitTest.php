@@ -1,12 +1,17 @@
 <?php
-declare(strict_types = 1);
 /**
- * @copyright 2017 Hostnet B.V.
+ * @copyright 2016-2017 Hostnet B.V.
  */
+declare(strict_types=1);
+
+namespace Hostnet\Tests\Commenting;
+
+use Hostnet\Tests\AbstractSniffUnitTest;
+
 /**
- * @covers /Hostnet/Sniffs/Commenting/AtCoversFullyQualifiedNameSniff
+ * @covers \/Hostnet/Sniffs/Commenting/AtCoversFullyQualifiedNameSniff
  */
-class Hostnet_Tests_Commenting_AtCoversFullyQualifiedNameUnitTest extends Hostnet_Tests_AbstractPHPCSBridge
+class AtCoversFullyQualifiedNameUnitTest extends AbstractSniffUnitTest
 {
     /**
      * Returns the lines where errors should occur.

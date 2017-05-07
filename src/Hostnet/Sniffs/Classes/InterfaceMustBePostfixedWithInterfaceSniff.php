@@ -1,17 +1,18 @@
 <?php
-declare(strict_types = 1);
 /**
- * @copyright 2015-2017 Hostnet B.V.
+ * @copyright 2016-2017 Hostnet B.V.
  */
+declare(strict_types=1);
+
+namespace Hostnet\Sniffs\Classes;
+
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * The name of interfaces MUST end with the word 'Interface'.
- *
- * https://wiki.hostnetbv.nl/Coding_Standards#3.1.7
- *
- * @author Maarten Steltenpool <msteltenpool@hostnet.nl>
  */
-class Hostnet_Sniffs_Classes_InterfaceMustBePostfixedWithInterfaceSniff implements \PHP_CodeSniffer_Sniff
+class InterfaceMustBePostfixedWithInterfaceSniff implements Sniff
 {
     /**
      * @return string[]
@@ -22,15 +23,16 @@ class Hostnet_Sniffs_Classes_InterfaceMustBePostfixedWithInterfaceSniff implemen
     }
 
     /**
-     * @param \PHP_CodeSniffer_File $phpcs_file
-     * @param int                   $stack_ptr
+     * @param File $phpcs_file
+     * @param int  $stack_ptr
+     * @return  void
      */
-    public function process(\PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
+    public function process(File $phpcs_file, $stack_ptr)
     {
         // Search till interface name.
         $index = 0;
-        while (isset($phpcs_file->getTokens()[$stack_ptr + $index]) &&
-            $phpcs_file->getTokens()[$stack_ptr + ($index)]['type'] !== 'T_STRING'
+        while (isset($phpcs_file->getTokens()[$stack_ptr + $index])
+               && $phpcs_file->getTokens()[$stack_ptr + $index]['type'] !== 'T_STRING'
         ) {
             $index++;
         }
@@ -41,8 +43,10 @@ class Hostnet_Sniffs_Classes_InterfaceMustBePostfixedWithInterfaceSniff implemen
             return;
         }
 
-        $phpcs_file->addError('Invalid interface name, interface should be postfixed with Interface.', $ptr);
-
-        return;
+        $phpcs_file->addError(
+            'Invalid interface name, interface should be postfixed with Interface.',
+            $ptr,
+            'interface'
+        );
     }
 }

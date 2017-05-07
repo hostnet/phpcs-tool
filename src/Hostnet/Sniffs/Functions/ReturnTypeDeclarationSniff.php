@@ -1,8 +1,14 @@
 <?php
-declare(strict_types = 1);
 /**
  * @copyright 2017 Hostnet B.V.
  */
+
+declare(strict_types=1);
+
+namespace Hostnet\Sniffs\Functions;
+
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * ReturnTypeDeclarationSniff.
@@ -10,7 +16,7 @@ declare(strict_types = 1);
  * Checks for return type declarations if the spacing between a function's
  * closing parenthesis, colon, and return type is correct
  */
-class Hostnet_Sniffs_Functions_ReturnTypeDeclarationSniff implements PHP_CodeSniffer_Sniff
+class ReturnTypeDeclarationSniff implements Sniff
 {
 
     /**
@@ -31,7 +37,7 @@ class Hostnet_Sniffs_Functions_ReturnTypeDeclarationSniff implements PHP_CodeSni
     /**
      * Registers the tokens that this sniff wants to listen for.
      *
-     * @return array
+     * @return int[]
      */
     public function register()
     {
@@ -45,13 +51,13 @@ class Hostnet_Sniffs_Functions_ReturnTypeDeclarationSniff implements PHP_CodeSni
     /**
      * Processes this test, when one of its tokens is encountered.
      *
-     * @param PHP_CodeSniffer_File $phpcs_file The file being scanned.
-     * @param int                  $stack_ptr The position of the current token
+     * @param File $phpcs_file The file being scanned.
+     * @param int  $stack_ptr The position of the current token
      * in the stack passed in $tokens.
      *
      * @return void
      */
-    public function process(PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
+    public function process(File $phpcs_file, $stack_ptr)
     {
         $tokens = $phpcs_file->getTokens();
 
@@ -68,6 +74,7 @@ class Hostnet_Sniffs_Functions_ReturnTypeDeclarationSniff implements PHP_CodeSni
         $colon_return_type_spacing         = $this->colon_return_type_spacing;
         $acc                               = '';
         $next_separator                    = $closing_parenthesis_position;
+
         while (($next_separator = $phpcs_file->findNext($find, $next_separator + 1, $end_position)) !== false) {
             if ($tokens[$next_separator]['code'] === T_COLON) {
                 $closing_parenthesis_colon_spacing = $acc;
@@ -129,23 +136,23 @@ class Hostnet_Sniffs_Functions_ReturnTypeDeclarationSniff implements PHP_CodeSni
      * Get the position of a function's closing parenthesis within the
      * token stack.
      *
-     * @param PHP_CodeSniffer_File $phpcs_file The file being scanned.
-     * @param array                $tokens Token stack for this file
-     * @param int                  $stack_ptr The position of the current token
+     * @param File  $phpcs_file The file being scanned.
+     * @param array $tokens Token stack for this file
+     * @param int   $stack_ptr The position of the current token
      * in the stack passed in $tokens.
      *
      * @return int position within the token stack
      */
-    private function getClosingParenthesis(PHP_CodeSniffer_File $phpcs_file, array $tokens, $stack_ptr)
+    private function getClosingParenthesis(File $phpcs_file, array $tokens, $stack_ptr)
     {
         $closing_parenthesis = $tokens[$stack_ptr]['parenthesis_closer'];
 
         // In case the function is a closure, the closing parenthesis
         // may be positioned after a use language construct.
         if ($tokens[$stack_ptr]['code'] === T_CLOSURE) {
-            $use = $phpcs_file->findNext(T_USE, ($closing_parenthesis + 1), $tokens[$stack_ptr]['scope_opener']);
+            $use = $phpcs_file->findNext(T_USE, $closing_parenthesis + 1, $tokens[$stack_ptr]['scope_opener']);
             if ($use !== false) {
-                $open_bracket        = $phpcs_file->findNext(T_OPEN_PARENTHESIS, ($use + 1));
+                $open_bracket        = $phpcs_file->findNext(T_OPEN_PARENTHESIS, $use + 1);
                 $closing_parenthesis = $tokens[$open_bracket]['parenthesis_closer'];
             }
         }
@@ -160,14 +167,14 @@ class Hostnet_Sniffs_Functions_ReturnTypeDeclarationSniff implements PHP_CodeSni
      * This can be an opening brace, or, in case of an interface,
      * a semicolon.
      *
-     * @param PHP_CodeSniffer_File $phpcs_file The file being scanned.
-     * @param array                $tokens Token stack for this file
-     * @param int                  $stack_ptr The position of the current token
+     * @param File  $phpcs_file The file being scanned.
+     * @param array $tokens Token stack for this file
+     * @param int   $stack_ptr The position of the current token
      * in the stack passed in $tokens.
      *
      * @return int position within the token stack
      */
-    private function getCharacterAfterReturnTypeDeclaration(PHP_CodeSniffer_File $phpcs_file, array $tokens, $stack_ptr)
+    private function getCharacterAfterReturnTypeDeclaration(File $phpcs_file, array $tokens, $stack_ptr)
     {
         if (isset($tokens[$stack_ptr]['scope_opener']) === false) {
             $end_position = $phpcs_file->findNext(T_SEMICOLON, $stack_ptr);
@@ -181,24 +188,24 @@ class Hostnet_Sniffs_Functions_ReturnTypeDeclarationSniff implements PHP_CodeSni
     /**
      * Fix the spacing between start and end
      *
-     * @param PHP_CodeSniffer_File $phpcs_file The file being scanned.
-     * @param array $tokens Token stack for this file
+     * @param File   $phpcs_file The file being scanned.
+     * @param array  $tokens Token stack for this file
      * @param string $required_spacing Required spacing between start and end
-     * @param int $start Position of the start in the token stack
-     * @param int $end Position of the end in the token stack
+     * @param int    $start Position of the start in the token stack
+     * @param int    $end Position of the end in the token stack
      *
      * @return void
      */
-    private function fixSpacing(PHP_CodeSniffer_File $phpcs_file, $tokens, $required_spacing, $start, $end)
+    private function fixSpacing(File $phpcs_file, $tokens, $required_spacing, $start, $end)
     {
-        //insert whitespace if there is no whitespace, and whitespace is required
         if (($start + 1) === $end && empty($required_spacing) === false) {
+            //insert whitespace if there is no whitespace, and whitespace is required
             $phpcs_file->fixer->addContent(
                 $start,
                 $required_spacing
             );
-        //otherwise, if there is whitespace, change the whitespace to the required spacing
         } else {
+            //otherwise, if there is whitespace, change the whitespace to the required spacing
             for ($i = ($start + 1); $i < $end; $i++) {
                 if ($tokens[$i]['code'] === T_WHITESPACE) {
                     if (($i + 1) === $end) {

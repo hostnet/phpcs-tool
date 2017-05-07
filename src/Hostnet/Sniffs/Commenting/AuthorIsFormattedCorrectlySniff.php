@@ -1,22 +1,33 @@
 <?php
+/**
+ * @copyright 2016-2017 Hostnet B.V.
+ */
 declare(strict_types = 1);
-/**
- * @copyright 2016-2017 Hostnet B.V.
- */
-/**
- * @copyright 2016-2017 Hostnet B.V.
- */
 
-class Hostnet_Sniffs_Commenting_AuthorIsFormattedCorrectlySniff implements \PHP_CodeSniffer_Sniff
+namespace Hostnet\Sniffs\Commenting;
+
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Util\Tokens;
+
+class AuthorIsFormattedCorrectlySniff implements Sniff
 {
 
+    /**
+     * @return int[]
+     */
     public function register()
     {
-        // commentTokens is not defined in our code
-        return \PHP_CodeSniffer_Tokens::$commentTokens;
+        return Tokens::$commentTokens;
     }
 
-    public function process(\PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
+    /**
+     * @param File $phpcs_file
+     * @param int  $stack_ptr
+     *
+     * @return void
+     */
+    public function process(File $phpcs_file, $stack_ptr)
     {
         $tokens = $phpcs_file->getTokens();
 

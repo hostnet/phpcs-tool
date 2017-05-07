@@ -1,14 +1,17 @@
 <?php
-declare(strict_types = 1);
 /**
  * @copyright 2016-2017 Hostnet B.V.
  */
+declare(strict_types=1);
+
+namespace Hostnet\Tests\Classes;
+
+use Hostnet\Tests\AbstractSniffUnitTest;
 
 /**
- * @covers \Hostnet_Sniffs_Classes_TraitMustBePostfixedWithTraitSniff
- * @author Maarten Steltenpool <msteltenpool@hostnet.nl>
+ * @covers \Hostnet\Sniffs\Classes\TraitMustBePostfixedWithTraitSniff
  */
-class Hostnet_Tests_Classes_TraitMustBePostfixedWithTraitUnitTest extends Hostnet_Tests_AbstractPHPCSBridge
+class TraitMustBePostfixedWithTraitUnitTest extends AbstractSniffUnitTest
 {
     /**
      * Returns the lines where errors should occur.

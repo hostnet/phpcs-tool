@@ -2,7 +2,13 @@
 /**
  * @copyright 2017 Hostnet B.V.
  */
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
+namespace Hostnet\Sniffs\PhpUnit;
+
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -10,7 +16,7 @@ use PHPUnit\Framework\TestCase;
  * in favour of \PHPUnit\Framework\TestCase. In PHPUnit 6 the old
  * class is removed. Detect and replace usages of the old class.
  */
-class Hostnet_Sniffs_PhpUnit_NamespaceSniff implements PHP_CodeSniffer_Sniff
+class NamespaceSniff implements Sniff
 {
     const NON_NAMESPACE_TEST_CLASS = 'PHPUnit_Framework_TestCase';
     const PARENT_TEST_CLASS        = 'TestCase';
@@ -26,7 +32,7 @@ class Hostnet_Sniffs_PhpUnit_NamespaceSniff implements PHP_CodeSniffer_Sniff
      * The PHP open tag is returned, because we want to find the
      * first statement in the file.
      *
-     * @return array
+     * @return int[]
      */
     public function register(): array
     {
@@ -37,26 +43,27 @@ class Hostnet_Sniffs_PhpUnit_NamespaceSniff implements PHP_CodeSniffer_Sniff
     /**
      * Processes this test, when one of its tokens is encountered.
      *
-     * @param PHP_CodeSniffer_File $phpcs_file The file being scanned.
-     * @param int                  $stack_ptr The position of the current token
-     *                                        in the stack passed in $tokens.
+     * @param File $phpcs_file The file being scanned.
+     * @param int  $stack_ptr The position of the current token in the stack passed in $tokens.
      *
      * @return int
      */
-    public function process(PHP_CodeSniffer_File $phpcs_file, $stack_ptr): int
+    public function process(File $phpcs_file, $stack_ptr)
     {
         $tokens = $phpcs_file->getTokens();
 
         // Find the parent class
         $class_ptr = $phpcs_file->findNext(T_STRING, $stack_ptr + 1, null, false, null, true);
 
+
         if (false === $class_ptr) {
             return $stack_ptr;
         }
 
         $class = $tokens[$class_ptr]['content'];
+
         if (strtolower(self::NON_NAMESPACE_TEST_CLASS) === strtolower($class)) {
-            if ($phpcs_file->addFixableWarning(self::WARNING, $class_ptr)) {
+            if ($phpcs_file->addFixableWarning(self::WARNING, $class_ptr, 'phpunitNs')) {
                 $this->fix($phpcs_file, $class_ptr);
             }
         }
@@ -64,7 +71,7 @@ class Hostnet_Sniffs_PhpUnit_NamespaceSniff implements PHP_CodeSniffer_Sniff
         return $class_ptr;
     }
 
-    private function fix(PHP_CodeSniffer_File $phpcs_file, int $class_ptr)
+    private function fix(File $phpcs_file, int $class_ptr)
     {
         $tokens    = $phpcs_file->getTokens();
         $stack_ptr = $phpcs_file->findNext([T_CLASS, T_USE], 0);
@@ -90,7 +97,7 @@ class Hostnet_Sniffs_PhpUnit_NamespaceSniff implements PHP_CodeSniffer_Sniff
             );
 
             $phpcs_file->fixer->addContent(
-                false !== $previous ? $previous: $stack_ptr - 1,
+                false !== $previous ? $previous : $stack_ptr - 1,
                 'use ' . TestCase::class . ';' . PHP_EOL . PHP_EOL
             );
         } else {

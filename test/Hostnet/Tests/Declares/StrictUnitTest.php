@@ -1,8 +1,12 @@
 <?php
-declare(strict_types = 1);
 /**
- * @copyright 2017 Hostnet B.V.
+ * @copyright 2016-2017 Hostnet B.V.
  */
+declare(strict_types=1);
+
+namespace Hostnet\Tests\Declares;
+
+use Hostnet\Tests\AbstractSniffUnitTest;
 
 /**
  * Unit test class for the Strict sniff.
@@ -11,7 +15,7 @@ declare(strict_types = 1);
  * coding standard. Expected errors and warnings are stored in this class.
  *
  */
-class Hostnet_Tests_Declares_StrictUnitTest extends Hostnet_Tests_AbstractPHPCSBridge
+class StrictUnitTest extends AbstractSniffUnitTest
 {
     /**
      * Returns the lines where errors should occur.
