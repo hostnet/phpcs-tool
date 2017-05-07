@@ -13,7 +13,6 @@
         "composer/composer": "^1.3.2",
         "phpunit/phpunit":   "^6.0.6"
     },
-    "minimum-stability": "stable",
     "autoload": {
         "psr-0": {
             "Hostnet": "src/"
@@ -24,7 +23,7 @@
             "Hostnet": "test/"
         },
         "files": [
-	    "test/Hostnet/Tests/PHPUnit_Framework_TestCase.php",
+	        "test/Hostnet/Tests/PHPUnit_Framework_TestCase.php",
             "vendor/squizlabs/php_codesniffer/tests/Standards/AbstractSniffUnitTest.php"
         ]
     },
