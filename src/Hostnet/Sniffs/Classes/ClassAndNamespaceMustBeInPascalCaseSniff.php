@@ -1,17 +1,19 @@
 <?php
-declare(strict_types = 1);
 /**
  * @copyright 2016-2017 Hostnet B.V.
  */
+declare(strict_types=1);
+
+namespace Hostnet\Sniffs\Classes;
+
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Namespaces MUST be written in PascalCase (UpperCamelCase) (i.e. Hostnet/Xml/Formatter).
- * https://wiki.hostnetbv.nl/Coding_Standards#2.1.3
- *
  * Class names MUST be declared in PascalCase (i.e. XmlFormatter).
- * https://wiki.hostnetbv.nl/Coding_Standards#3.1.2
  */
-class Hostnet_Sniffs_Classes_ClassAndNamespaceMustBeInPascalCaseSniff implements \PHP_CodeSniffer_Sniff
+class ClassAndNamespaceMustBeInPascalCaseSniff implements Sniff
 {
     /**
      * @return string[]
@@ -22,15 +24,16 @@ class Hostnet_Sniffs_Classes_ClassAndNamespaceMustBeInPascalCaseSniff implements
     }
 
     /**
-     * @param \PHP_CodeSniffer_File $phpcs_file
-     * @param int                   $stack_ptr
+     * @param File $phpcs_file
+     * @param int  $stack_ptr
+     * @return void
      */
-    public function process(\PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
+    public function process(File $phpcs_file, $stack_ptr)
     {
         $index = 0;
         // Find first string (= name).
         while (isset($phpcs_file->getTokens()[$stack_ptr + $index])
-            && $phpcs_file->getTokens()[$stack_ptr + ($index)]['type'] !== 'T_STRING'
+               && $phpcs_file->getTokens()[$stack_ptr + $index]['type'] !== 'T_STRING'
         ) {
             $index++;
         }
@@ -47,14 +50,15 @@ class Hostnet_Sniffs_Classes_ClassAndNamespaceMustBeInPascalCaseSniff implements
         }
 
         foreach ($f_names as $f_name) {
-            if (preg_match('/^([A-Z][a-z0-9]+)*[A-Z][a-z0-9]*$/', $f_name)) {
-                continue;
+            if (preg_match('/[A-Z]{2,}/', $f_name)) {
+                $type = $phpcs_file->getTokens()[$stack_ptr]['content'];
+                $phpcs_file->addError(
+                    sprintf('Invalid %1$s name, %1$s name should be in PascalCase.', $type),
+                    $ptr,
+                    'pascal'
+                );
+                break;
             }
-
-            $type = $phpcs_file->getTokens()[$stack_ptr]['content'];
-            $phpcs_file->addError(sprintf('Invalid %1$s name, %1$s name should be in PascalCase.', $type), $ptr);
         }
-
-        return;
     }
 }

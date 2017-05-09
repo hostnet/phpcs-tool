@@ -1,13 +1,19 @@
 <?php
-declare(strict_types=1);
 /**
  * @copyright 2017 Hostnet B.V.
  */
 
+declare(strict_types=1);
+
+namespace Hostnet\Sniffs\Commenting;
+
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting\FileCommentSniff;
+
 /**
  * This Sniff sniffs that all files examined have a correct @covers notation + added a fixer for those cases.
  */
-class Hostnet_Sniffs_Commenting_AtCoversFullyQualifiedNameSniff extends PEAR_Sniffs_Commenting_FileCommentSniff
+class AtCoversFullyQualifiedNameSniff extends FileCommentSniff
 {
     const ERROR_TYPE    = 'AtCoversNeedsFQCN';
     const ERROR_MESSAGE = 'Covers annotation should use fully qualified class name (it should start with a "\") "%s"';
@@ -15,7 +21,7 @@ class Hostnet_Sniffs_Commenting_AtCoversFullyQualifiedNameSniff extends PEAR_Sni
     /**
      * Returns an array of tokens this test wants to listen for.
      *
-     * @return array
+     * @return int[]
      */
     public function register()
     {
@@ -25,13 +31,13 @@ class Hostnet_Sniffs_Commenting_AtCoversFullyQualifiedNameSniff extends PEAR_Sni
     /**
      * Processes this test, when one of its tokens is encountered.
      *
-     * @param PHP_CodeSniffer_File $phpcs_file The file being scanned.
-     * @param int                  $stack_ptr  The position of the current token in the stack passed in $tokens.
+     * @param File $phpcs_file The file being scanned.
+     * @param int  $stack_ptr The position of the current token in the stack passed in $tokens.
      *
      * @return int returns a stack pointer. The sniff will not be called again on the current file until the returned
      *              stack pointer is reached. Return (count($tokens) + 1) to skip the rest of the file.
      */
-    public function process(PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
+    public function process(File $phpcs_file, $stack_ptr)
     {
         $tokens = $phpcs_file->getTokens();
 

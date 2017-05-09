@@ -1,17 +1,18 @@
 <?php
-declare(strict_types = 1);
 /**
  * @copyright 2016-2017 Hostnet B.V.
  */
+declare(strict_types=1);
+
+namespace Hostnet\Sniffs\Classes;
+
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * Checks if the use statements are alphabetically ordered.
- *
- * https://wiki.hostnetbv.nl/Coding_Standards#2.2.3
- *
- * @author Nikos Savvidis <nsavvidis@hostnet.nl>
  */
-class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements \PHP_CodeSniffer_Sniff
+class UseStatementsAlphabeticallyOrderedSniff implements Sniff
 {
     private $initial_use;
 
@@ -23,12 +24,12 @@ class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements 
 
     private $after_use_statement = [];
 
-    private $current_file = null;
+    private $current_file;
 
     /**
      * Returns the token types that this sniff is interested in.
      *
-     * @return array(int)
+     * @return int[]
      */
     public function register()
     {
@@ -38,14 +39,14 @@ class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements 
     /**
      * Processes the tokens that this sniff is interested in.
      *
-     * @param PHP_CodeSniffer_File $phpcs_file The file where the token was found.
-     * @param int                  $stack_ptr  The position in the stack where the token was found.
+     * @param File     $phpcs_file The file where the token was found.
+     * @param int|bool $stack_ptr The position in the stack where the token was found.
      *
      * @return void
      */
-    public function process(\PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
+    public function process(File $phpcs_file, $stack_ptr)
     {
-        if (in_array($phpcs_file->getTokens()[$stack_ptr]['code'], [T_CLASS, T_TRAIT])) {
+        if (in_array($phpcs_file->getTokens()[$stack_ptr]['code'], [T_CLASS, T_TRAIT], true)) {
             if ($this->initial_use && $this->end_use && $this->fixed) {
                 $this->fixUseStatements($phpcs_file);
             }
@@ -58,8 +59,8 @@ class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements 
         }
         // only check for use statements that are before the first class declaration
         // classes can have use statements for traits, for which we are not interested in this sniff
-        $first_class_occurence = $phpcs_file->findPrevious([T_CLASS, T_TRAIT], $stack_ptr);
-        if ($first_class_occurence > 0 && $stack_ptr > $first_class_occurence) {
+        $first_class_occurrence = $phpcs_file->findPrevious([T_CLASS, T_TRAIT], $stack_ptr);
+        if ($first_class_occurrence > 0 && $stack_ptr > $first_class_occurrence) {
             return;
         }
 
@@ -73,7 +74,7 @@ class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements 
         }
 
         // Skip whitespace and comments
-        $stack_ptr = $phpcs_file->findNext([T_STRING], ($stack_ptr + 1));
+        $stack_ptr = $phpcs_file->findNext([T_STRING], $stack_ptr + 1);
 
         // Construct the full use statement (all the subspaces)
         $this->createAndCheckStatements($phpcs_file, $stack_ptr);
@@ -83,7 +84,7 @@ class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements 
         }
     }
 
-    private function fixUseStatements(\PHP_CodeSniffer_File $phpcs_file)
+    private function fixUseStatements(File $phpcs_file)
     {
         $phpcs_file->fixer->beginChangeset();
 
@@ -118,45 +119,50 @@ class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements 
      * Creates all the use statements until a semicolon is found.
      * Once created, each statement is appended to the $use_statements array
      *
-     * @param PHP_CodeSniffer_File $phpcs_file The file where the token was found.
-     * @param int                  $stack_ptr  the current position in the stack
+     * @param File $phpcs_file The file where the token was found.
+     * @param int  $stack_ptr the current position in the stack
      *
      * @return void
      */
-    private function createAndCheckStatements(\PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
+    private function createAndCheckStatements(File $phpcs_file, $stack_ptr)
     {
         $tokens           = $phpcs_file->getTokens();
         $current_use_stmt = '';
-        while (!in_array($tokens[$stack_ptr]['code'], [T_WHITESPACE, T_SEMICOLON, T_COMMA])) {
-            if ($tokens[$stack_ptr]['code'] != T_COMMENT) {
+
+        while (!in_array($tokens[$stack_ptr]['code'], [T_WHITESPACE, T_SEMICOLON, T_COMMA], true)) {
+            if ($tokens[$stack_ptr]['code'] !== T_COMMENT) {
                 //the expression: use MySpace\/*comment*/SubSpace;  is valid PHP
                 $current_use_stmt .= $tokens[$stack_ptr]['content'];
             }
             $stack_ptr++;
         }
         $this->end_use = $stack_ptr + 1;
+
         if (end($this->use_statements) && strcasecmp(end($this->use_statements), $current_use_stmt) > 0) {
             $error       = "Use statement $current_use_stmt should be ordered before " . end($this->use_statements);
             $this->fixed = $phpcs_file->addFixableError($error, $stack_ptr, 'UnorderedUseStatement');
         }
-        array_push($this->use_statements, $current_use_stmt);
-        if ($tokens[$stack_ptr]['code'] == T_COMMA) {
-            $new_stack_ptr                                = $phpcs_file->findNext([T_STRING], ($stack_ptr + 1));
+        $this->use_statements[] = $current_use_stmt;
+
+        if ($tokens[$stack_ptr]['code'] === T_COMMA) {
+            $new_stack_ptr                                = $phpcs_file->findNext([T_STRING], $stack_ptr + 1);
             $this->end_use                                = $new_stack_ptr + 1;
             $this->after_use_statement[$current_use_stmt] = $this->copy($tokens, $stack_ptr, $new_stack_ptr);
             $this->createAndCheckStatements($phpcs_file, $new_stack_ptr);
-        } elseif ($tokens[$stack_ptr]['code'] == T_WHITESPACE) {
-            $new_stack_ptr = $phpcs_file->findNext([T_AS, T_SEMICOLON], ($stack_ptr + 1));
+        } elseif ($tokens[$stack_ptr]['code'] === T_WHITESPACE) {
+            $new_stack_ptr = $phpcs_file->findNext([T_AS, T_SEMICOLON], $stack_ptr + 1);
             $this->end_use = $new_stack_ptr + 1;
 
             $this->after_use_statement[$current_use_stmt] = $this->copy($tokens, $stack_ptr, $new_stack_ptr);
-            if ($tokens[$new_stack_ptr]['code'] == T_AS) {
-                $new_stack_ptr = $phpcs_file->findNext([T_COMMA, T_SEMICOLON], ($new_stack_ptr + 1));
+
+            if ($tokens[$new_stack_ptr]['code'] === T_AS) {
+                $new_stack_ptr = $phpcs_file->findNext([T_COMMA, T_SEMICOLON], $new_stack_ptr + 1);
                 $this->end_use = $new_stack_ptr + 1;
 
                 $this->after_use_statement[$current_use_stmt] = $this->copy($tokens, $stack_ptr, $new_stack_ptr);
-                if ($tokens[$new_stack_ptr]['code'] == T_COMMA) {
-                    $new_stack_ptr = $phpcs_file->findNext([T_STRING], ($new_stack_ptr + 1));
+
+                if ($tokens[$new_stack_ptr]['code'] === T_COMMA) {
+                    $new_stack_ptr = $phpcs_file->findNext([T_STRING], $new_stack_ptr + 1);
                     $this->end_use = $new_stack_ptr + 1;
 
                     $this->after_use_statement[$current_use_stmt] = $this->copy($tokens, $stack_ptr, $new_stack_ptr);
@@ -166,7 +172,7 @@ class Hostnet_Sniffs_Classes_UseStatementsAlphabeticallyOrderedSniff implements 
         }
     }
 
-    private function copy(array&$tokens, $initial_ptr, $end_ptr)
+    private function copy(array &$tokens, $initial_ptr, $end_ptr)
     {
         $res = '';
         for ($i = $initial_ptr; $i < $end_ptr; $i++) {

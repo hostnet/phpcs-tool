@@ -1,15 +1,18 @@
 <?php
-declare(strict_types = 1);
 /**
- * @copyright 2015-2017 Hostnet B.V.
+ * @copyright 2016-2017 Hostnet B.V.
  */
+declare(strict_types=1);
+
+namespace Hostnet\Tests\Classes;
+
+use Hostnet\Tests\AbstractSniffUnitTest;
 
 /**
  * Unit test for ProtectedPropertiesAreNotAllowedSniff
- *
- * @author Nico Schoenmaker <nschoenmaker@hostnet.nl>
+ * @covers \Hostnet\Sniffs\Classes\OnlyOneUseStatementPerLineUnitTest
  */
-class Hostnet_Tests_Classes_OnlyOneUseStatementPerLineUnitTest extends Hostnet_Tests_AbstractPHPCSBridge
+class OnlyOneUseStatementPerLineUnitTest extends AbstractSniffUnitTest
 {
     /**
      * Returns the lines where errors should occur.

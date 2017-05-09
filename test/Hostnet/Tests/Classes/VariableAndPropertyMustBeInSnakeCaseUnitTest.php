@@ -1,15 +1,17 @@
 <?php
-declare(strict_types = 1);
 /**
  * @copyright 2016-2017 Hostnet B.V.
  */
+declare(strict_types=1);
+
+namespace Hostnet\Tests\Classes;
+
+use Hostnet\Tests\AbstractSniffUnitTest;
 
 /**
- * @covers \Hostnet_Sniffs_Classes_VariableAndPropertyMustBeInSnakeCaseSniff
-
- * @author Maarten Steltenpool <msteltenpool@hostnet.nl>
+ * @covers \Hostnet\Sniffs\Classes\VariableAndPropertyMustBeInSnakeCaseSniff
  */
-class Hostnet_Tests_Classes_VariableAndPropertyMustBeInSnakeCaseUnitTest extends Hostnet_Tests_AbstractPHPCSBridge
+class VariableAndPropertyMustBeInSnakeCaseUnitTest extends AbstractSniffUnitTest
 {
     /**
      * Returns the lines where errors should occur.
@@ -22,8 +24,8 @@ class Hostnet_Tests_Classes_VariableAndPropertyMustBeInSnakeCaseUnitTest extends
     public function getErrorList()
     {
         return [
-            6 => 1,
-            8 => 1,
+            6  => 1,
+            8  => 1,
             10 => 1,
             14 => 1,
             16 => 1,
@@ -33,7 +35,7 @@ class Hostnet_Tests_Classes_VariableAndPropertyMustBeInSnakeCaseUnitTest extends
             25 => 1,
             38 => 1,
             39 => 1,
-            40 => 1
+            40 => 1,
         ];
     }
 

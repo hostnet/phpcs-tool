@@ -3,7 +3,12 @@
  * @copyright 2017 Hostnet B.V.
  */
 declare(strict_types = 1);
-class Hostnet_Tests_PhpUnit_NamespaceUnitTest extends Hostnet_Tests_AbstractPHPCSBridge
+
+namespace Hostnet\Tests\PhpUnit;
+
+use Hostnet\Tests\AbstractSniffUnitTest;
+
+class NamespaceUnitTest extends AbstractSniffUnitTest
 {
     /**
      * Returns the lines where errors should occur.

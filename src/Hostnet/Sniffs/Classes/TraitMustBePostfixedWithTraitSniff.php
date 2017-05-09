@@ -1,18 +1,21 @@
 <?php
-declare(strict_types = 1);
 /**
  * @copyright 2016-2017 Hostnet B.V.
  */
+declare(strict_types=1);
+
+namespace Hostnet\Sniffs\Classes;
+
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * The name of traits MUST end with the word 'Trait'.
- *
- * https://wiki.hostnetbv.nl/Coding_Standards#3.1.9
  */
-class Hostnet_Sniffs_Classes_TraitMustBePostfixedWithTraitSniff implements \PHP_CodeSniffer_Sniff
+class TraitMustBePostfixedWithTraitSniff implements Sniff
 {
     /**
-     * @return string[]
+     * @return int[]
      */
     public function register()
     {
@@ -20,15 +23,17 @@ class Hostnet_Sniffs_Classes_TraitMustBePostfixedWithTraitSniff implements \PHP_
     }
 
     /**
-     * @param \PHP_CodeSniffer_File $phpcs_file
-     * @param int                   $stack_ptr
+     * @param File $phpcs_file
+     * @param int  $stack_ptr
+     *
+     * @return void
      */
-    public function process(\PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
+    public function process(File $phpcs_file, $stack_ptr)
     {
         // Search till trait name.
         $index = 0;
         while (isset($phpcs_file->getTokens()[$stack_ptr + $index]) &&
-            $phpcs_file->getTokens()[$stack_ptr + ($index)]['type'] !== 'T_STRING'
+            $phpcs_file->getTokens()[$stack_ptr + $index]['type'] !== 'T_STRING'
         ) {
             $index++;
         }
@@ -39,8 +44,6 @@ class Hostnet_Sniffs_Classes_TraitMustBePostfixedWithTraitSniff implements \PHP_
             return;
         }
 
-        $phpcs_file->addError('Invalid trait name, trait should be postfixed with Trait.', $ptr);
-
-        return;
+        $phpcs_file->addError('Invalid trait name, trait should be postfixed with Trait.', $ptr, 'trait');
     }
 }

@@ -1,34 +1,25 @@
 <?php
-declare(strict_types = 1);
 /**
  * @copyright 2017 Hostnet B.V.
  */
+declare(strict_types=1);
+
+namespace Hostnet\Sniffs\Commenting;
+
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting\FileCommentSniff;
 
 /**
- * This Sniff sniffs that all files examined have a @copyright notation + addes a fixer for those cases.
+ * This Sniff sniffs that all files examined have a @copyright notation + adds a fixer for those cases.
  */
-class Hostnet_Sniffs_Commenting_FileCommentCopyrightSniff extends PEAR_Sniffs_Commenting_FileCommentSniff
+class FileCommentCopyrightSniff extends FileCommentSniff
 {
-    /**
-     * Is it our 'super-class' / 'parent' who found an error or are we the one?
-     *
-     * @var boolean
-     */
-    private $replace_error = true;
-
     /**
      * Which years should be noted for the copyright, if not configured the _years is 'calculated'
      *
      * @var string
      */
-    public $years = null;
-
-    /**
-     * The variable holds the used value for the copyright years and is initialized on every execution.
-     *
-     * @var string
-     */
-    private $local_years;
+    public $years;
 
     /**
      * Who is the legal holder of the copyright, if software is writen during working hours it will always fall back to
@@ -47,14 +38,28 @@ class Hostnet_Sniffs_Commenting_FileCommentCopyrightSniff extends PEAR_Sniffs_Co
     public $copyright_tag = '@copyright';
 
     /**
+     * Is it our 'super-class' / 'parent' who found an error or are we the one?
+     *
+     * @var boolean
+     */
+    private $replace_error = true;
+
+    /**
+     * The variable holds the used value for the copyright years and is initialized on every execution.
+     *
+     * @var string
+     */
+    private $local_years;
+
+    /**
      * Processes this test, when one of its tokens is encountered.
      *
-     * @param PHP_CodeSniffer_File $phpcs_file The file being scanned.
-     * @param int $stack_ptr The position of the current token in the stack passed in $tokens.
+     * @param File $phpcs_file The file being scanned.
+     * @param int  $stack_ptr The position of the current token in the stack passed in $tokens.
      * @return int returns a stack pointer. The sniff will not be called again on the current file until the returned
      *              stack pointer is reached. Return (count($tokens) + 1) to skip the rest of the file.
      */
-    public function process(PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
+    public function process(File $phpcs_file, $stack_ptr)
     {
         //Find the year of the file being examined.
         $this->initYears($phpcs_file->getFilename());
@@ -67,7 +72,7 @@ class Hostnet_Sniffs_Commenting_FileCommentCopyrightSniff extends PEAR_Sniffs_Co
             foreach (array_merge($phpcs_file->getWarnings(), $phpcs_file->getErrors()) as $lines) {
                 foreach ($lines as $columns) {
                     foreach ($columns as $reported) {
-                        if ($reported['source'] == 'Hostnet.Commenting.FileCommentCopyright.Missing') {
+                        if ($reported['source'] === 'Hostnet.Commenting.FileCommentCopyright.Missing') {
                             $replace = true;
                             break;
                         }
@@ -92,29 +97,74 @@ class Hostnet_Sniffs_Commenting_FileCommentCopyrightSniff extends PEAR_Sniffs_Co
             }
         }
         $this->replace_error = true;
+
         return $ptr;
+    }
+
+    /**
+     * Initialize the $local_years variable. If specified used the configured values otherwise use git to investigate
+     * the first year the file appeared in the repo.
+     *
+     * @param string $filename the filename to investigate.
+     */
+    private function initYears($filename)
+    {
+        if (!isset($this->years)) {
+            $now_year = date('Y');
+
+            //try git
+            $cmd  = sprintf(
+                'git log --reverse --pretty=format:%%ci %s 2> /dev/null |cut -d"-" -f1 | head -n1',
+                $filename
+            );
+            $year = trim(`$cmd` ?: '');
+            if (empty($year) || $year === '') {
+                $year = $now_year;
+            }
+
+            if ($year === $now_year) {
+                $this->local_years = $now_year;
+            } else {
+                $this->local_years = $year . '-' . $now_year;
+            }
+        } else {
+            $this->local_years = $this->years;
+        }
+    }
+
+    /**
+     * Build the <year> <copyright_holder> line used in the doc-block.
+     *
+     * @return string the combination of year and copyright_holder.
+     */
+    private function getCopyrightLine()
+    {
+        return $this->local_years . ' ' . $this->copyright_holder;
     }
 
     /**
      * Processes the file level doc-block tags, this function is executed once the parent class finds a file-level
      * doc-block.
      *
-     * @param PHP_CodeSniffer_File $phpcs_file The file being scanned.
-     * @param int $stack_ptr The position of the current token in the stack passed in $tokens.
-     * @param int $comment_start Position in the stack where the comment started.
+     * @param File $phpcs_file The file being scanned.
+     * @param int  $stack_ptr The position of the current token in the stack passed in $tokens.
+     * @param int  $comment_start Position in the stack where the comment started.
+     *
+     * @return void
      */
-    protected function processTags(PHP_CodeSniffer_File $phpcs_file, $stack_ptr, $comment_start)
+    protected function processTags($phpcs_file, $stack_ptr, $comment_start)
     {
         //We are in control, there is a file-level doc-block
         $this->replace_error = false;
 
         $tokens = $phpcs_file->getTokens();
         foreach ($tokens[$comment_start]['comment_tags'] as $tag) {
-            if ($tokens[$tag]['content'] == $this->copyright_tag) {
+            if ($tokens[$tag]['content'] === $this->copyright_tag) {
                 $this->checkForContentInCopyrightTag($phpcs_file, $tag, $tokens[$comment_start]['comment_closer']);
 
                 //Use default PEAR style copyright notation checking.
                 $this->processCopyright($phpcs_file, [$tag]);
+
                 return;
             }
         }
@@ -149,12 +199,12 @@ class Hostnet_Sniffs_Commenting_FileCommentCopyrightSniff extends PEAR_Sniffs_Co
     /**
      * Check for content in @copyright comment
      *
-     * @param PHP_CodeSniffer_File $phpcs_file the tokens and contents of the current file being examined.
-     * @param int $copyright_tag_ptr where does the @copyright tag starts?
-     * @param int $comment_end_ptr where does the comment ends
+     * @param File $phpcs_file the tokens and contents of the current file being examined.
+     * @param int  $copyright_tag_ptr where does the @copyright tag starts?
+     * @param int  $comment_end_ptr where does the comment ends
      */
     private function checkForContentInCopyrightTag(
-        PHP_CodeSniffer_File $phpcs_file,
+        File $phpcs_file,
         $copyright_tag_ptr,
         $comment_end_ptr
     ) {
@@ -170,47 +220,6 @@ class Hostnet_Sniffs_Commenting_FileCommentCopyrightSniff extends PEAR_Sniffs_Co
             if ($fix) {
                 $phpcs_file->fixer->addContent($copyright_tag_ptr, ' ' . $this->getCopyrightLine());
             }
-        }
-    }
-
-    /**
-     * Build the <year> <copyright_holder> line used in the doc-block.
-     *
-     * @return string the combination of year and copyright_holder.
-     */
-    private function getCopyrightLine()
-    {
-        return $this->local_years . ' ' . $this->copyright_holder;
-    }
-
-    /**
-     * Initialize the $local_years variable. If specified used the configured values otherwise use git to investigate
-     * the first year the file appeared in the repo.
-     *
-     * @param string $filename the filename to investigate.
-     */
-    private function initYears($filename)
-    {
-        if (!isset($this->years)) {
-            $now_year = date('Y');
-
-            //try git
-            $cmd  = sprintf(
-                'git log --reverse --pretty=format:%%ci %s 2> /dev/null |cut -d"-" -f1 | head -n1',
-                $filename
-            );
-            $year = trim(`$cmd` ?: '');
-            if (empty($year) || $year === '') {
-                $year = $now_year;
-            }
-
-            if ($year === $now_year) {
-                $this->local_years = $now_year;
-            } else {
-                $this->local_years = $year . '-' . $now_year;
-            }
-        } else {
-            $this->local_years = $this->years;
         }
     }
 }

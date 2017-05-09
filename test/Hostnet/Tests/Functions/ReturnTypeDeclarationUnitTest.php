@@ -1,34 +1,17 @@
 <?php
-declare(strict_types = 1);
 /**
- * Unit test class for the ReturnTypeDeclaration sniff.
- *
- * PHP version 5
- *
- * @category  PHP
- * @package   PHP_CodeSniffer
- * @author    Greg Sherwood <gsherwood@squiz.net>
- * @author    Marc McIntyre <mmcintyre@squiz.net>
- * @copyright 2006-2014 Squiz Pty Ltd (ABN 77 084 670 600)
- * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
- * @link      http://pear.php.net/package/PHP_CodeSniffer
+ * @copyright 2016-2017 Hostnet B.V.
  */
+declare(strict_types=1);
+
+namespace Hostnet\Tests\Functions;
+
+use Hostnet\Tests\AbstractSniffUnitTest;
 
 /**
- * Unit test class for the ReturnTypeDeclaration sniff.
- *
- * A sniff unit test checks a .inc file for expected violations of a single
- * coding standard. Expected errors and warnings are stored in this class.
- *
- * @category  PHP
- * @package   PHP_CodeSniffer
- * @author    Arent van Korlaar <avkorlaar@hostnet.nl>
- * @copyright 2006-2014 Squiz Pty Ltd (ABN 77 084 670 600)
- * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
- * @version   Release: @package_version@
- * @link      http://pear.php.net/package/PHP_CodeSniffer
+ * @covers \Hostnet\Sniffs\Functions\ReturnTypeDeclarationUnitTest
  */
-class Hostnet_Tests_Functions_ReturnTypeDeclarationUnitTest extends Hostnet_Tests_AbstractPHPCSBridge
+class ReturnTypeDeclarationUnitTest extends AbstractSniffUnitTest
 {
 
 
