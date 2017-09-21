@@ -7,12 +7,11 @@ declare(strict_types=1);
 namespace Hostnet\Sniffs\Commenting;
 
 use PHP_CodeSniffer\Files\File;
-use PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting\FileCommentSniff;
 
 /**
  * This Sniff sniffs that all files examined have a @copyright notation + adds a fixer for those cases.
  */
-class FileCommentCopyrightSniff extends FileCommentSniff
+class FileCommentCopyrightSniff
 {
     /**
      * Which years should be noted for the copyright, if not configured the _years is 'calculated'
@@ -38,13 +37,6 @@ class FileCommentCopyrightSniff extends FileCommentSniff
     public $copyright_tag = '@copyright';
 
     /**
-     * Is it our 'super-class' / 'parent' who found an error or are we the one?
-     *
-     * @var boolean
-     */
-    private $replace_error = true;
-
-    /**
      * The variable holds the used value for the copyright years and is initialized on every execution.
      *
      * @var string
@@ -52,53 +44,35 @@ class FileCommentCopyrightSniff extends FileCommentSniff
     private $local_years;
 
     /**
-     * Processes this test, when one of its tokens is encountered.
+     * Which smells form the parent do we want to filter.
      *
-     * @param File $phpcs_file The file being scanned.
-     * @param int  $stack_ptr The position of the current token in the stack passed in $tokens.
-     * @return int returns a stack pointer. The sniff will not be called again on the current file until the returned
-     *              stack pointer is reached. Return (count($tokens) + 1) to skip the rest of the file.
+     * @var string[]
      */
-    public function process(File $phpcs_file, $stack_ptr)
+    public $filter = [
+        'Hostnet.Commenting.FileCommentCopyright.MissingVersion',
+    ];
+
+    /**
+     * Returns an array of tokens this test wants to listen for.
+     *
+     * @return array
+     */
+    public function register()
     {
-        //Find the year of the file being examined.
-        $this->initYears($phpcs_file->getFilename());
+        return [T_OPEN_TAG];
+    }
 
-        //Execute the parent process function
-        $ptr = parent::process($phpcs_file, $stack_ptr);
-
-        if ($this->replace_error) {
-            $replace = false;
-            foreach (array_merge($phpcs_file->getWarnings(), $phpcs_file->getErrors()) as $lines) {
-                foreach ($lines as $columns) {
-                    foreach ($columns as $reported) {
-                        if ($reported['source'] === 'Hostnet.Commenting.FileCommentCopyright.Missing') {
-                            $replace = true;
-                            break;
-                        }
-                    }
-                }
-            }
-            if ($replace) {
-                $fix = $phpcs_file->addFixableError('Missing file doc comment lines', 0, 'Missing');
-                if ($fix) {
-                    $ptr = $phpcs_file->findFirstOnLine([T_OPEN_TAG], 0);
-                    $phpcs_file->fixer->addContent(
-                        $ptr,
-                        sprintf(
-                            "/**\n" .
-                            " * %s %s\n" .
-                            " */\n",
-                            $this->copyright_tag,
-                            $this->getCopyrightLine()
-                        )
-                    );
-                }
-            }
+    private function addFixableError(File $phpcs_file)
+    {
+        if (!$phpcs_file->addFixableError('Missing file doc comment lines', 0, 'Missing')) {
+            return;
         }
-        $this->replace_error = true;
 
-        return $ptr;
+        $ptr = $phpcs_file->findFirstOnLine([T_OPEN_TAG], 0);
+        $phpcs_file->fixer->addContent(
+            $ptr,
+            sprintf("/**\n * %s %s\n */\n", $this->copyright_tag, $this->getCopyrightLine())
+        );
     }
 
     /**
@@ -137,7 +111,7 @@ class FileCommentCopyrightSniff extends FileCommentSniff
      *
      * @return string the combination of year and copyright_holder.
      */
-    private function getCopyrightLine()
+    private function getCopyrightLine(): string
     {
         return $this->local_years . ' ' . $this->copyright_holder;
     }
@@ -147,16 +121,13 @@ class FileCommentCopyrightSniff extends FileCommentSniff
      * doc-block.
      *
      * @param File $phpcs_file The file being scanned.
-     * @param int  $stack_ptr The position of the current token in the stack passed in $tokens.
-     * @param int  $comment_start Position in the stack where the comment started.
+     * @param int $stack_ptr The position of the current token in the stack passed in $tokens.
+     * @param int $comment_start Position in the stack where the comment started.
      *
      * @return void
      */
-    protected function processTags($phpcs_file, $stack_ptr, $comment_start)
+    private function processCopyrightTags($phpcs_file, $stack_ptr, $comment_start)
     {
-        //We are in control, there is a file-level doc-block
-        $this->replace_error = false;
-
         $tokens = $phpcs_file->getTokens();
         foreach ($tokens[$comment_start]['comment_tags'] as $tag) {
             if ($tokens[$tag]['content'] === $this->copyright_tag) {
@@ -200,14 +171,11 @@ class FileCommentCopyrightSniff extends FileCommentSniff
      * Check for content in @copyright comment
      *
      * @param File $phpcs_file the tokens and contents of the current file being examined.
-     * @param int  $copyright_tag_ptr where does the @copyright tag starts?
-     * @param int  $comment_end_ptr where does the comment ends
+     * @param int $copyright_tag_ptr where does the @copyright tag starts?
+     * @param int $comment_end_ptr where does the comment ends
      */
-    private function checkForContentInCopyrightTag(
-        File $phpcs_file,
-        $copyright_tag_ptr,
-        $comment_end_ptr
-    ) {
+    private function checkForContentInCopyrightTag(File $phpcs_file, $copyright_tag_ptr, $comment_end_ptr)
+    {
         $tokens = $phpcs_file->getTokens();
         $ptr    = $phpcs_file->findNext(T_DOC_COMMENT_STRING, $copyright_tag_ptr, $comment_end_ptr);
         if ($ptr === false || $tokens[$ptr]['line'] !== $tokens[$copyright_tag_ptr]['line']) {
@@ -219,6 +187,144 @@ class FileCommentCopyrightSniff extends FileCommentSniff
             );
             if ($fix) {
                 $phpcs_file->fixer->addContent($copyright_tag_ptr, ' ' . $this->getCopyrightLine());
+            }
+        }
+    }
+
+    public function process(File $phpcs_file, $stack_ptr): int
+    {
+        //Find the year of the file being examined.
+        $this->initYears($phpcs_file->getFilename());
+
+        $tokens = $phpcs_file->getTokens();
+
+        // Find the next non whitespace token.
+        $comment_start = $phpcs_file->findNext(T_WHITESPACE, $stack_ptr + 1, null, true);
+
+        // Allow declare() statements at the top of the file.
+        if ($tokens[$comment_start]['code'] === T_DECLARE) {
+            $semicolon     = $phpcs_file->findNext(T_SEMICOLON, $comment_start + 1);
+            $comment_start = $phpcs_file->findNext(T_WHITESPACE, $semicolon + 1, null, true);
+        }
+
+        // Ignore vim header.
+        if ($tokens[$comment_start]['code'] === T_COMMENT
+            && false !== strpos($tokens[$comment_start]['content'], 'vim:')) {
+            $comment_start = $phpcs_file->findNext(
+                T_WHITESPACE,
+                $comment_start + 1,
+                null,
+                true
+            );
+        }
+
+        $error_token = ($stack_ptr + 1);
+        if (isset($tokens[$error_token]) === false) {
+            $error_token--;
+        }
+
+        if ($tokens[$comment_start]['code'] === T_CLOSE_TAG) {
+            // We are only interested if this is the first open tag.
+            return ($phpcs_file->numTokens + 1);
+        }
+
+        if ($tokens[$comment_start]['code'] === T_COMMENT) {
+            $error = 'You must use "/**" style comments for a file comment';
+            $phpcs_file->addError($error, $error_token, 'WrongStyle');
+            $phpcs_file->recordMetric($stack_ptr, 'File has doc comment', 'yes');
+
+            return ($phpcs_file->numTokens + 1);
+        }
+
+        if ($comment_start === false
+            || $tokens[$comment_start]['code'] !== T_DOC_COMMENT_OPEN_TAG
+        ) {
+            $this->addFixableError($phpcs_file);
+            $phpcs_file->recordMetric($stack_ptr, 'File has doc comment', 'no');
+
+            return ($phpcs_file->numTokens + 1);
+        }
+
+        $comment_end = $tokens[$comment_start]['comment_closer'];
+
+        $next_token = $phpcs_file->findNext(T_WHITESPACE, $comment_end + 1, null, true);
+
+        $ignore = [
+            T_CLASS,
+            T_INTERFACE,
+            T_TRAIT,
+            T_FUNCTION,
+            T_CLOSURE,
+            T_PUBLIC,
+            T_PRIVATE,
+            T_PROTECTED,
+            T_FINAL,
+            T_STATIC,
+            T_ABSTRACT,
+            T_CONST,
+            T_PROPERTY,
+        ];
+
+        if (true === in_array($tokens[$next_token]['code'], $ignore, true)) {
+            $phpcs_file->addError('Missing file doc comment', $stack_ptr, 'Missing');
+            $phpcs_file->recordMetric($stack_ptr, 'File has doc comment', 'no');
+
+            return ($phpcs_file->numTokens + 1);
+        }
+
+        $phpcs_file->recordMetric($stack_ptr, 'File has doc comment', 'yes');
+
+        // Check each tag.
+        $this->processCopyrightTags($phpcs_file, $stack_ptr, $comment_start);
+
+        // Ignore the rest of the file.
+        return ($phpcs_file->numTokens + 1);
+    }
+
+    /**
+     * Process the copyright tags.
+     *
+     * @param \PHP_CodeSniffer\Files\File $phpcs_file The file being scanned.
+     * @param array $tags The tokens for these tags.
+     *
+     * @return void
+     */
+    protected function processCopyright($phpcs_file, array $tags)
+    {
+        $tokens = $phpcs_file->getTokens();
+        foreach ($tags as $tag) {
+            if ($tokens[$tag + 2]['code'] !== T_DOC_COMMENT_STRING) {
+                // No content.
+                continue;
+            }
+
+            $content = $tokens[$tag + 2]['content'];
+            $matches = [];
+            if (preg_match('/^([0-9]{4})((.{1})([0-9]{4}))? (.+)$/', $content, $matches) !== 0) {
+                // Check earliest-latest year order.
+                if ($matches[3] !== '' && $matches[3] !== null) {
+                    if ($matches[3] !== '-') {
+                        $error = 'A hyphen must be used between the earliest and latest year';
+                        $phpcs_file->addError($error, $tag, 'CopyrightHyphen');
+                    }
+
+                    if ($matches[4] !== '' && $matches[4] !== null && $matches[4] < $matches[1]) {
+                        $error =
+                            sprintf(
+                                'Invalid year span "%s%s%s" found; consider "%s%s" instead',
+                                $matches[1],
+                                $matches[3],
+                                $matches[4],
+                                $matches[4],
+                                $matches[1]
+                            );
+
+                        $phpcs_file->addWarning($error, $tag, 'InvalidCopyright');
+                    }
+                }
+            } else {
+                $error = '@copyright tag must contain a year and the name of the copyright holder';
+                $phpcs_file->addError($error, $tag, 'IncompleteCopyright');
             }
         }
     }

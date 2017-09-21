@@ -34,4 +34,9 @@ abstract class AbstractSniffUnitTest extends AbstractSniffUnitTestCodeSniffer
 
         parent::setUp();
     }
+
+    public function doesNotPerformAssertions()
+    {
+        return true;
+    }
 }

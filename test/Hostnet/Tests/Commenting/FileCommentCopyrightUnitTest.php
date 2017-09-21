@@ -23,7 +23,7 @@ class FileCommentCopyrightUnitTest extends AbstractSniffUnitTest
     {
         $list = [
             'FileCommentCopyrightUnitTest.1.inc' => [
-                1 => 2
+                1 => 1
             ],
             'FileCommentCopyrightUnitTest.2.inc' => [
                 1 => 1
@@ -35,11 +35,10 @@ class FileCommentCopyrightUnitTest extends AbstractSniffUnitTest
                 1 => 1
             ],
             'FileCommentCopyrightUnitTest.5.inc' => [
-                1 => 1,
-                2 => 1
+                1 => 1
             ],
             'FileCommentCopyrightUnitTest.6.inc' => [
-                1 => 2
+                1 => 1
             ],
             'FileCommentCopyrightUnitTest.7.inc' => [
                 2 => 1
