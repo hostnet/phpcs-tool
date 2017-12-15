@@ -34,20 +34,6 @@ class Installer implements PluginInterface, EventSubscriberInterface
     }
 
     /**
-     * Configuration for standalone use in a system wide installation scenario
-     */
-    public static function configureAsRoot()
-    {
-        $vendor_dir = Path::VENDOR_DIR . '/hostnet/phpcs-tool/src/Hostnet';
-        if (!file_exists($vendor_dir)) {
-            self::configure();
-            mkdir($vendor_dir, 0777, true);
-            symlink(__DIR__ . '/../../Sniffs', $vendor_dir . '/Sniffs');
-            copy(__DIR__ . '/../../ruleset.xml', $vendor_dir . '/ruleset.xml');
-        }
-    }
-
-    /**
      * Activate this plugin by storing the bin_dir.
      *
      * @see \Composer\Plugin\PluginInterface::activate()
