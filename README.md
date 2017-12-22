@@ -11,7 +11,7 @@ Adds additional sniffs and fixes to squizlabs/php_codesniffer
 :x:
 
 ```php
-class MyClass
+abstract class MyClass
 {
     public abstract function getEntityManager();
 }
