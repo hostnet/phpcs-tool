@@ -38,12 +38,16 @@ class Installer implements PluginInterface, EventSubscriberInterface
      */
     public static function configureAsRoot()
     {
-        $vendor_dir = Path::VENDOR_DIR . '/hostnet/phpcs-tool/src/Hostnet';
+        $vendor_dir = Path::VENDOR_DIR . '/hostnet/phpcs-tool/src';
         if (!file_exists($vendor_dir)) {
             self::configure();
-            mkdir($vendor_dir, 0777, true);
-            symlink(__DIR__ . '/../../Sniffs', $vendor_dir . '/Sniffs');
-            copy(__DIR__ . '/../../ruleset.xml', $vendor_dir . '/ruleset.xml');
+            mkdir($vendor_dir . '/Hostnet', 0777, true);
+            symlink(__DIR__ . '/../../Sniffs', $vendor_dir . '/Hostnet/Sniffs');
+            copy(__DIR__ . '/../../ruleset.xml', $vendor_dir . '/Hostnet/ruleset.xml');
+
+            mkdir($vendor_dir . '/HostnetPaths', 0777, true);
+            symlink(__DIR__ . '/../../../HostnetPaths/Sniffs', $vendor_dir . '/HostnetPaths/Sniffs');
+            copy(__DIR__ . '/../../../HostnetPaths/ruleset.xml', $vendor_dir . '/HostnetPaths/ruleset.xml');
         }
     }
 
@@ -90,5 +94,35 @@ class Installer implements PluginInterface, EventSubscriberInterface
 
         $file = Path::VENDOR_DIR . '/squizlabs/php_codesniffer/CodeSniffer.conf';
         file_put_contents($file, sprintf('<?php $phpCodeSnifferConfig = %s;', var_export($config, true)));
+
+        $tags = '';
+        $dirs = ['src', 'test', 'tests'];
+        foreach ($dirs as $dir) {
+            $path = Path::BASE_DIR . '/' . $dir . '/';
+            if (is_dir($path)) {
+                $tags .= '<file>' . $path . '</file>';
+            }
+        }
+
+        $xml  = <<<XML
+<?xml version="1.0"?>
+<ruleset name="HostnetPaths">
+    <description>Generated file with directories to scan</description>
+    <!-- Hostnet Default path settings -->
+    <exclude-pattern>*/Generated/*</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*\.js</exclude-pattern>
+    <exclude-pattern>*\.css</exclude-pattern>
+
+    $tags
+</ruleset>
+XML;
+        $dir  = __DIR__ . '/../../../HostnetPaths';
+        $file = $dir . '/ruleset.xml';
+
+        if (!is_dir($dir)) {
+            mkdir($dir);
+        }
+        file_put_contents($file, $xml);
     }
 }

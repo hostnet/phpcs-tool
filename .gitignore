@@ -2,3 +2,4 @@ bin/
 vendor/
 composer.lock
 A/B/C/D/Hostnet/ruleset.xml
+/src/HostnetPaths/ruleset.xml
