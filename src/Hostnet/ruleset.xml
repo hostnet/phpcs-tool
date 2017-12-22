@@ -61,7 +61,7 @@
     <rule ref="Squiz.Classes.DuplicateProperty"/>
 
     <exclude name="Hostnet.Commenting.FileCommentCopyright.MissingVersion"/>
-    
+
     <rule ref="PSR2"/>
     <rule ref="HostnetPaths"/>
 

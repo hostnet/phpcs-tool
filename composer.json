@@ -32,6 +32,9 @@
     "extra": {
         "class": "Hostnet\\Component\\CodeSniffer\\Installer"
     },
+    "scripts": {
+        "post-autoload-dump": "Hostnet\\Component\\CodeSniffer\\Installer::configureAsRoot"
+    },
     "archive": {
         "exclude": [
             "/test"
