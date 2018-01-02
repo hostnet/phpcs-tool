@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2016-2017 Hostnet B.V.
+ * @copyright 2016-2018 Hostnet B.V.
  */
 declare(strict_types = 1);
 
