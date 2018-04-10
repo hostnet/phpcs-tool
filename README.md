@@ -214,26 +214,6 @@ private $good_property;
  */
 ```
 
-### Author is formatted correctly
-- class: [`Hostnet\Sniffs\Commenting\AuthorIsFormattedCorrectlySniff`](/src/Hostnet/Sniffs/Commenting/AuthorIsFormattedCorrectlySniff.php)
-- sniff: `Hostnet.Commenting.AuthorIsFormattedCorrectly`
-
-:x:
-
-```php
-/**
- * @author Henk
- */
-```
-
-:+1:
-
-```php
-/**
- * @author Henk de Vries <h.de.vries@hostnet.nl>
- */
-```
-
 ### File comment copyright
 - class: [`Hostnet\Sniffs\Commenting\FileCommentCopyrightSniff`](/src/Hostnet/Sniffs/Commenting/FileCommentCopyrightSniff.php)
 - sniff: `Hostnet.Commenting.FileCommentCopyright`
