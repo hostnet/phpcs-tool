@@ -1,8 +1,8 @@
 <?php
-declare(strict_types=1);
 /**
  * @copyright 2017-2018 Hostnet B.V.
  */
+declare(strict_types=1);
 
 namespace Hostnet\Component\CodeSniffer;
 
@@ -10,7 +10,9 @@ use Composer\Composer;
 use Composer\EventDispatcher\EventSubscriberInterface;
 use Composer\IO\IOInterface;
 use Composer\Plugin\PluginInterface;
+use Composer\Script\ScriptEvents;
 use Hostnet\Component\Path\Path;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * This small composer installer plugin hooks into the post-autoload-dump
@@ -24,41 +26,35 @@ class Installer implements PluginInterface, EventSubscriberInterface
     private $io;
 
     /**
-     * Ugly Composer static call to hook in to the post-autoload-dump event.
-     *
-     * @return array holding the post-autoload-dump hook and function to execute.
+     * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
-        return ['post-autoload-dump' => 'execute'];
+        return [ScriptEvents::POST_AUTOLOAD_DUMP => 'execute'];
     }
 
-    /**
-     * Configuration for standalone use in a system wide installation scenario
-     */
     public static function configureAsRoot()
     {
-        $vendor_dir = Path::VENDOR_DIR . '/hostnet/phpcs-tool/src';
-        if (!file_exists($vendor_dir)) {
-            self::configure();
-            mkdir($vendor_dir . '/Hostnet', 0777, true);
-            symlink(__DIR__ . '/../../Sniffs', $vendor_dir . '/Hostnet/Sniffs');
-            copy(__DIR__ . '/../../ruleset.xml', $vendor_dir . '/Hostnet/ruleset.xml');
-
-            mkdir($vendor_dir . '/HostnetPaths', 0777, true);
-            symlink(__DIR__ . '/../../../HostnetPaths/Sniffs', $vendor_dir . '/HostnetPaths/Sniffs');
-            copy(__DIR__ . '/../../../HostnetPaths/ruleset.xml', $vendor_dir . '/HostnetPaths/ruleset.xml');
+        $filesystem = new Filesystem();
+        $vendor_dir = Path::VENDOR_DIR.'/hostnet/phpcs-tool/src';
+        if ($filesystem->exists($vendor_dir)) {
+            return;
         }
+
+        self::configure();
+
+        $filesystem->mkdir($vendor_dir.'/Hostnet');
+        $filesystem->symlink(__DIR__.'/../../Sniffs', $vendor_dir.'/Hostnet/Sniffs');
+        $filesystem->copy(__DIR__.'/../../ruleset.xml', $vendor_dir.'/Hostnet/ruleset.xml');
+
+        $filesystem->mkdir($vendor_dir.'/HostnetPaths');
+        $filesystem->copy(__DIR__.'/../../../HostnetPaths/ruleset.xml', $vendor_dir.'/HostnetPaths/ruleset.xml');
     }
 
     /**
-     * Activate this plugin by storing the bin_dir.
-     *
-     * @see \Composer\Plugin\PluginInterface::activate()
-     * @param Composer    $composer the composer instance to pull the config of the bin-dir from.
-     * @param IOInterface $io the io interface to write / read output input.
+     * {@inheritdoc}
      */
-    public function activate(Composer $composer, IOInterface $io)
+    public function activate(Composer $composer, IOInterface $io): void
     {
         $this->io = $io;
     }
@@ -70,12 +66,15 @@ class Installer implements PluginInterface, EventSubscriberInterface
      *
      * @see https://github.com/squizlabs/PHP_CodeSniffer/wiki/Configuration-Options
      */
-    public function execute()
+    public function execute(): void
     {
-        if ($this->io->isVerbose()) {
-            $this->io->write('Configured phpcs to use Hostnet standard');
-        }
         self::configure();
+
+        if (!$this->io->isVerbose()) {
+            return;
+        }
+
+        $this->io->write('<info>Configured phpcs to use Hostnet standard</info>');
     }
 
     /**
@@ -83,28 +82,38 @@ class Installer implements PluginInterface, EventSubscriberInterface
      */
     public static function configure()
     {
-        $config = [
+        $filesystem = new Filesystem();
+        $config     = [
             'colors'          => '1',
             'installed_paths' => Path::VENDOR_DIR . '/hostnet/phpcs-tool/src/',
         ];
 
-        if (!file_exists('phpcs.xml') && !file_exists('phpcs.xml.dist')) {
+        if (!$filesystem->exists(['phpcs.xml', 'phpcs.xml.dist'])) {
             $config['default_standard'] = 'Hostnet';
         }
 
-        $file = Path::VENDOR_DIR . '/squizlabs/php_codesniffer/CodeSniffer.conf';
-        file_put_contents($file, sprintf('<?php $phpCodeSnifferConfig = %s;', var_export($config, true)));
+        $filesystem->dumpFile(
+            Path::VENDOR_DIR.'/squizlabs/php_codesniffer/CodeSniffer.conf',
+            sprintf('<?php $phpCodeSnifferConfig = %s;', var_export($config, true))
+        );
 
+        $filesystem->dumpFile(__DIR__.'/../../../HostnetPaths/ruleset.xml', self::generateHostnetPathsXml());
+    }
+
+    public static function generateHostnetPathsXml(): string
+    {
         $tags = '';
         $dirs = ['src', 'test', 'tests'];
         foreach ($dirs as $dir) {
-            $path = Path::BASE_DIR . '/' . $dir . '/';
-            if (is_dir($path)) {
-                $tags .= '<file>' . $path . '</file>';
+            $path = Path::BASE_DIR.'/'.$dir.'/';
+            if (!is_dir($path)) {
+                continue;
             }
+
+            $tags .= '<file>'.$path.'</file>';
         }
 
-        $xml  = <<<XML
+        return <<<XML
 <?xml version="1.0"?>
 <ruleset name="HostnetPaths">
     <description>Generated file with directories to scan</description>
@@ -117,12 +126,5 @@ class Installer implements PluginInterface, EventSubscriberInterface
     $tags
 </ruleset>
 XML;
-        $dir  = __DIR__ . '/../../../HostnetPaths';
-        $file = $dir . '/ruleset.xml';
-
-        if (!is_dir($dir)) {
-            mkdir($dir);
-        }
-        file_put_contents($file, $xml);
     }
 }

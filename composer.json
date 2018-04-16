@@ -7,7 +7,8 @@
         "php":                              ">=7.0",
         "composer-plugin-api":              "^1.0.0",
         "hostnet/path-composer-plugin-lib": "^1.0.2",
-        "squizlabs/php_codesniffer":        "^3.2.0"
+        "squizlabs/php_codesniffer":        "^3.2.0",
+        "symfony/filesystem":               "^4.0"
     },
     "require-dev": {
         "composer/composer": "^1.5.5",
@@ -23,6 +24,9 @@
             "Hostnet": "test/"
         }
     },
+    "scripts": {
+        "post-autoload-dump": "Hostnet\\Component\\CodeSniffer\\Installer::configureAsRoot"
+    },
     "config": {
         "bin-dir": "bin",
         "preferred-install": {
@@ -31,9 +35,6 @@
     },
     "extra": {
         "class": "Hostnet\\Component\\CodeSniffer\\Installer"
-    },
-    "scripts": {
-        "post-autoload-dump": "Hostnet\\Component\\CodeSniffer\\Installer::configureAsRoot"
     },
     "archive": {
         "exclude": [
