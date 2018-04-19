@@ -33,6 +33,9 @@ class Installer implements PluginInterface, EventSubscriberInterface
         return [ScriptEvents::POST_AUTOLOAD_DUMP => 'execute'];
     }
 
+    /**
+     * Configuration for standalone use in a system wide installation scenario
+     */
     public static function configureAsRoot()
     {
         $filesystem = new Filesystem();
