@@ -19,26 +19,15 @@
     <rule ref="Generic.CodeAnalysis.JumbledIncrementer"/>
     <rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
 
-    <rule ref="Generic.ControlStructures.InlineControlStructure"/>
-
     <rule ref="Generic.Files.OneClassPerFile"/>
     <rule ref="Generic.Files.OneInterfacePerFile"/>
-
-    <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
 
     <rule ref="Generic.Functions.CallTimePassByReference"/>
     <rule ref="Generic.Metrics.CyclomaticComplexity"/>
     <rule ref="Generic.Metrics.NestingLevel"/>
 
-    <rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
-
     <rule ref="Generic.PHP.ForbiddenFunctions"/>
-    <rule ref="Generic.PHP.LowerCaseConstant"/>
-    <rule ref="Generic.PHP.LowerCaseKeyword"/>
     <rule ref="Generic.PHP.NoSilencedErrors"/>
-
-    <rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
-    <rule ref="Generic.WhiteSpace.ScopeIndent"/>
 
     <rule ref="Generic.Formatting.MultipleStatementAlignment"/>
 
@@ -89,15 +78,10 @@
     <!-- Forbid backtick operator -->
     <rule ref="Generic.PHP.BacktickOperator"/>
 
-    <!-- Forbid short open tag -->
-    <rule ref="Generic.PHP.DisallowShortOpenTag"/>
-
     <!-- Forbid `php_sapi_name()` function -->
     <rule ref="Generic.PHP.SAPIUsage"/>
 
     <rule ref="PEAR.Files.IncludingFile"/>
-
-    <rule ref="PEAR.Functions.ValidDefaultValue"/>
 
     <!-- Forbid comments starting with # -->
     <rule ref="PEAR.Commenting.InlineComment"/>
