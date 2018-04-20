@@ -4,7 +4,7 @@
     "description": "PHP_CodeSniffer tokenises PHP, JavaScript and CSS files and detects violations of a defined set of coding standards. Hostnet version",
     "license":     "MIT",
     "require": {
-        "php":                              ">=7.0",
+        "php":                              ">=7.1",
         "composer-plugin-api":              "^1.0.0",
         "hostnet/path-composer-plugin-lib": "^1.0.2",
         "slevomat/coding-standard":         "^4.5",
