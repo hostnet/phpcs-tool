@@ -193,6 +193,45 @@ private $badProperty;
 private $good_property;
 ```
 
+### Copyright must be before `declare(strict_types=1)`
+
+- class: [`Hostnet\Sniffs\Classes\CopyrightMustBeBeforeDeclareSniff`](/src/Hostnet/Sniffs/Classes/CopyrightMustBeBeforeDeclareSniff.php)
+- sniff: `Hostnet.Classes.CopyrightMustBeBeforeDeclare`
+
+:x:
+
+```php
+<?php
+declare(strict_types=1);
+/**
+ * @copyright 2018 Hostnet B.V.
+ */
+
+namespace Test;
+
+class ExampleClass
+{
+
+}
+```
+
+:+1:
+
+```php
+<?php
+/**
+ * @copyright 2018 Hostnet B.V.
+ */
+declare(strict_types=1);
+
+namespace Test;
+
+class ExampleClass
+{
+
+}
+```
+
 ### @covers fully qualified name
 
 - class: [`Hostnet\Sniffs\Commenting\AtCoversFullyQualifiedNameSniff`](/src/Hostnet/Sniffs/Commenting/AtCoversFullyQualifiedNameSniff.php)
@@ -313,7 +352,7 @@ declare(strict_types=1);
   }
 ```
 
-### Namespace
+### PHPUnit Namespace
 - class: [`Hostnet\Sniffs\PhpUnit\NamespaceSniff`](/src/Hostnet/Sniffs/PhpUnit/NamespaceSniff.php)
 - sniff: `Hostnet.PhpUnit.Namespace`
 
