@@ -234,6 +234,14 @@
         <exclude name="Squiz.Arrays.ArrayDeclaration.ValueNotAligned"/>
         <!-- Allow multi-line arrays with just one value -->
         <exclude name="Squiz.Arrays.ArrayDeclaration.MultiLineNotAllowed"/>
+        <!-- Allow values to not be on a newline -->
+        <exclude name="Squiz.Arrays.ArrayDeclaration.ValueNoNewline"/>
+        <!-- Allow values to not be on a newline -->
+        <exclude name="Squiz.Arrays.ArrayDeclaration.FirstValueNoNewline"/>
+        <!-- This is checked by SlevomatCodingStandard.Arrays.TrailingArrayComma -->
+        <exclude name="Squiz.Arrays.ArrayDeclaration.NoCommaAfterLast"/>
+        <!-- Allow the final ] to be on the same line in a multi-line array -->
+        <exclude name="Squiz.Arrays.ArrayDeclaration.CloseBraceNewLine"/>
     </rule>
 
     <!-- Forbid class being in a file with different name -->
