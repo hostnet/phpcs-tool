@@ -60,11 +60,13 @@ class NoVerticalWhitespaceBetweenUseStatementsSniff implements Sniff
         for ($i = ($end_stmt + 1); $i <= $next_use; $i++) {
             //the current token ($i) contains an end of line
             //And it's on the next line than the end of the use statement
-            if ($tokens[$i]['line'] !== $tokens[$end_stmt]['line']
-                && false !== stripos($tokens[$i]['content'], "\n")
+            if ($tokens[$i]['line'] === $tokens[$end_stmt]['line']
+                || false === stripos($tokens[$i]['content'], "\n")
             ) {
-                $this->checkForNewlineOrComments($phpcs_file, $i);
+                continue;
             }
+
+            $this->checkForNewlineOrComments($phpcs_file, $i);
         }
     }
 

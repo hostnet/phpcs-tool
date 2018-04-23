@@ -2,7 +2,6 @@
 /**
  * @copyright 2017-2018 Hostnet B.V.
  */
-
 declare(strict_types=1);
 
 namespace Hostnet\Sniffs\Declares;
@@ -112,7 +111,6 @@ class StrictSniff implements Sniff
      * @param int  $stack_ptr
      *
      * @return bool
-     *
      */
     private function addDeclare(File $phpcs_file, int $stack_ptr): bool
     {

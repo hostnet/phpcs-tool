@@ -2,7 +2,6 @@
 /**
  * @copyright 2017-2018 Hostnet B.V.
  */
-
 declare(strict_types=1);
 
 namespace Hostnet\Sniffs\Commenting;
@@ -44,7 +43,7 @@ class AtCoversFullyQualifiedNameSniff extends FileCommentSniff
         // Is it a unit test?
         if (false === strpos($phpcs_file->getFilename(), 'Test.php')) {
             // No, skip the rest of it
-            return (count($tokens) + 1);
+            return count($tokens) + 1;
         }
 
         // The tag i found is it a @covers tag?

@@ -10,7 +10,6 @@ use Hostnet\Tests\AbstractSniffUnitTest;
 
 /**
  * Unit test for MethodNameStartsWithGetIs
- * @author Nico Schoenmaker <nschoenmaker@hostnet.nl>
  */
 class MethodNameStartsWithGetIsUnitTest extends AbstractSniffUnitTest
 {
@@ -24,7 +23,7 @@ class MethodNameStartsWithGetIsUnitTest extends AbstractSniffUnitTest
      */
     public function getErrorList($filename = null)
     {
-        return array(13 => 1, 17 => 1, 35 => 1, 39 => 1, 43 => 1, 49 => 1, 55 => 1, 59 => 1, 73 => 1, 78 => 1, 83 => 1);
+        return [13 => 1, 17 => 1, 35 => 1, 39 => 1, 43 => 1, 49 => 1, 55 => 1, 59 => 1, 73 => 1, 78 => 1, 83 => 1];
     }
 
     /**
@@ -37,6 +36,6 @@ class MethodNameStartsWithGetIsUnitTest extends AbstractSniffUnitTest
      */
     public function getWarningList()
     {
-        return array();
+        return [];
     }
 }

@@ -28,7 +28,7 @@ class AtCoversFullyQualifiedNameUnitTest extends AbstractSniffUnitTest
                 3  => 1,
                 11 => 1,
                 16 => 1,
-            ]
+            ],
         ];
 
         if (! isset($list[$filename])) {
@@ -47,6 +47,6 @@ class AtCoversFullyQualifiedNameUnitTest extends AbstractSniffUnitTest
      */
     public function getWarningList()
     {
-        return array();
+        return [];
     }
 }

@@ -13,7 +13,6 @@ use Hostnet\Tests\AbstractSniffUnitTest;
  */
 class FileCommentCopyrightUnitTest extends AbstractSniffUnitTest
 {
-
     /**
      * Returns the lines where error should occur
      *
@@ -23,35 +22,35 @@ class FileCommentCopyrightUnitTest extends AbstractSniffUnitTest
     {
         $list = [
             'FileCommentCopyrightUnitTest.1.inc' => [
-                1 => 1
+                1 => 1,
             ],
             'FileCommentCopyrightUnitTest.2.inc' => [
-                1 => 1
+                1 => 1,
             ],
             'FileCommentCopyrightUnitTest.3.inc' => [
-                1 => 1
+                1 => 1,
             ],
             'FileCommentCopyrightUnitTest.4.inc' => [
-                1 => 1
+                1 => 1,
             ],
             'FileCommentCopyrightUnitTest.5.inc' => [
-                1 => 1
+                1 => 1,
             ],
             'FileCommentCopyrightUnitTest.6.inc' => [
-                1 => 1
+                1 => 1,
             ],
             'FileCommentCopyrightUnitTest.7.inc' => [
-                2 => 1
+                2 => 1,
             ],
             'FileCommentCopyrightUnitTest.8.inc' => [
-                3 => 1
+                3 => 1,
             ],
             'FileCommentCopyrightUnitTest.9.inc' => [
-                3 => 1
+                3 => 1,
              ],
             'FileCommentCopyrightUnitTest.10.inc' => [
-                1 => 1
-            ]
+                1 => 1,
+            ],
         ];
 
         if (! isset($list[$filename])) {

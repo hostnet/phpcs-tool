@@ -44,10 +44,12 @@ class ProtectedPropertiesAreNotAllowedSniff implements Sniff
         }
 
         // Check if the next token is a variable
-        if ($tokens[$stack_ptr]['code'] === T_VARIABLE) {
-            // If yes: give error
-            $error = 'Protected property "' . $tokens[$stack_ptr]['content'] . '" is not allowed.';
-            $phpcs_file->addError($error, $original_stack_ptr, 'ProtectedProperty');
+        if ($tokens[$stack_ptr]['code'] !== T_VARIABLE) {
+            return;
         }
+
+        // If yes: give error
+        $error = 'Protected property "' . $tokens[$stack_ptr]['content'] . '" is not allowed.';
+        $phpcs_file->addError($error, $original_stack_ptr, 'ProtectedProperty');
     }
 }

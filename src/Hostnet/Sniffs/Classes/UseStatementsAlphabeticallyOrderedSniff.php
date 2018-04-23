@@ -79,9 +79,11 @@ class UseStatementsAlphabeticallyOrderedSniff implements Sniff
         // Construct the full use statement (all the subspaces)
         $this->createAndCheckStatements($phpcs_file, $stack_ptr);
         // check if we don't have a class or trait inside the file (but we do have use statements here)
-        if ($this->initial_use && $this->end_use && $this->fixed && !$phpcs_file->findNext([T_CLASS, T_TRAIT], 0)) {
-            $this->fixUseStatements($phpcs_file);
+        if (!$this->initial_use || !$this->end_use || !$this->fixed || $phpcs_file->findNext([T_CLASS, T_TRAIT], 0)) {
+            return;
         }
+
+        $this->fixUseStatements($phpcs_file);
     }
 
     private function fixUseStatements(File $phpcs_file)
