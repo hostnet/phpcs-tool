@@ -87,11 +87,10 @@ class FileCommentCopyrightSniff
             $now_year = date('Y');
 
             //try git
-            $cmd  = sprintf(
+            $year = trim(shell_exec(sprintf(
                 'git log --reverse --pretty=format:%%ci %s 2> /dev/null |cut -d"-" -f1 | head -n1',
                 $filename
-            );
-            $year = trim(`$cmd` ?: '');
+            )) ?: '');
             if (empty($year) || $year === '') {
                 $year = $now_year;
             }
@@ -142,29 +141,24 @@ class FileCommentCopyrightSniff
 
         //No @copyright tag because not returned
         $error = 'Missing ' . $this->copyright_tag . ' tag in file doc-block';
-        $fix   = $phpcs_file->addFixableError($error, $stack_ptr, 'MissingCopyrightTag');
-        if ($fix) {
-            if ($tokens[$tokens[$comment_start]['comment_closer']]['line'] == $tokens[$comment_start]['line']) {
-                $phpcs_file->fixer->replaceToken($tokens[$comment_start]['comment_closer'] - 1, '');
-                $phpcs_file->fixer->addContentBefore(
-                    $tokens[$comment_start]['comment_closer'],
-                    sprintf(
-                        "\n * %s %s\n ",
-                        $this->copyright_tag,
-                        $this->getCopyrightLine()
-                    )
-                );
-            } else {
-                $phpcs_file->fixer->addContentBefore(
-                    $tokens[$comment_start]['comment_closer'],
-                    sprintf(
-                        "* %s %s\n ",
-                        $this->copyright_tag,
-                        $this->getCopyrightLine()
-                    )
-                );
-            }
+        if (false === $phpcs_file->addFixableError($error, $stack_ptr, 'MissingCopyrightTag')) {
+            return;
         }
+
+        if ($tokens[$tokens[$comment_start]['comment_closer']]['line'] == $tokens[$comment_start]['line']) {
+            $phpcs_file->fixer->replaceToken($tokens[$comment_start]['comment_closer'] - 1, '');
+            $phpcs_file->fixer->addContentBefore(
+                $tokens[$comment_start]['comment_closer'],
+                sprintf("\n * %s %s\n ", $this->copyright_tag, $this->getCopyrightLine())
+            );
+
+            return;
+        }
+
+        $phpcs_file->fixer->addContentBefore(
+            $tokens[$comment_start]['comment_closer'],
+            sprintf("* %s %s\n ", $this->copyright_tag, $this->getCopyrightLine())
+        );
     }
 
     /**
@@ -178,17 +172,16 @@ class FileCommentCopyrightSniff
     {
         $tokens = $phpcs_file->getTokens();
         $ptr    = $phpcs_file->findNext(T_DOC_COMMENT_STRING, $copyright_tag_ptr, $comment_end_ptr);
-        if ($ptr === false || $tokens[$ptr]['line'] !== $tokens[$copyright_tag_ptr]['line']) {
-            $error = 'Content missing for ' . $this->copyright_tag . ' tag in File comment';
-            $fix   = $phpcs_file->addFixableError(
-                $error,
-                $copyright_tag_ptr,
-                'Empty ' . $this->copyright_tag . ' Tag'
-            );
-            if ($fix) {
-                $phpcs_file->fixer->addContent($copyright_tag_ptr, ' ' . $this->getCopyrightLine());
-            }
+        if ($ptr !== false && $tokens[$ptr]['line'] === $tokens[$copyright_tag_ptr]['line']) {
+            return;
         }
+
+        $error = 'Content missing for ' . $this->copyright_tag . ' tag in File comment';
+        if (!$phpcs_file->addFixableError($error, $copyright_tag_ptr, 'Empty ' . $this->copyright_tag . ' Tag')) {
+            return;
+        }
+
+        $phpcs_file->fixer->addContent($copyright_tag_ptr, ' ' . $this->getCopyrightLine());
     }
 
     public function process(File $phpcs_file, $stack_ptr): int
@@ -225,7 +218,7 @@ class FileCommentCopyrightSniff
 
         if ($tokens[$comment_start]['code'] === T_CLOSE_TAG) {
             // We are only interested if this is the first open tag.
-            return ($phpcs_file->numTokens + 1);
+            return $phpcs_file->numTokens + 1;
         }
 
         if ($tokens[$comment_start]['code'] === T_COMMENT) {
@@ -233,7 +226,7 @@ class FileCommentCopyrightSniff
             $phpcs_file->addError($error, $error_token, 'WrongStyle');
             $phpcs_file->recordMetric($stack_ptr, 'File has doc comment', 'yes');
 
-            return ($phpcs_file->numTokens + 1);
+            return $phpcs_file->numTokens + 1;
         }
 
         if ($comment_start === false
@@ -242,7 +235,7 @@ class FileCommentCopyrightSniff
             $this->addFixableError($phpcs_file);
             $phpcs_file->recordMetric($stack_ptr, 'File has doc comment', 'no');
 
-            return ($phpcs_file->numTokens + 1);
+            return $phpcs_file->numTokens + 1;
         }
 
         $comment_end = $tokens[$comment_start]['comment_closer'];
@@ -269,7 +262,7 @@ class FileCommentCopyrightSniff
             $phpcs_file->addError('Missing file doc comment', $stack_ptr, 'Missing');
             $phpcs_file->recordMetric($stack_ptr, 'File has doc comment', 'no');
 
-            return ($phpcs_file->numTokens + 1);
+            return $phpcs_file->numTokens + 1;
         }
 
         $phpcs_file->recordMetric($stack_ptr, 'File has doc comment', 'yes');
@@ -278,7 +271,7 @@ class FileCommentCopyrightSniff
         $this->processCopyrightTags($phpcs_file, $stack_ptr, $comment_start);
 
         // Ignore the rest of the file.
-        return ($phpcs_file->numTokens + 1);
+        return $phpcs_file->numTokens + 1;
     }
 
     /**

@@ -56,9 +56,11 @@ class OnlyOneUseStatementPerLineSniff implements Sniff
 
         // look for comments in the middle of use statements
         $next_comment = $phpcs_file->findNext([T_COMMENT], $stack_ptr + 1);
-        if ($next_comment > 0 && $next_comment < $next_semicolon) {
-            $error = 'Inline comments should come after the semicolon';
-            $phpcs_file->addError($error, $stack_ptr, 'MultipleUseInLine');
+        if ($next_comment <= 0 || $next_comment >= $next_semicolon) {
+            return;
         }
+
+        $error = 'Inline comments should come after the semicolon';
+        $phpcs_file->addError($error, $stack_ptr, 'MultipleUseInLine');
     }
 }

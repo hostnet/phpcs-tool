@@ -27,11 +27,11 @@ class UseStatementsAlphabeticallyOrderedUnitTest extends AbstractSniffUnitTest
             case 'UseStatementsAlphabeticallyOrderedUnitTest.0.inc':
                 return [];
             case 'UseStatementsAlphabeticallyOrderedUnitTest.1.inc':
-                return array(16 => 1, 18 => 1);
+                return [16 => 1, 18 => 1];
             case 'UseStatementsAlphabeticallyOrderedUnitTest.2.inc':
-                return array(4 => 1, 11 => 2);
+                return [4 => 1, 11 => 2];
             case 'UseStatementsAlphabeticallyOrderedUnitTest.3.inc':
-                return array(16 => 1, 18 => 1);
+                return [16 => 1, 18 => 1];
         }
     }
 
@@ -45,6 +45,6 @@ class UseStatementsAlphabeticallyOrderedUnitTest extends AbstractSniffUnitTest
      */
     public function getWarningList()
     {
-        return array();
+        return [];
     }
 }

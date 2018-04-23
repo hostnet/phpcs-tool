@@ -13,7 +13,6 @@ use Hostnet\Tests\AbstractSniffUnitTest;
  */
 class NoVerticalWhitespaceBetweenUseStatementsUnitTest extends AbstractSniffUnitTest
 {
-
     /**
      * Returns the lines where errors should occur.
      *
@@ -26,13 +25,13 @@ class NoVerticalWhitespaceBetweenUseStatementsUnitTest extends AbstractSniffUnit
     {
         switch ($filename) {
             case 'NoVerticalWhitespaceBetweenUseStatementsUnitTest.0.inc':
-                return array(5 => 1, 12 => 1, 14 => 1, 15 => 1, 16 => 1, 18 => 1);
+                return [5 => 1, 12 => 1, 14 => 1, 15 => 1, 16 => 1, 18 => 1];
             case 'NoVerticalWhitespaceBetweenUseStatementsUnitTest.1.inc':
-                return array(5 => 1, 7 => 1, 8 => 1, 9 => 1, 10 => 1);
+                return [5 => 1, 7 => 1, 8 => 1, 9 => 1, 10 => 1];
             case 'NoVerticalWhitespaceBetweenUseStatementsUnitTest.2.inc':
-                return array(5 => 1);
+                return [5 => 1];
             case 'NoVerticalWhitespaceBetweenUseStatementsUnitTest.3.inc':
-                return array(4=>1,6 => 1);
+                return [4 => 1,6 => 1];
         }
     }
 
@@ -46,6 +45,6 @@ class NoVerticalWhitespaceBetweenUseStatementsUnitTest extends AbstractSniffUnit
      */
     public function getWarningList()
     {
-        return array();
+        return [];
     }
 }

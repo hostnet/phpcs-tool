@@ -1,8 +1,7 @@
 <?php
 /**
- * @copyright 2017-2018 Hostnet B.V.
+ * @copyright 2016-2018 Hostnet B.V.
  */
-
 declare(strict_types=1);
 
 namespace Hostnet\Sniffs\Functions;
@@ -18,7 +17,6 @@ use PHP_CodeSniffer\Sniffs\Sniff;
  */
 class ReturnTypeDeclarationSniff implements Sniff
 {
-
     /**
      * Spacing between the function's closing parenthesis and colon.
      *
@@ -89,46 +87,50 @@ class ReturnTypeDeclarationSniff implements Sniff
             }
         }
 
-        if ($closing_parenthesis_colon_spacing !== $this->closing_parenthesis_colon_spacing
-            || $colon_return_type_spacing !== $this->colon_return_type_spacing
+        if ($closing_parenthesis_colon_spacing === $this->closing_parenthesis_colon_spacing
+            && $colon_return_type_spacing === $this->colon_return_type_spacing
         ) {
-            $expected = sprintf(
-                'Expected ")%s:%sreturntype"',
-                $this->closing_parenthesis_colon_spacing,
-                $this->colon_return_type_spacing
-            );
-            $found    = sprintf(
-                'found ")%s:%sreturntype"',
-                $closing_parenthesis_colon_spacing,
-                $colon_return_type_spacing
-            );
-
-            $error = $expected . ';' . $found;
-
-            $error = str_replace(["\r\n", "\n", "\r", "\t"], ['\r\n', '\n', '\r', '\t'], $error);
-            $fix   = $phpcs_file->addFixableError($error, $stack_ptr, 'ReturnTypeDeclarationSpacing');
-            if ($fix === true) {
-                if ($closing_parenthesis_colon_spacing !== $this->closing_parenthesis_colon_spacing) {
-                    $this->fixSpacing(
-                        $phpcs_file,
-                        $tokens,
-                        $this->closing_parenthesis_colon_spacing,
-                        $closing_parenthesis_position,
-                        $colon_position
-                    );
-                }
-
-                if ($colon_return_type_spacing !== $this->colon_return_type_spacing) {
-                    $this->fixSpacing(
-                        $phpcs_file,
-                        $tokens,
-                        $this->colon_return_type_spacing,
-                        $colon_position,
-                        $return_type_position
-                    );
-                }
-            }
+            return;
         }
+
+        $expected = sprintf(
+            'Expected ")%s:%sreturntype"',
+            $this->closing_parenthesis_colon_spacing,
+            $this->colon_return_type_spacing
+        );
+        $found    = sprintf(
+            'found ")%s:%sreturntype"',
+            $closing_parenthesis_colon_spacing,
+            $colon_return_type_spacing
+        );
+
+        $error = $expected . ';' . $found;
+        $error = str_replace(["\r\n", "\n", "\r", "\t"], ['\r\n', '\n', '\r', '\t'], $error);
+        if (false === $phpcs_file->addFixableError($error, $stack_ptr, 'ReturnTypeDeclarationSpacing')) {
+            return;
+        }
+
+        if ($closing_parenthesis_colon_spacing !== $this->closing_parenthesis_colon_spacing) {
+            $this->fixSpacing(
+                $phpcs_file,
+                $tokens,
+                $this->closing_parenthesis_colon_spacing,
+                $closing_parenthesis_position,
+                $colon_position
+            );
+        }
+
+        if ($colon_return_type_spacing === $this->colon_return_type_spacing) {
+            return;
+        }
+
+        $this->fixSpacing(
+            $phpcs_file,
+            $tokens,
+            $this->colon_return_type_spacing,
+            $colon_position,
+            $return_type_position
+        );
     }
 
 
@@ -177,12 +179,10 @@ class ReturnTypeDeclarationSniff implements Sniff
     private function getCharacterAfterReturnTypeDeclaration(File $phpcs_file, array $tokens, $stack_ptr)
     {
         if (isset($tokens[$stack_ptr]['scope_opener']) === false) {
-            $end_position = $phpcs_file->findNext(T_SEMICOLON, $stack_ptr);
-        } else {
-            $end_position = $tokens[$stack_ptr]['scope_opener'];
+            return $phpcs_file->findNext(T_SEMICOLON, $stack_ptr);
         }
 
-        return $end_position;
+        return $tokens[$stack_ptr]['scope_opener'];
     }
 
     /**
@@ -200,21 +200,23 @@ class ReturnTypeDeclarationSniff implements Sniff
     {
         if (($start + 1) === $end && empty($required_spacing) === false) {
             //insert whitespace if there is no whitespace, and whitespace is required
-            $phpcs_file->fixer->addContent(
-                $start,
-                $required_spacing
-            );
-        } else {
-            //otherwise, if there is whitespace, change the whitespace to the required spacing
-            for ($i = ($start + 1); $i < $end; $i++) {
-                if ($tokens[$i]['code'] === T_WHITESPACE) {
-                    if (($i + 1) === $end) {
-                        $phpcs_file->fixer->replaceToken($i, $required_spacing);
-                    } else {
-                        $phpcs_file->fixer->replaceToken($i, '');
-                    }
-                }
+            $phpcs_file->fixer->addContent($start, $required_spacing);
+
+            return;
+        }
+
+        //otherwise, if there is whitespace, change the whitespace to the required spacing
+        for ($i = ($start + 1); $i < $end; $i++) {
+            if ($tokens[$i]['code'] !== T_WHITESPACE) {
+                continue;
             }
+
+            if (($i + 1) === $end) {
+                $phpcs_file->fixer->replaceToken($i, $required_spacing);
+                continue;
+            }
+
+            $phpcs_file->fixer->replaceToken($i, '');
         }
     }
 }

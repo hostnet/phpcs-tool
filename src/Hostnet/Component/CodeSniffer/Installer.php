@@ -39,19 +39,19 @@ class Installer implements PluginInterface, EventSubscriberInterface
     public static function configureAsRoot()
     {
         $filesystem = new Filesystem();
-        $vendor_dir = Path::VENDOR_DIR.'/hostnet/phpcs-tool/src';
+        $vendor_dir = Path::VENDOR_DIR . '/hostnet/phpcs-tool/src';
         if ($filesystem->exists($vendor_dir)) {
             return;
         }
 
         self::configure();
 
-        $filesystem->mkdir($vendor_dir.'/Hostnet');
-        $filesystem->symlink(__DIR__.'/../../Sniffs', $vendor_dir.'/Hostnet/Sniffs');
-        $filesystem->copy(__DIR__.'/../../ruleset.xml', $vendor_dir.'/Hostnet/ruleset.xml');
+        $filesystem->mkdir($vendor_dir . '/Hostnet');
+        $filesystem->symlink(__DIR__ . '/../../Sniffs', $vendor_dir . '/Hostnet/Sniffs');
+        $filesystem->copy(__DIR__ . '/../../ruleset.xml', $vendor_dir . '/Hostnet/ruleset.xml');
 
-        $filesystem->mkdir($vendor_dir.'/HostnetPaths');
-        $filesystem->copy(__DIR__.'/../../../HostnetPaths/ruleset.xml', $vendor_dir.'/HostnetPaths/ruleset.xml');
+        $filesystem->mkdir($vendor_dir . '/HostnetPaths');
+        $filesystem->copy(__DIR__ . '/../../../HostnetPaths/ruleset.xml', $vendor_dir . '/HostnetPaths/ruleset.xml');
     }
 
     /**
@@ -89,8 +89,8 @@ class Installer implements PluginInterface, EventSubscriberInterface
         $config     = [
             'colors'          => '1',
             'installed_paths' => implode(',', [
-                Path::VENDOR_DIR.'/hostnet/phpcs-tool/src/',
-                Path::VENDOR_DIR.'/slevomat/coding-standard/SlevomatCodingStandard',
+                Path::VENDOR_DIR . '/hostnet/phpcs-tool/src/',
+                Path::VENDOR_DIR . '/slevomat/coding-standard/SlevomatCodingStandard',
             ]),
         ];
 
@@ -99,11 +99,11 @@ class Installer implements PluginInterface, EventSubscriberInterface
         }
 
         $filesystem->dumpFile(
-            Path::VENDOR_DIR.'/squizlabs/php_codesniffer/CodeSniffer.conf',
+            Path::VENDOR_DIR . '/squizlabs/php_codesniffer/CodeSniffer.conf',
             sprintf('<?php $phpCodeSnifferConfig = %s;', var_export($config, true))
         );
 
-        $filesystem->dumpFile(__DIR__.'/../../../HostnetPaths/ruleset.xml', self::generateHostnetPathsXml());
+        $filesystem->dumpFile(__DIR__ . '/../../../HostnetPaths/ruleset.xml', self::generateHostnetPathsXml());
     }
 
     public static function generateHostnetPathsXml(): string
@@ -111,12 +111,12 @@ class Installer implements PluginInterface, EventSubscriberInterface
         $tags = '';
         $dirs = ['src', 'test', 'tests'];
         foreach ($dirs as $dir) {
-            $path = Path::BASE_DIR.'/'.$dir.'/';
+            $path = Path::BASE_DIR . '/' . $dir . '/';
             if (!is_dir($path)) {
                 continue;
             }
 
-            $tags .= '<file>'.$path.'</file>';
+            $tags .= '<file>' . $path . '</file>';
         }
 
         return <<<XML

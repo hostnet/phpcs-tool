@@ -13,8 +13,6 @@ use Hostnet\Tests\AbstractSniffUnitTest;
  */
 class ReturnTypeDeclarationUnitTest extends AbstractSniffUnitTest
 {
-
-
     /**
      * Returns the lines where errors should occur.
      *
@@ -27,7 +25,7 @@ class ReturnTypeDeclarationUnitTest extends AbstractSniffUnitTest
     {
         switch ($test_file) {
             case 'ReturnTypeDeclarationUnitTest.1.inc':
-                return array(
+                return [
                     17 => 1,
                     22 => 1,
                     27 => 1,
@@ -37,9 +35,9 @@ class ReturnTypeDeclarationUnitTest extends AbstractSniffUnitTest
                     47 => 1,
                     53 => 1,
                     59 => 1,
-                );
+                ];
             case 'ReturnTypeDeclarationUnitTest.2.inc':
-                return array(
+                return [
                     17 => 1,
                     22 => 1,
                     27 => 1,
@@ -49,9 +47,9 @@ class ReturnTypeDeclarationUnitTest extends AbstractSniffUnitTest
                     47 => 1,
                     53 => 1,
                     59 => 1,
-                );
+                ];
             case 'ReturnTypeDeclarationUnitTest.3.inc':
-                return array(
+                return [
                     14 => 1,
                     16 => 1,
                     18 => 1,
@@ -61,9 +59,9 @@ class ReturnTypeDeclarationUnitTest extends AbstractSniffUnitTest
                     29 => 1,
                     33 => 1,
                     37 => 1,
-                );
+                ];
             case 'ReturnTypeDeclarationUnitTest.4.inc':
-                return array(
+                return [
                     17 => 1,
                     22 => 1,
                     27 => 1,
@@ -73,9 +71,9 @@ class ReturnTypeDeclarationUnitTest extends AbstractSniffUnitTest
                     47 => 1,
                     53 => 1,
                     59 => 1,
-                );
+                ];
             default:
-                return array();
+                return [];
         }//end switch
     }//end getErrorList()
 
@@ -90,6 +88,6 @@ class ReturnTypeDeclarationUnitTest extends AbstractSniffUnitTest
      */
     public function getWarningList()
     {
-        return array();
+        return [];
     }//end getWarningList()
 }//end class
