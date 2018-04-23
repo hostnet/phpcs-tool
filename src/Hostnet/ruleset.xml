@@ -98,6 +98,8 @@
     <rule ref="SlevomatCodingStandard.Classes.UnusedPrivateElements">
         <!-- Except private variables that are not used -->
         <exclude name="SlevomatCodingStandard.Classes.UnusedPrivateElements.WriteOnlyProperty"/>
+        <!-- Except properties that are not used (since this sniff cannot detect Trait's) -->
+        <exclude name="SlevomatCodingStandard.Classes.UnusedPrivateElements.UnusedProperty"/>
     </rule>
 
     <!-- Enforce doc comment spacing -->
