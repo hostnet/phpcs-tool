@@ -88,7 +88,10 @@ class Installer implements PluginInterface, EventSubscriberInterface
         $filesystem = new Filesystem();
         $config     = [
             'colors'          => '1',
-            'installed_paths' => Path::VENDOR_DIR . '/hostnet/phpcs-tool/src/',
+            'installed_paths' => implode(',', [
+                Path::VENDOR_DIR.'/hostnet/phpcs-tool/src/',
+                Path::VENDOR_DIR.'/slevomat/coding-standard/SlevomatCodingStandard',
+            ]),
         ];
 
         if (!$filesystem->exists(['phpcs.xml', 'phpcs.xml.dist'])) {
