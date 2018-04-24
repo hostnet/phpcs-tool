@@ -1,0 +1,10 @@
+<?php
+namespace Hostnet\Sniffs\Commenting;
+
+/**
+ * Description
+ * @covers \Hostnet\Sniffs\Commenting\AtCoversCounterPartSniff
+ */
+class AtCoversCounterPartSniffTest
+{
+}
