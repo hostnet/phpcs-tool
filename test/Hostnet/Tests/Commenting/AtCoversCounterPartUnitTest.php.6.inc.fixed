@@ -1,0 +1,11 @@
+<?php
+namespace Hostnet\Sniffs\Commenting;
+
+/**
+ * @covers \Hostnet\Sniffs\Commenting\AtCoversFullyQualifiedNameSniff
+ * @covers \FooBar
+ * @covers \Hostnet\Sniffs\Commenting\AtCoversCounterPartSniff
+ */
+class AtCoversCounterPartSniffTest
+{
+}
