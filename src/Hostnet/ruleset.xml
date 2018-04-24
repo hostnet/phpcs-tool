@@ -94,14 +94,6 @@
     <!-- Require comma after last element in multi-line array -->
     <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma"/>
 
-    <!-- Forbid dead code -->
-    <rule ref="SlevomatCodingStandard.Classes.UnusedPrivateElements">
-        <!-- Except private variables that are not used -->
-        <exclude name="SlevomatCodingStandard.Classes.UnusedPrivateElements.WriteOnlyProperty"/>
-        <!-- Except properties that are not used (since this sniff cannot detect Trait's) -->
-        <exclude name="SlevomatCodingStandard.Classes.UnusedPrivateElements.UnusedProperty"/>
-    </rule>
-
     <!-- Enforce doc comment spacing -->
     <rule ref="SlevomatCodingStandard.Commenting.DocCommentSpacing">
         <!-- Except lines between description and annotations -->
@@ -147,9 +139,6 @@
 
     <!-- Forbid useless unreachable catch blocks -->
     <rule ref="SlevomatCodingStandard.Exceptions.DeadCatch"/>
-
-    <!-- Require using Throwable instead of Exception -->
-    <rule ref="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly"/>
 
     <!-- Require use statements to be alphabetically sorted -->
     <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses"/>
