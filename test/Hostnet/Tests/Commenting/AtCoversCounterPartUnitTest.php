@@ -46,7 +46,13 @@ class AtCoversCounterPartUnitTest extends AbstractSniffUnitTest
                 7  => 1,
             ],
             'AtCoversCounterPartUnitTest.php.10.inc' => [
-                7  => 1,
+                10  => 1,
+            ],
+            'AtCoversCounterPartUnitTest.php.11.inc' => [
+                10  => 1,
+            ],
+            'AtCoversCounterPartUnitTest.php.12.inc' => [
+                10  => 1,
             ],
         ];
 
