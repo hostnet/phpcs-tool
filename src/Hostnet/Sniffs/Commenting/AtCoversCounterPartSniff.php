@@ -66,10 +66,26 @@ FIX;
             $start_of_class,
             'MissingAtCoversForCounterPart'
         )) {
+            $expected_namespace_length = \strlen($expected_covers_namespace);
+            foreach ($namespaces as $position => $namespace) {
+                if (stripos($namespace, $expected_covers_namespace) === false) {
+                    continue;
+                }
+
+                if (\strlen($namespace) > $expected_namespace_length
+                    && $namespace[$expected_namespace_length] === '\\') {
+                    continue;
+                }
+
+                $phpcs_file->fixer->replaceToken($position, $expected_covers_namespace);
+
+                return count($tokens) + 1;
+            }
+
             $phpcs_file->fixer->addContentBefore($fix_position, $fix);
         }
 
-        return $stack_ptr;
+        return count($tokens) + 1;
     }
 
     private function extractCoverageNamespaces(File $phpcs_file, int $close_tag_position): array
@@ -83,7 +99,7 @@ FIX;
                 continue;
             }
 
-            $coverage_namespaces[] = $tokens[$i + 2]['content'];
+            $coverage_namespaces[$i + 2] = $tokens[$i + 2]['content'];
         }
 
         return $coverage_namespaces;
