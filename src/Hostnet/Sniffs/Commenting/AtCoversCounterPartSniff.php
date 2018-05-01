@@ -48,13 +48,13 @@ class AtCoversCounterPartSniff extends FileCommentSniff
             return count($tokens) + 1;
         }
 
-        $fix           = <<<FIX
+        $fix          = <<<FIX
 /**
  * @covers $expected_covers_namespace
  */
 FIX;
-        $fix          .= PHP_EOL;
-        $fix_position  = $start_of_class;
+        $fix         .= PHP_EOL;
+        $fix_position = $start_of_class;
         // The class doc should be within +/- 5 tokens of the class token.
         if ($end_of_header_doc !== false && $end_of_header_doc > ($start_of_class - 5)) {
             $fix          = sprintf("* @covers %s\n ", $expected_covers_namespace);
