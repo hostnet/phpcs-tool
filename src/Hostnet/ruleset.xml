@@ -29,7 +29,12 @@
     <rule ref="Generic.PHP.ForbiddenFunctions"/>
     <rule ref="Generic.PHP.NoSilencedErrors"/>
 
-    <rule ref="Generic.Formatting.MultipleStatementAlignment"/>
+    <rule ref="Generic.Formatting.MultipleStatementAlignment">
+        <properties>
+            <property name="ignoreMultiLine" value="true"/>
+            <property name="error" value="true"/>
+        </properties>
+    </rule>
 
     <rule ref="Generic.Files.LineLength">
         <properties>
