@@ -15,9 +15,9 @@ use PHP_CodeSniffer\Sniffs\Sniff;
  */
 class StrictSniff implements Sniff
 {
-    const ERROR = 'declare(strict_types = 1) not found';
+    private const ERROR = 'declare(strict_types = 1) not found';
 
-    const R_VALUE = [
+    private const R_VALUE = [
         T_LNUMBER,                    //integers
         T_STRING,                     //identifiers
         T_NUM_STRING,                 // numeric array index inside string
@@ -29,11 +29,6 @@ class StrictSniff implements Sniff
     ];
 
     /**
-     * Returns an array of tokens this test wants to listen for.
-     *
-     * The PHP open tag is returned, because we want to find the
-     * first statement in the file.
-     *
      * @return int[]
      */
     public function register(): array
@@ -43,13 +38,7 @@ class StrictSniff implements Sniff
 
 
     /**
-     * Processes this test, when one of its tokens is encountered.
-     *
-     * @param File $phpcs_file The file being scanned.
-     * @param int  $stack_ptr The position of the current token
-     *                                        in the stack passed in $tokens.
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function process(File $phpcs_file, $stack_ptr): int
     {
@@ -104,14 +93,6 @@ class StrictSniff implements Sniff
         return $eof;
     }
 
-    /**
-     * Add a "declare(strict_types = 1);" statement to $phpcs_file at the $stack_ptr position.
-     *
-     * @param File $phpcs_file
-     * @param int  $stack_ptr
-     *
-     * @return bool
-     */
     private function addDeclare(File $phpcs_file, int $stack_ptr): bool
     {
         return $phpcs_file->fixer->addContent($stack_ptr, 'declare(strict_types=1);' . $phpcs_file->eolChar);

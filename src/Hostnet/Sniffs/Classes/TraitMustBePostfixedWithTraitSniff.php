@@ -17,18 +17,15 @@ class TraitMustBePostfixedWithTraitSniff implements Sniff
     /**
      * @return int[]
      */
-    public function register()
+    public function register(): array
     {
         return [T_TRAIT];
     }
 
     /**
-     * @param File $phpcs_file
-     * @param int  $stack_ptr
-     *
-     * @return void
+     * {@inheritdoc}
      */
-    public function process(File $phpcs_file, $stack_ptr)
+    public function process(File $phpcs_file, $stack_ptr): void
     {
         // Search till trait name.
         $index = 0;
@@ -38,9 +35,8 @@ class TraitMustBePostfixedWithTraitSniff implements Sniff
             $index++;
         }
 
-        $ptr    = $stack_ptr + $index;
-        $f_name = $phpcs_file->getTokens()[$ptr]['content'];
-        if (preg_match('/Trait$/', $f_name)) {
+        $ptr = $stack_ptr + $index;
+        if (preg_match('/Trait$/', $phpcs_file->getTokens()[$ptr]['content'])) {
             return;
         }
 

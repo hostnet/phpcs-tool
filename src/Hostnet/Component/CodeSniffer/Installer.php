@@ -36,7 +36,7 @@ class Installer implements PluginInterface, EventSubscriberInterface
     /**
      * Configuration for standalone use in a system wide installation scenario
      */
-    public static function configureAsRoot()
+    public static function configureAsRoot(): void
     {
         $filesystem = new Filesystem();
         $vendor_dir = Path::VENDOR_DIR . '/hostnet/phpcs-tool/src';
@@ -72,8 +72,7 @@ class Installer implements PluginInterface, EventSubscriberInterface
     public function execute(): void
     {
         self::configure();
-
-        if (!$this->io->isVerbose()) {
+        if (false === $this->io->isVerbose()) {
             return;
         }
 
@@ -83,7 +82,7 @@ class Installer implements PluginInterface, EventSubscriberInterface
     /**
      * Configure the Hostnet code style
      */
-    public static function configure()
+    public static function configure(): void
     {
         $filesystem = new Filesystem();
         $config     = [

@@ -11,26 +11,19 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 use PHPUnit\Framework\TestCase;
 
 /**
- * PHPUnit 5 deprecated the \PHPUnit_Framework_TestCase class
- * in favour of \PHPUnit\Framework\TestCase. In PHPUnit 6 the old
- * class is removed. Detect and replace usages of the old class.
+ * PHPUnit 5 deprecated the \PHPUnit_Framework_TestCase class in favour of \PHPUnit\Framework\TestCase.
+ * In PHPUnit 6 the old class is removed. Detect and replace usages of the old class.
  */
 class NamespaceSniff implements Sniff
 {
-    const NON_NAMESPACE_TEST_CLASS = 'PHPUnit_Framework_TestCase';
-    const PARENT_TEST_CLASS        = 'TestCase';
-    const WARNING                  = 'Usage of '
-                                     . self::NON_NAMESPACE_TEST_CLASS
-                                     . ' found, please use '
-                                     . TestCase::class
-                                     . '.';
+    private const NON_NAMESPACE_TEST_CLASS = 'PHPUnit_Framework_TestCase';
+    private const PARENT_TEST_CLASS        = 'TestCase';
+    private const WARNING                  = 'Usage of '
+        . self::NON_NAMESPACE_TEST_CLASS
+        . ' found, please use '
+        . TestCase::class . '.';
 
     /**
-     * Returns an array of tokens this test wants to listen for.
-     *
-     * The PHP open tag is returned, because we want to find the
-     * first statement in the file.
-     *
      * @return int[]
      */
     public function register(): array
@@ -38,16 +31,10 @@ class NamespaceSniff implements Sniff
         return [T_EXTENDS];
     }
 
-
     /**
-     * Processes this test, when one of its tokens is encountered.
-     *
-     * @param File $phpcs_file The file being scanned.
-     * @param int  $stack_ptr The position of the current token in the stack passed in $tokens.
-     *
-     * @return int
+     * {@inheritdoc}
      */
-    public function process(File $phpcs_file, $stack_ptr)
+    public function process(File $phpcs_file, $stack_ptr): int
     {
         $tokens = $phpcs_file->getTokens();
 
@@ -70,7 +57,7 @@ class NamespaceSniff implements Sniff
         return $class_ptr;
     }
 
-    private function fix(File $phpcs_file, int $class_ptr)
+    private function fix(File $phpcs_file, int $class_ptr): void
     {
         $tokens    = $phpcs_file->getTokens();
         $stack_ptr = $phpcs_file->findNext([T_CLASS, T_USE], 0);
@@ -79,21 +66,16 @@ class NamespaceSniff implements Sniff
         if (T_CLASS === $tokens[$stack_ptr]['code']) {
             $previous = $phpcs_file->findPrevious(T_WHITESPACE, $stack_ptr - 1, $stack_ptr - 2, true);
 
-            $previous = $phpcs_file->findPrevious(
-                [
-                    T_DOC_COMMENT_OPEN_TAG,
-                    T_DOC_COMMENT,
-                    T_DOC_COMMENT_CLOSE_TAG,
-                    T_DOC_COMMENT_STAR,
-                    T_DOC_COMMENT_STRING,
-                    T_DOC_COMMENT_TAG,
-                    T_DOC_COMMENT_WHITESPACE,
-                    T_COMMENT,
-                ],
-                false !== $previous ? $previous - 1 : $stack_ptr - 1,
-                0,
-                true
-            );
+            $previous = $phpcs_file->findPrevious([
+                T_DOC_COMMENT_OPEN_TAG,
+                T_DOC_COMMENT,
+                T_DOC_COMMENT_CLOSE_TAG,
+                T_DOC_COMMENT_STAR,
+                T_DOC_COMMENT_STRING,
+                T_DOC_COMMENT_TAG,
+                T_DOC_COMMENT_WHITESPACE,
+                T_COMMENT,
+            ], false !== $previous ? $previous - 1 : $stack_ptr - 1, 0, true);
 
             $phpcs_file->fixer->addContent(
                 false !== $previous ? $previous : $stack_ptr - 1,
