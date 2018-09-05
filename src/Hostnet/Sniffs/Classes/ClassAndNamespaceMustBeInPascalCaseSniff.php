@@ -16,19 +16,17 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 class ClassAndNamespaceMustBeInPascalCaseSniff implements Sniff
 {
     /**
-     * @return string[]
+     * @return int[]
      */
-    public function register()
+    public function register(): array
     {
         return [T_CLASS, T_INTERFACE, T_TRAIT, T_NAMESPACE];
     }
 
     /**
-     * @param File $phpcs_file
-     * @param int  $stack_ptr
-     * @return void
+     * {@inheritdoc}
      */
-    public function process(File $phpcs_file, $stack_ptr)
+    public function process(File $phpcs_file, $stack_ptr): void
     {
         $index = 0;
         // Find first string (= name).

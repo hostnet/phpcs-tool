@@ -31,48 +31,31 @@ class ReturnTypeDeclarationSniff implements Sniff
      */
     public $colon_return_type_spacing = ' ';
 
-
     /**
-     * Registers the tokens that this sniff wants to listen for.
-     *
      * @return int[]
      */
-    public function register()
+    public function register(): array
     {
-        return [
-            T_FUNCTION,
-            T_CLOSURE,
-        ];
+        return [T_FUNCTION, T_CLOSURE];
     }
 
 
     /**
-     * Processes this test, when one of its tokens is encountered.
-     *
-     * @param File $phpcs_file The file being scanned.
-     * @param int  $stack_ptr The position of the current token
-     * in the stack passed in $tokens.
-     *
-     * @return void
+     * {@inheritdoc}
      */
-    public function process(File $phpcs_file, $stack_ptr)
+    public function process(File $phpcs_file, $stack_ptr): void
     {
         $tokens = $phpcs_file->getTokens();
 
         $closing_parenthesis_position = $this->getClosingParenthesis($phpcs_file, $tokens, $stack_ptr);
         $end_position                 = $this->getCharacterAfterReturnTypeDeclaration($phpcs_file, $tokens, $stack_ptr);
 
-        $find = [
-            T_COLON,
-            T_RETURN_TYPE,
-            T_WHITESPACE,
-        ];
-
         $closing_parenthesis_colon_spacing = $this->closing_parenthesis_colon_spacing;
         $colon_return_type_spacing         = $this->colon_return_type_spacing;
-        $acc                               = '';
         $next_separator                    = $closing_parenthesis_position;
+        $acc                               = '';
 
+        $find = [T_COLON, T_RETURN_TYPE, T_WHITESPACE];
         while (($next_separator = $phpcs_file->findNext($find, $next_separator + 1, $end_position)) !== false) {
             if ($tokens[$next_separator]['code'] === T_COLON) {
                 $closing_parenthesis_colon_spacing = $acc;
@@ -135,17 +118,15 @@ class ReturnTypeDeclarationSniff implements Sniff
 
 
     /**
-     * Get the position of a function's closing parenthesis within the
-     * token stack.
+     * Get the position of a function's closing parenthesis within the token stack.
      *
-     * @param File  $phpcs_file The file being scanned.
-     * @param array $tokens Token stack for this file
-     * @param int   $stack_ptr The position of the current token
-     * in the stack passed in $tokens.
+     * @param File $phpcs_file
+     * @param array $tokens
+     * @param int $stack_ptr
      *
-     * @return int position within the token stack
+     * @return int
      */
-    private function getClosingParenthesis(File $phpcs_file, array $tokens, $stack_ptr)
+    private function getClosingParenthesis(File $phpcs_file, array $tokens, $stack_ptr): int
     {
         $closing_parenthesis = $tokens[$stack_ptr]['parenthesis_closer'];
 
@@ -164,19 +145,13 @@ class ReturnTypeDeclarationSniff implements Sniff
 
 
     /**
-     * Get the position of first character after the return type declaration
-     * within the token stack.
-     * This can be an opening brace, or, in case of an interface,
-     * a semicolon.
+     * @param File $phpcs_file
+     * @param array $tokens
+     * @param int $stack_ptr
      *
-     * @param File  $phpcs_file The file being scanned.
-     * @param array $tokens Token stack for this file
-     * @param int   $stack_ptr The position of the current token
-     * in the stack passed in $tokens.
-     *
-     * @return int position within the token stack
+     * @return int
      */
-    private function getCharacterAfterReturnTypeDeclaration(File $phpcs_file, array $tokens, $stack_ptr)
+    private function getCharacterAfterReturnTypeDeclaration(File $phpcs_file, array $tokens, $stack_ptr): int
     {
         if (isset($tokens[$stack_ptr]['scope_opener']) === false) {
             return $phpcs_file->findNext(T_SEMICOLON, $stack_ptr);
@@ -188,15 +163,15 @@ class ReturnTypeDeclarationSniff implements Sniff
     /**
      * Fix the spacing between start and end
      *
-     * @param File   $phpcs_file The file being scanned.
-     * @param array  $tokens Token stack for this file
+     * @param File $phpcs_file The file being scanned.
+     * @param array $tokens Token stack for this file
      * @param string $required_spacing Required spacing between start and end
-     * @param int    $start Position of the start in the token stack
-     * @param int    $end Position of the end in the token stack
+     * @param int $start Position of the start in the token stack
+     * @param int $end Position of the end in the token stack
      *
      * @return void
      */
-    private function fixSpacing(File $phpcs_file, $tokens, $required_spacing, $start, $end)
+    private function fixSpacing(File $phpcs_file, $tokens, $required_spacing, $start, $end): void
     {
         if (($start + 1) === $end && empty($required_spacing) === false) {
             //insert whitespace if there is no whitespace, and whitespace is required

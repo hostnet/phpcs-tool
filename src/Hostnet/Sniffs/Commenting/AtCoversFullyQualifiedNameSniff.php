@@ -18,23 +18,15 @@ class AtCoversFullyQualifiedNameSniff extends FileCommentSniff
     const ERROR_MESSAGE = 'Covers annotation should use fully qualified class name (it should start with a "\") "%s"';
 
     /**
-     * Returns an array of tokens this test wants to listen for.
-     *
      * @return int[]
      */
-    public function register()
+    public function register(): array
     {
         return [T_DOC_COMMENT_TAG];
     }
 
     /**
-     * Processes this test, when one of its tokens is encountered.
-     *
-     * @param File $phpcs_file The file being scanned.
-     * @param int  $stack_ptr The position of the current token in the stack passed in $tokens.
-     *
-     * @return int returns a stack pointer. The sniff will not be called again on the current file until the returned
-     *              stack pointer is reached. Return (count($tokens) + 1) to skip the rest of the file.
+     * {@inheritdoc}
      */
     public function process(File $phpcs_file, $stack_ptr)
     {

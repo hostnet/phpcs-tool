@@ -27,26 +27,22 @@ class UseStatementsAlphabeticallyOrderedSniff implements Sniff
     private $current_file;
 
     /**
-     * Returns the token types that this sniff is interested in.
-     *
      * @return int[]
      */
-    public function register()
+    public function register(): array
     {
         return [T_USE, T_CLASS, T_TRAIT];
     }
 
     /**
-     * Processes the tokens that this sniff is interested in.
-     *
-     * @param File     $phpcs_file The file where the token was found.
-     * @param int|bool $stack_ptr The position in the stack where the token was found.
+     * @param File $phpcs_file
+     * @param int|bool $stack_ptr
      *
      * @return void
      */
-    public function process(File $phpcs_file, $stack_ptr)
+    public function process(File $phpcs_file, $stack_ptr): void
     {
-        if (in_array($phpcs_file->getTokens()[$stack_ptr]['code'], [T_CLASS, T_TRAIT], true)) {
+        if (\in_array($phpcs_file->getTokens()[$stack_ptr]['code'], [T_CLASS, T_TRAIT], true)) {
             if ($this->initial_use && $this->end_use && $this->fixed) {
                 $this->fixUseStatements($phpcs_file);
             }
@@ -86,29 +82,23 @@ class UseStatementsAlphabeticallyOrderedSniff implements Sniff
         $this->fixUseStatements($phpcs_file);
     }
 
-    private function fixUseStatements(File $phpcs_file)
+    private function fixUseStatements(File $phpcs_file): void
     {
         $phpcs_file->fixer->beginChangeset();
 
         usort($this->use_statements, 'strcasecmp');
 
-        $content = implode(
-            "\n",
-            array_map(
-                function ($item) {
-                    $extra = ';';
-                    if (isset($this->after_use_statement[$item])) {
-                        $this->after_use_statement[$item] = rtrim($this->after_use_statement[$item], ", \n");
-                        if (!empty($this->after_use_statement[$item])) {
-                            $extra = $this->after_use_statement[$item] . ';';
-                        }
-                    }
+        $content = implode("\n", array_map(function ($item) {
+            $extra = ';';
+            if (isset($this->after_use_statement[$item])) {
+                $this->after_use_statement[$item] = rtrim($this->after_use_statement[$item], ", \n");
+                if (!empty($this->after_use_statement[$item])) {
+                    $extra = $this->after_use_statement[$item] . ';';
+                }
+            }
 
-                    return 'use ' . $item . $extra;
-                },
-                $this->use_statements
-            )
-        );
+            return 'use ' . $item . $extra;
+        }, $this->use_statements));
 
         $phpcs_file->fixer->replaceToken($this->initial_use, $content);
         for ($i = $this->initial_use + 1; $i < $this->end_use; $i++) {
@@ -126,12 +116,12 @@ class UseStatementsAlphabeticallyOrderedSniff implements Sniff
      *
      * @return void
      */
-    private function createAndCheckStatements(File $phpcs_file, $stack_ptr)
+    private function createAndCheckStatements(File $phpcs_file, $stack_ptr): void
     {
         $tokens           = $phpcs_file->getTokens();
         $current_use_stmt = '';
 
-        while (!in_array($tokens[$stack_ptr]['code'], [T_WHITESPACE, T_SEMICOLON, T_COMMA], true)) {
+        while (!\in_array($tokens[$stack_ptr]['code'], [T_WHITESPACE, T_SEMICOLON, T_COMMA], true)) {
             if ($tokens[$stack_ptr]['code'] !== T_COMMENT) {
                 //the expression: use MySpace\/*comment*/SubSpace;  is valid PHP
                 $current_use_stmt .= $tokens[$stack_ptr]['content'];
@@ -174,7 +164,7 @@ class UseStatementsAlphabeticallyOrderedSniff implements Sniff
         }
     }
 
-    private function copy(array &$tokens, $initial_ptr, $end_ptr)
+    private function copy(array &$tokens, $initial_ptr, $end_ptr): string
     {
         $res = '';
         for ($i = $initial_ptr; $i < $end_ptr; $i++) {

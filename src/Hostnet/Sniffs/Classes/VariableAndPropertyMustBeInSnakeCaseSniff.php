@@ -14,23 +14,30 @@ use PHP_CodeSniffer\Sniffs\Sniff;
  */
 class VariableAndPropertyMustBeInSnakeCaseSniff implements Sniff
 {
-    const SUPER_GLOBALS = ['GLOBALS', '_SERVER', '_GET', '_POST', '_FILES', '_COOKIE', '_SESSION', '_REQUEST', '_ENV'];
+    private const SUPER_GLOBALS = [
+        'GLOBALS',
+        '_SERVER',
+        '_GET',
+        '_POST',
+        '_FILES',
+        '_COOKIE',
+        '_SESSION',
+        '_REQUEST',
+        '_ENV',
+    ];
 
     /**
      * @return int[]
      */
-    public function register()
+    public function register(): array
     {
         return [T_VARIABLE, T_PROPERTY];
     }
 
     /**
-     * @param File $phpcs_file
-     * @param int  $stack_ptr
-     *
-     * @return void
+     * {@inheritdoc}
      */
-    public function process(File $phpcs_file, $stack_ptr)
+    public function process(File $phpcs_file, $stack_ptr): void
     {
         // If variable is used statically from other class, skip checks
         // If variable is read from object, skip checks
@@ -47,7 +54,7 @@ class VariableAndPropertyMustBeInSnakeCaseSniff implements Sniff
             return;
         }
 
-        if (in_array($f_name, self::SUPER_GLOBALS, true)) {
+        if (\in_array($f_name, self::SUPER_GLOBALS, true)) {
             return;
         }
 

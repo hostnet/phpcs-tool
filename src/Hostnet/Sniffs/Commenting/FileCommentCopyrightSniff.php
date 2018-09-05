@@ -7,11 +7,12 @@ declare(strict_types=1);
 namespace Hostnet\Sniffs\Commenting;
 
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 
 /**
  * This Sniff sniffs that all files examined have a @copyright notation + adds a fixer for those cases.
  */
-class FileCommentCopyrightSniff
+class FileCommentCopyrightSniff implements Sniff
 {
     /**
      * Which years should be noted for the copyright, if not configured the _years is 'calculated'
@@ -44,27 +45,25 @@ class FileCommentCopyrightSniff
     private $local_years;
 
     /**
-     * Which smells form the parent do we want to filter.
+     * Which smells from the parent do we want to filter.
      *
      * @var string[]
      */
-    public $filter = [
-        'Hostnet.Commenting.FileCommentCopyright.MissingVersion',
-    ];
+    public $filter = ['Hostnet.Commenting.FileCommentCopyright.MissingVersion'];
 
     /**
      * Returns an array of tokens this test wants to listen for.
      *
      * @return array
      */
-    public function register()
+    public function register(): array
     {
         return [T_OPEN_TAG];
     }
 
-    private function addFixableError(File $phpcs_file)
+    private function addFixableError(File $phpcs_file): void
     {
-        if (!$phpcs_file->addFixableError('Missing file doc comment lines', 0, 'Missing')) {
+        if (false === $phpcs_file->addFixableError('Missing file doc comment lines', 0, 'Missing')) {
             return;
         }
 
@@ -81,9 +80,9 @@ class FileCommentCopyrightSniff
      *
      * @param string $filename the filename to investigate.
      */
-    private function initYears($filename)
+    private function initYears($filename): void
     {
-        if (!isset($this->years)) {
+        if ($this->years === null) {
             $now_year = date('Y');
 
             //try git
@@ -125,7 +124,7 @@ class FileCommentCopyrightSniff
      *
      * @return void
      */
-    private function processCopyrightTags($phpcs_file, $stack_ptr, $comment_start)
+    private function processCopyrightTags(File $phpcs_file, $stack_ptr, $comment_start): void
     {
         $tokens = $phpcs_file->getTokens();
         foreach ($tokens[$comment_start]['comment_tags'] as $tag) {
@@ -168,7 +167,7 @@ class FileCommentCopyrightSniff
      * @param int $copyright_tag_ptr where does the @copyright tag starts?
      * @param int $comment_end_ptr where does the comment ends
      */
-    private function checkForContentInCopyrightTag(File $phpcs_file, $copyright_tag_ptr, $comment_end_ptr)
+    private function checkForContentInCopyrightTag(File $phpcs_file, $copyright_tag_ptr, $comment_end_ptr): void
     {
         $tokens = $phpcs_file->getTokens();
         $ptr    = $phpcs_file->findNext(T_DOC_COMMENT_STRING, $copyright_tag_ptr, $comment_end_ptr);
@@ -184,6 +183,9 @@ class FileCommentCopyrightSniff
         $phpcs_file->fixer->addContent($copyright_tag_ptr, ' ' . $this->getCopyrightLine());
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function process(File $phpcs_file, $stack_ptr): int
     {
         //Find the year of the file being examined.
@@ -277,12 +279,12 @@ class FileCommentCopyrightSniff
     /**
      * Process the copyright tags.
      *
-     * @param \PHP_CodeSniffer\Files\File $phpcs_file The file being scanned.
-     * @param array $tags The tokens for these tags.
+     * @param File $phpcs_file
+     * @param array $tags
      *
      * @return void
      */
-    protected function processCopyright($phpcs_file, array $tags)
+    protected function processCopyright(File $phpcs_file, array $tags): void
     {
         $tokens = $phpcs_file->getTokens();
         foreach ($tags as $tag) {
@@ -302,15 +304,14 @@ class FileCommentCopyrightSniff
                     }
 
                     if ($matches[4] !== '' && $matches[4] !== null && $matches[4] < $matches[1]) {
-                        $error =
-                            sprintf(
-                                'Invalid year span "%s%s%s" found; consider "%s%s" instead',
-                                $matches[1],
-                                $matches[3],
-                                $matches[4],
-                                $matches[4],
-                                $matches[1]
-                            );
+                        $error = sprintf(
+                            'Invalid year span "%s%s%s" found; consider "%s%s" instead',
+                            $matches[1],
+                            $matches[3],
+                            $matches[4],
+                            $matches[4],
+                            $matches[1]
+                        );
 
                         $phpcs_file->addWarning($error, $tag, 'InvalidCopyright');
                     }

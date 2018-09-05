@@ -17,14 +17,6 @@ class AtCoversCounterPartSniff extends FileCommentSniff
     /**
      * {@inheritdoc}
      */
-    public function register()
-    {
-        return [T_OPEN_TAG];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function process(File $phpcs_file, $stack_ptr)
     {
         $tokens = $phpcs_file->getTokens();

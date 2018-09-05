@@ -12,30 +12,24 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 /**
  * Checks if their is only one use statement in every line.
  * e.g. use SomeSpace, SomeOtherSpace;  is not allowed
+ *
  * Also looks for inline comments in the middle of use statements
  * e.g. use MySpace\/ * comment * /SubSpace;  is valid PHP
  */
 class OnlyOneUseStatementPerLineSniff implements Sniff
 {
     /**
-     * Returns the token types that this sniff is interested in.
-     *
      * @return int[]
      */
-    public function register()
+    public function register(): array
     {
         return [T_USE];
     }
 
     /**
-     * Processes the tokens that this sniff is interested in.
-     *
-     * @param File $phpcs_file The file where the token was found.
-     * @param int  $stack_ptr The position in the stack where the token was found.
-     *
-     * @return void
+     * {@inheritdoc}
      */
-    public function process(File $phpcs_file, $stack_ptr)
+    public function process(File $phpcs_file, $stack_ptr): void
     {
         // only check for use statements that are before the first class declaration
         // classes can have use statements for traits, for which we are not interested in this sniff
