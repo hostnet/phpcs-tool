@@ -66,16 +66,21 @@ class NamespaceSniff implements Sniff
         if (T_CLASS === $tokens[$stack_ptr]['code']) {
             $previous = $phpcs_file->findPrevious(T_WHITESPACE, $stack_ptr - 1, $stack_ptr - 2, true);
 
-            $previous = $phpcs_file->findPrevious([
-                T_DOC_COMMENT_OPEN_TAG,
-                T_DOC_COMMENT,
-                T_DOC_COMMENT_CLOSE_TAG,
-                T_DOC_COMMENT_STAR,
-                T_DOC_COMMENT_STRING,
-                T_DOC_COMMENT_TAG,
-                T_DOC_COMMENT_WHITESPACE,
-                T_COMMENT,
-            ], false !== $previous ? $previous - 1 : $stack_ptr - 1, 0, true);
+            $previous = $phpcs_file->findPrevious(
+                [
+                    T_DOC_COMMENT_OPEN_TAG,
+                    T_DOC_COMMENT,
+                    T_DOC_COMMENT_CLOSE_TAG,
+                    T_DOC_COMMENT_STAR,
+                    T_DOC_COMMENT_STRING,
+                    T_DOC_COMMENT_TAG,
+                    T_DOC_COMMENT_WHITESPACE,
+                    T_COMMENT,
+                ],
+                false !== $previous ? $previous - 1 : $stack_ptr - 1,
+                0,
+                true
+            );
 
             $phpcs_file->fixer->addContent(
                 false !== $previous ? $previous : $stack_ptr - 1,
