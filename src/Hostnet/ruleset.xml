@@ -319,6 +319,6 @@
     </rule>
     <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines">
         <!-- turned off by PSR2 -> turning back on -->
-        <severity>error</severity>
+        <severity>5</severity>
     </rule>
 </ruleset>
