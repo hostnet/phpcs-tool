@@ -130,9 +130,6 @@
     <!-- report invalid format of inline phpDocs with @var -->
     <rule ref="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration"/>
 
-    <!-- Require usage of early exit -->
-    <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit"/>
-
     <!-- Require language constructs without parentheses -->
     <rule ref="SlevomatCodingStandard.ControlStructures.LanguageConstructWithParentheses"/>
 

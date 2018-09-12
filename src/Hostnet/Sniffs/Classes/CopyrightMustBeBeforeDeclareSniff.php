@@ -21,7 +21,10 @@ class CopyrightMustBeBeforeDeclareSniff implements Sniff
         return [T_OPEN_TAG];
     }
 
-    public function process(File $phpcs_file, $stack_ptr)
+    /**
+     * {@inheritdoc}
+     */
+    public function process(File $phpcs_file, $stack_ptr): int
     {
         $tokens      = $phpcs_file->getTokens();
         $end_of_file = count($tokens) + 1;

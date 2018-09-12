@@ -15,31 +15,28 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 class InterfaceMustBePostfixedWithInterfaceSniff implements Sniff
 {
     /**
-     * @return string[]
+     * @return int[]
      */
-    public function register()
+    public function register(): array
     {
         return [T_INTERFACE];
     }
 
     /**
-     * @param File $phpcs_file
-     * @param int  $stack_ptr
-     * @return  void
+     * {@inheritdoc}
      */
-    public function process(File $phpcs_file, $stack_ptr)
+    public function process(File $phpcs_file, $stack_ptr): void
     {
         // Search till interface name.
         $index = 0;
         while (isset($phpcs_file->getTokens()[$stack_ptr + $index])
-               && $phpcs_file->getTokens()[$stack_ptr + $index]['type'] !== 'T_STRING'
+            && $phpcs_file->getTokens()[$stack_ptr + $index]['type'] !== 'T_STRING'
         ) {
             $index++;
         }
 
-        $ptr    = $stack_ptr + $index;
-        $f_name = $phpcs_file->getTokens()[$ptr]['content'];
-        if (preg_match('/Interface$/', $f_name)) {
+        $ptr = $stack_ptr + $index;
+        if (preg_match('/Interface$/', $phpcs_file->getTokens()[$ptr]['content'])) {
             return;
         }
 

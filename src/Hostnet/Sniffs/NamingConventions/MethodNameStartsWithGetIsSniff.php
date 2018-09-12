@@ -14,14 +14,18 @@ use PHP_CodeSniffer\Sniffs\Sniff;
  */
 class MethodNameStartsWithGetIsSniff implements Sniff
 {
-    public function register()
+    /**
+     * @return int[]
+     */
+    public function register(): array
     {
-        return [
-            T_FUNCTION,
-        ];
+        return [T_FUNCTION];
     }
 
-    public function process(File $phpcs_file, $stack_ptr)
+    /**
+     * {@inheritdoc}
+     */
+    public function process(File $phpcs_file, $stack_ptr): void
     {
         // search till T_STRING
         $index = 0;

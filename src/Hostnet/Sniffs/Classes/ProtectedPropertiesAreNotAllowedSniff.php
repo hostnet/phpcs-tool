@@ -17,18 +17,15 @@ class ProtectedPropertiesAreNotAllowedSniff implements Sniff
     /**
      * @return int[]
      */
-    public function register()
+    public function register(): array
     {
         return [T_PROTECTED];
     }
 
     /**
-     * @param File $phpcs_file
-     * @param int  $stack_ptr
-     *
-     * @return void
+     * {@inheritdoc}
      */
-    public function process(File $phpcs_file, $stack_ptr)
+    public function process(File $phpcs_file, $stack_ptr): void
     {
         $original_stack_ptr = $stack_ptr;
 
@@ -39,7 +36,7 @@ class ProtectedPropertiesAreNotAllowedSniff implements Sniff
 
         // Skip whitespace and comments
         while ($tokens[$stack_ptr]['code'] === T_WHITESPACE
-               || $tokens[$stack_ptr]['code'] === T_COMMENT) {
+            || $tokens[$stack_ptr]['code'] === T_COMMENT) {
             $stack_ptr++;
         }
 

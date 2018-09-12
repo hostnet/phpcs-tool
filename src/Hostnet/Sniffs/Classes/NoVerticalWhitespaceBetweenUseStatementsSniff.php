@@ -15,24 +15,20 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 class NoVerticalWhitespaceBetweenUseStatementsSniff implements Sniff
 {
     /**
-     * Returns the token types that this sniff is interested in.
-     *
-     * @return array(int)
+     * @return int[]
      */
-    public function register()
+    public function register(): array
     {
         return [T_USE];
     }
 
     /**
-     * Processes the tokens that this sniff is interested in.
-     *
-     * @param File     $phpcs_file The file where the token was found.
-     * @param int|bool $stack_ptr The position in the stack where the token was found.
+     * @param File $phpcs_file
+     * @param int|bool $stack_ptr
      *
      * @return void
      */
-    public function process(File $phpcs_file, $stack_ptr)
+    public function process(File $phpcs_file, $stack_ptr): void
     {
         // only check for use statements that are before the first class declaration
         // classes can have use statements for traits, for which we are not interested in this sniff
@@ -70,7 +66,7 @@ class NoVerticalWhitespaceBetweenUseStatementsSniff implements Sniff
         }
     }
 
-    private function checkForNewlineOrComments(File $phpcs_file, $stack_ptr)
+    private function checkForNewlineOrComments(File $phpcs_file, $stack_ptr): void
     {
         $tokens = $phpcs_file->getTokens();
         if ($tokens[$stack_ptr]['code'] === T_COMMENT) {
