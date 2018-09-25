@@ -22,7 +22,7 @@ class FileCommentCopyrightSniff implements Sniff
     public $years;
 
     /**
-     * Who is the legal holder of the copyright, if software is writen during working hours it will always fall back to
+     * Who is the legal holder of the copyright, if software is written during working hours it will always fall back to
      * the company the employee works for.
      *
      * @var string
@@ -82,26 +82,21 @@ class FileCommentCopyrightSniff implements Sniff
      */
     private function initYears($filename): void
     {
-        if ($this->years === null) {
-            $now_year = date('Y');
-
-            //try git
-            $year = trim(shell_exec(sprintf(
-                'git log --reverse --pretty=format:%%ci %s 2> /dev/null |cut -d"-" -f1 | head -n1',
-                $filename
-            )) ?: '');
-            if (empty($year) || $year === '') {
-                $year = $now_year;
-            }
-
-            if ($year === $now_year) {
-                $this->local_years = $now_year;
-            } else {
-                $this->local_years = $year . '-' . $now_year;
-            }
-        } else {
+        // Set configured year if set, otherwise calculate.
+        if (null !== $this->years) {
             $this->local_years = $this->years;
+            return;
         }
+
+        $now_year = date('Y');
+
+        // Try getting the file epoch year from git.
+        $start_year = trim(shell_exec(sprintf(
+            'git log --reverse --pretty=format:%%ci %s 2> /dev/null |cut -d"-" -f1 | head -n1',
+            $filename
+        )) ?: $now_year);
+
+        $this->local_years = $start_year . '-present';
     }
 
     /**
@@ -144,7 +139,7 @@ class FileCommentCopyrightSniff implements Sniff
             return;
         }
 
-        if ($tokens[$tokens[$comment_start]['comment_closer']]['line'] == $tokens[$comment_start]['line']) {
+        if ($tokens[$tokens[$comment_start]['comment_closer']]['line'] === $tokens[$comment_start]['line']) {
             $phpcs_file->fixer->replaceToken($tokens[$comment_start]['comment_closer'] - 1, '');
             $phpcs_file->fixer->addContentBefore(
                 $tokens[$comment_start]['comment_closer'],
@@ -260,7 +255,7 @@ class FileCommentCopyrightSniff implements Sniff
             T_PROPERTY,
         ];
 
-        if (true === in_array($tokens[$next_token]['code'], $ignore, true)) {
+        if (true === \in_array($tokens[$next_token]['code'], $ignore, true)) {
             $phpcs_file->addError('Missing file doc comment', $stack_ptr, 'Missing');
             $phpcs_file->recordMetric($stack_ptr, 'File has doc comment', 'no');
 
@@ -295,30 +290,33 @@ class FileCommentCopyrightSniff implements Sniff
 
             $content = $tokens[$tag + 2]['content'];
             $matches = [];
-            if (preg_match('/^([0-9]{4})((.{1})([0-9]{4}))? (.+)$/', $content, $matches) !== 0) {
-                // Check earliest-latest year order.
-                if ($matches[3] !== '' && $matches[3] !== null) {
-                    if ($matches[3] !== '-') {
-                        $error = 'A hyphen must be used between the earliest and latest year';
-                        $phpcs_file->addError($error, $tag, 'CopyrightHyphen');
-                    }
-
-                    if ($matches[4] !== '' && $matches[4] !== null && $matches[4] < $matches[1]) {
-                        $error = sprintf(
-                            'Invalid year span "%s%s%s" found; consider "%s%s" instead',
-                            $matches[1],
-                            $matches[3],
-                            $matches[4],
-                            $matches[4],
-                            $matches[1]
-                        );
-
-                        $phpcs_file->addWarning($error, $tag, 'InvalidCopyright');
-                    }
-                }
-            } else {
+            if (preg_match('/^(\d{4})((.{1})(\d{4}|present))? (.+)$/', $content, $matches) === 0) {
                 $error = '@copyright tag must contain a year and the name of the copyright holder';
                 $phpcs_file->addError($error, $tag, 'IncompleteCopyright');
+                continue;
+            }
+
+            // Check earliest-latest year order.
+            if (! ($matches[3] ?? false)) {
+                continue;
+            }
+
+            if ($matches[3] !== '-') {
+                $error = 'A hyphen must be used between the earliest and latest year';
+                $phpcs_file->addError($error, $tag, 'CopyrightHyphen');
+            }
+
+            if (\is_int($matches[4] ?? '') && $matches[4] < $matches[1]) {
+                $error = sprintf(
+                    'Invalid year span "%s%s%s" found; consider "%s%s" instead',
+                    $matches[1],
+                    $matches[3],
+                    $matches[4],
+                    $matches[4],
+                    $matches[1]
+                );
+
+                $phpcs_file->addWarning($error, $tag, 'InvalidCopyright');
             }
         }
     }
