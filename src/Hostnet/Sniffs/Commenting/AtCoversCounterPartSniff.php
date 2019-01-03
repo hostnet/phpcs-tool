@@ -34,7 +34,7 @@ class AtCoversCounterPartSniff extends FileCommentSniff
 
         $test_namespace            = $this->getNamespaceFromFile($phpcs_file->getFilename());
         $counter_part_namespace    = str_replace('Tests\\', '', $test_namespace);
-        $counter_part_namespace    = substr($counter_part_namespace, 0, strrpos($counter_part_namespace, 'Test'));
+        $counter_part_namespace    = \substr($counter_part_namespace, 0, \strrpos($counter_part_namespace, 'Test'));
         $expected_covers_namespace = "\\$counter_part_namespace";
         if (!\class_exists($counter_part_namespace) || \in_array($expected_covers_namespace, $namespaces, true)) {
             return count($tokens) + 1;
