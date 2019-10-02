@@ -77,7 +77,6 @@ class ReturnTypeDeclarationUnitTest extends AbstractSniffUnitTest
         }//end switch
     }//end getErrorList()
 
-
     /**
      * Returns the lines where warnings should occur.
      *

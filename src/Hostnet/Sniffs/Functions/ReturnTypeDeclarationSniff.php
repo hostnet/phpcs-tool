@@ -39,7 +39,6 @@ class ReturnTypeDeclarationSniff implements Sniff
         return [T_FUNCTION, T_CLOSURE];
     }
 
-
     /**
      * {@inheritdoc}
      */
@@ -116,7 +115,6 @@ class ReturnTypeDeclarationSniff implements Sniff
         );
     }
 
-
     /**
      * Get the position of a function's closing parenthesis within the token stack.
      *
@@ -142,7 +140,6 @@ class ReturnTypeDeclarationSniff implements Sniff
 
         return $closing_parenthesis;
     }
-
 
     /**
      * @param File $phpcs_file

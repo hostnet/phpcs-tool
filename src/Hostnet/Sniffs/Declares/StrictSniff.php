@@ -36,7 +36,6 @@ class StrictSniff implements Sniff
         return [T_OPEN_TAG];
     }
 
-
     /**
      * {@inheritdoc}
      */
