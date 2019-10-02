@@ -317,8 +317,5 @@
             <property name="ignoreBlankLines" value="false"/>
         </properties>
     </rule>
-    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines">
-        <!-- turned off by PSR2 -> turning back on -->
-        <severity>5</severity>
-    </rule>
+    <rule ref="MediaWiki.WhiteSpace.MultipleEmptyLines"/>
 </ruleset>

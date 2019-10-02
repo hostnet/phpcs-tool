@@ -90,6 +90,7 @@ class Installer implements PluginInterface, EventSubscriberInterface
             'installed_paths' => implode(',', [
                 Path::VENDOR_DIR . '/hostnet/phpcs-tool/src/',
                 Path::VENDOR_DIR . '/slevomat/coding-standard/SlevomatCodingStandard',
+                Path::VENDOR_DIR . '/mediawiki/mediawiki-codesniffer/MediaWiki',
             ]),
         ];
 
