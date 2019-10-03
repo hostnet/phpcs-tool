@@ -41,7 +41,6 @@ class NamespaceSniff implements Sniff
         // Find the parent class
         $class_ptr = $phpcs_file->findNext(T_STRING, $stack_ptr + 1, null, false, null, true);
 
-
         if (false === $class_ptr) {
             return $stack_ptr;
         }

@@ -49,7 +49,6 @@ class StrictUnitTest extends AbstractSniffUnitTest
         return [];
     }
 
-
     /**
      * Returns the lines where warnings should occur.
      *
