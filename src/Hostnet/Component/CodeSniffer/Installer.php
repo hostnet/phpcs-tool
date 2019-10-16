@@ -52,6 +52,12 @@ class Installer implements PluginInterface, EventSubscriberInterface
 
         $filesystem->mkdir($vendor_dir . '/HostnetPaths');
         $filesystem->copy(__DIR__ . '/../../../HostnetPaths/ruleset.xml', $vendor_dir . '/HostnetPaths/ruleset.xml');
+
+        $filesystem->mkdir($vendor_dir . '/HostnetExperimental');
+        $filesystem->copy(
+            __DIR__ . '/../../../HostnetExperimental/ruleset.xml',
+            $vendor_dir . '/HostnetExperimental/ruleset.xml'
+        );
     }
 
     /**
