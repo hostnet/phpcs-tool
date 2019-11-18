@@ -2,6 +2,7 @@
 <ruleset name="HostnetExperimental">
     <description>The future Hostnet coding standard.</description>
     <rule ref="Hostnet"/>
+    <rule ref="Squiz.Strings.DoubleQuoteUsage.NotRequired" />
     <rule ref="SlevomatCodingStandard.Classes.ClassConstantVisibility"/>
     <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
         <properties>
