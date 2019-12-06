@@ -197,6 +197,9 @@
         </properties>
     </rule>
 
+    <!-- Require exactly one space between typehint and variable, or zero with the nullability symbol -->
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHintSpacingSniff"/>
+
     <!-- Require space around colon in return types -->
     <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing"/>
 
