@@ -21,31 +21,31 @@ class FileCommentCopyrightUnitTest extends AbstractSniffUnitTest
     public function getErrorList($filename = '')
     {
         $list = [
-            'FileCommentCopyrightUnitTest.1.inc' => [
+            'FileCommentCopyrightUnitTest.1.inc'  => [
                 1 => 1,
             ],
-            'FileCommentCopyrightUnitTest.2.inc' => [
+            'FileCommentCopyrightUnitTest.2.inc'  => [
                 1 => 1,
             ],
-            'FileCommentCopyrightUnitTest.3.inc' => [
+            'FileCommentCopyrightUnitTest.3.inc'  => [
                 1 => 1,
             ],
-            'FileCommentCopyrightUnitTest.4.inc' => [
+            'FileCommentCopyrightUnitTest.4.inc'  => [
                 1 => 1,
             ],
-            'FileCommentCopyrightUnitTest.5.inc' => [
+            'FileCommentCopyrightUnitTest.5.inc'  => [
                 1 => 1,
             ],
-            'FileCommentCopyrightUnitTest.6.inc' => [
+            'FileCommentCopyrightUnitTest.6.inc'  => [
                 1 => 1,
             ],
-            'FileCommentCopyrightUnitTest.7.inc' => [
+            'FileCommentCopyrightUnitTest.7.inc'  => [
                 2 => 1,
             ],
-            'FileCommentCopyrightUnitTest.8.inc' => [
+            'FileCommentCopyrightUnitTest.8.inc'  => [
                 3 => 1,
             ],
-            'FileCommentCopyrightUnitTest.9.inc' => [
+            'FileCommentCopyrightUnitTest.9.inc'  => [
                 3 => 1,
              ],
             'FileCommentCopyrightUnitTest.10.inc' => [

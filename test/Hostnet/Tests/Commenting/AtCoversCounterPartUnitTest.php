@@ -19,30 +19,30 @@ class AtCoversCounterPartUnitTest extends AbstractSniffUnitTest
     public function getErrorList($filename = '')
     {
         $list = [
-            'AtCoversCounterPartUnitTest.php.0.inc' => [],
-            'AtCoversCounterPartUnitTest.php.1.inc' => [],
-            'AtCoversCounterPartUnitTest.php.2.inc' => [
+            'AtCoversCounterPartUnitTest.php.0.inc'  => [],
+            'AtCoversCounterPartUnitTest.php.1.inc'  => [],
+            'AtCoversCounterPartUnitTest.php.2.inc'  => [
                 4  => 1,
             ],
-            'AtCoversCounterPartUnitTest.php.3.inc' => [
+            'AtCoversCounterPartUnitTest.php.3.inc'  => [
                 4  => 1,
             ],
-            'AtCoversCounterPartUnitTest.php.4.inc' => [
+            'AtCoversCounterPartUnitTest.php.4.inc'  => [
                 7  => 1,
             ],
-            'AtCoversCounterPartUnitTest.php.5.inc' => [
+            'AtCoversCounterPartUnitTest.php.5.inc'  => [
                 7  => 1,
             ],
-            'AtCoversCounterPartUnitTest.php.6.inc' => [
+            'AtCoversCounterPartUnitTest.php.6.inc'  => [
                 8  => 1,
             ],
-            'AtCoversCounterPartUnitTest.php.7.inc' => [
+            'AtCoversCounterPartUnitTest.php.7.inc ' => [
                 6  => 1,
             ],
-            'AtCoversCounterPartUnitTest.php.8.inc' => [
+            'AtCoversCounterPartUnitTest.php.8.inc'  => [
                 9  => 1,
             ],
-            'AtCoversCounterPartUnitTest.php.9.inc' => [
+            'AtCoversCounterPartUnitTest.php.9.inc'  => [
                 7  => 1,
             ],
             'AtCoversCounterPartUnitTest.php.10.inc' => [
