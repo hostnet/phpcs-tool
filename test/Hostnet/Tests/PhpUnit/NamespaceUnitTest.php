@@ -36,7 +36,7 @@ class NamespaceUnitTest extends AbstractSniffUnitTest
     {
         $warnings = [
             'NamespaceUnitTest.0.inc' => [
-                3  => 1,
+                3 => 1,
                 8 => 1,
             ],
             'NamespaceUnitTest.1.inc' => [

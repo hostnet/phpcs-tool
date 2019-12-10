@@ -215,8 +215,6 @@
 
     <!-- Force array declaration structure -->
     <rule ref="Squiz.Arrays.ArrayDeclaration">
-        <!-- Disable arrow alignment -->
-        <exclude name="Squiz.Arrays.ArrayDeclaration.DoubleArrowNotAligned"/>
         <!-- Uses indentation of only single space -->
         <exclude name="Squiz.Arrays.ArrayDeclaration.KeyNotAligned"/>
         <!-- Allow multiple values on a single line -->
@@ -234,7 +232,7 @@
         <!-- Allow values to not be on a newline -->
         <exclude name="Squiz.Arrays.ArrayDeclaration.FirstValueNoNewline"/>
         <!-- This is checked by SlevomatCodingStandard.Arrays.TrailingArrayComma -->
-        <exclude name="Squiz.Arrays.ArrayDeclaration.NoCommaAfterLast"/>
+        <exclude name="Squiz.Arrays.ArrayDeclaration.NoComma"/>
         <!-- Allow the final ] to be on the same line in a multi-line array -->
         <exclude name="Squiz.Arrays.ArrayDeclaration.CloseBraceNewLine"/>
     </rule>
