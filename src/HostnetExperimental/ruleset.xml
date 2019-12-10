@@ -17,7 +17,4 @@
         <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableReturnTypeHintSpecification"/>
         <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.UselessDocComment"/>
     </rule>
-
-    <!-- Require exactly one space between typehint and variable, or zero with the nullability symbol -->
-    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHintSpacing"/>
 </ruleset>
