@@ -4,11 +4,6 @@
     <rule ref="Hostnet"/>
     <rule ref="Squiz.Strings.DoubleQuoteUsage.NotRequired" />
     <rule ref="SlevomatCodingStandard.Classes.ClassConstantVisibility"/>
-    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
-        <properties>
-            <property name="searchAnnotations" value="true"/>
-        </properties>
-    </rule>
     <rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration">
         <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint"/>
         <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingPropertyTypeHint"/>
