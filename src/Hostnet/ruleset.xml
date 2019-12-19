@@ -318,9 +318,4 @@
         </properties>
     </rule>
     <rule ref="MediaWiki.WhiteSpace.MultipleEmptyLines"/>
-    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
-        <properties>
-            <property name="searchAnnotations" value="true"/>
-        </properties>
-    </rule>
 </ruleset>
