@@ -51,6 +51,14 @@
     <!-- Forbid empty statements -->
     <rule ref="Generic.CodeAnalysis.EmptyStatement"/>
 
+    <!-- Allow empty catch statements -->
+    <rule ref="Generic.CodeAnalysis.EmptyStatement.DetectedCatch">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Allow a catch statement with only comments -->
+    <rule ref="Squiz.Commenting.EmptyCatchComment"/>
+
     <!-- Forbid final methods in final classes -->
     <rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
 
