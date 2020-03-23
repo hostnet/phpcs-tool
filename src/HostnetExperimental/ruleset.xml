@@ -18,4 +18,5 @@
         <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableReturnTypeHintSpecification"/>
         <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.UselessDocComment"/>
     </rule>
+    <rule ref="SlevomatCodingStandard.Commenting.UselessInheritDocComment"/>
 </ruleset>
