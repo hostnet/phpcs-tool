@@ -60,9 +60,6 @@ class Installer implements PluginInterface, EventSubscriberInterface
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function activate(Composer $composer, IOInterface $io): void
     {
         $this->io = $io;
