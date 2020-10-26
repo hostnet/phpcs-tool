@@ -323,5 +323,4 @@
             <property name="ignoreBlankLines" value="false"/>
         </properties>
     </rule>
-    <rule ref="MediaWiki.WhiteSpace.MultipleEmptyLines"/>
 </ruleset>
