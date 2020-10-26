@@ -65,6 +65,14 @@ class Installer implements PluginInterface, EventSubscriberInterface
         $this->io = $io;
     }
 
+    public function deactivate(Composer $composer, IOInterface $io)
+    {
+    }
+
+    public function uninstall(Composer $composer, IOInterface $io)
+    {
+    }
+
     /**
      * The 'logical'-operation of this Installer.
      * PHPCS does not define constants for the config options,
