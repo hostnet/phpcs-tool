@@ -90,6 +90,13 @@ class FileCommentCopyrightSniff implements Sniff
 
         $now_year = date('Y');
 
+        sprintf('----');
+        sprintf($filename);
+        sprintf(
+            'git log --reverse --pretty=format:%%ci %s 2> /dev/null |cut -d"-" -f1 | head -n1',
+            $filename);
+        sprintf('====');
+        
         // Try getting the file epoch year from git.
         $start_year = trim(shell_exec(sprintf(
             'git log --reverse --pretty=format:%%ci %s 2> /dev/null |cut -d"-" -f1 | head -n1',
