@@ -16,13 +16,13 @@
         "phpunit/phpunit":   "^6.5.4"
     },
     "autoload": {
-        "psr-0": {
-            "Hostnet": "src/"
+        "psr-4": {
+            "Hostnet\\": "src/Hostnet/"
         }
     },
     "autoload-dev": {
-        "psr-0": {
-            "Hostnet": "test/"
+        "psr-4": {
+            "Hostnet\\": "test/Hostnet/"
         }
     },
     "scripts": {
