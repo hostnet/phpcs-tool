@@ -29,7 +29,6 @@
         "post-autoload-dump": "Hostnet\\Component\\CodeSniffer\\Installer::configureAsRoot"
     },
     "config": {
-        "bin-dir": "bin",
         "preferred-install": {
             "squizlabs/php_codesniffer": "source"
         }
