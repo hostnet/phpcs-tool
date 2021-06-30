@@ -5,7 +5,7 @@
     colors="true" bootstrap="vendor/squizlabs/php_codesniffer/tests/bootstrap.php">
     <testsuites>
         <testsuite name="hostnet/phpcs-tool test suite">
-            <directory>./test/</directory>
+            <directory>./tests/</directory>
         </testsuite>
     </testsuites>
     <filter>

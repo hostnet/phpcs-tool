@@ -22,7 +22,7 @@
     },
     "autoload-dev": {
         "psr-0": {
-            "Hostnet": "test/"
+            "Hostnet": "tests/"
         }
     },
     "scripts": {
@@ -39,7 +39,7 @@
     },
     "archive": {
         "exclude": [
-            "/test"
+            "/tests"
         ]
     }
 }
