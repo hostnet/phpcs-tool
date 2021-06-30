@@ -93,7 +93,7 @@ class FileCommentCopyrightSniff implements Sniff
         echo('----');
         echo($filename);
         echo(shell_exec(sprintf(
-            'git log --reverse --pretty=format:%%ci %s 2> /dev/null |cut -d"-" -f1 | head -n1',
+            'git log --reverse --pretty=format:%%ci %s',
             $filename
         )));
         echo('====');
