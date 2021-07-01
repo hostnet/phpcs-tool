@@ -111,6 +111,7 @@
         <exclude name="SlevomatCodingStandard.Commenting.DocCommentSpacing.IncorrectLinesCountBetweenDescriptionAndAnnotations"/>
         <!-- Except lines between annotations and other annotations -->
         <exclude name="SlevomatCodingStandard.Commenting.DocCommentSpacing.IncorrectLinesCountBetweenDifferentAnnotationsTypes"/>
+        <exclude name="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration.NoAssignment"/>
         <properties>
             <property name="linesCountBeforeFirstContent" value="0"/>
             <property name="linesCountAfterLastContent" value="0"/>
