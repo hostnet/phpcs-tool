@@ -8,21 +8,20 @@ namespace Hostnet\Tests;
 
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Ruleset;
-use PHP_CodeSniffer\Tests\Standards\AbstractSniffUnitTest as AbstractSniffUnitTestCodeSniffer;
 use PHP_CodeSniffer\Tests\Standards\AllSniffs;
 
 /**
  * This class acts as a bridge between our unit-tests and the PHPCodeSniffer Unit-Testing framework.
  * It setup the environment; loading our 'code standard' etc.
  */
-abstract class AbstractSniffUnitTest extends AbstractSniffUnitTestCodeSniffer
+abstract class AbstractSniffUnitTest extends CopiedAbstractSniffUnitTest
 {
     /**
      * Prepare our code standard setup, PHP Code Sniffer performs this in AllTests
      *
      * @see AbstractSniffUnitTest::setUp()
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         new AllSniffs();
 
@@ -35,7 +34,7 @@ abstract class AbstractSniffUnitTest extends AbstractSniffUnitTestCodeSniffer
         parent::setUp();
     }
 
-    public function doesNotPerformAssertions()
+    public function doesNotPerformAssertions(): bool
     {
         return true;
     }

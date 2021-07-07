@@ -3,4 +3,6 @@
   <rule ref="Hostnet"/>
   <!-- Copied from mediawiki-codesniffer -->
   <exclude-pattern>src/Hostnet/Sniffs/Classes/MultipleEmptyLinesSniff.php</exclude-pattern>
+  <!-- Copied from squizlabs/php_codesniffer -->
+  <exclude-pattern>test/Hostnet/Tests/CopiedAbstractSniffUnitTest.php</exclude-pattern>
 </ruleset>

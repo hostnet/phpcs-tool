@@ -99,6 +99,11 @@ FIX;
 
     private function getNamespaceFromFile(string $path_to_file): string
     {
+        // PHP 8.0 forward compatibility @see https://www.php.net/manual/en/migration80.incompatible.php
+        if (!defined('T_NAME_QUALIFIED')) {
+            define('T_NAME_QUALIFIED', T_NS_SEPARATOR);
+        }
+
         $namespace = '';
         $class     = '';
 
@@ -118,7 +123,7 @@ FIX;
 
             if ($getting_namespace) {
                 // If the token is a string or the namespace separator.
-                if (\is_array($token) && \in_array($token[0], [T_STRING, T_NS_SEPARATOR], true)) {
+                if (\is_array($token) && \in_array($token[0], [T_STRING, T_NS_SEPARATOR, T_NAME_QUALIFIED], true)) {
                     // Append the token's value to the name of the namespace.
                     $namespace .= $token[1];
                 } elseif ($token === ';') {
