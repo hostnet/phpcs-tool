@@ -18,7 +18,7 @@ class NamespaceUnitTest extends AbstractSniffUnitTest
      *
      * @return array(int => int)
      */
-    public function getErrorList()
+    public function getErrorList(): array
     {
         return [];
     }
@@ -32,7 +32,7 @@ class NamespaceUnitTest extends AbstractSniffUnitTest
      * @param string $filename
      * @return array
      */
-    public function getWarningList($filename = null)
+    public function getWarningList($filename = null): array
     {
         $warnings = [
             'NamespaceUnitTest.0.inc' => [

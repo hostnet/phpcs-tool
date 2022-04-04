@@ -18,10 +18,8 @@ class VariableAndPropertyMustBeInSnakeCaseUnitTest extends AbstractSniffUnitTest
      *
      * The key of the array should represent the line number and the value
      * should represent the number of errors that should occur on that line.
-     *
-     * @return [int => int]
      */
-    public function getErrorList()
+    public function getErrorList(): array
     {
         return [
             6  => 1,
@@ -44,10 +42,8 @@ class VariableAndPropertyMustBeInSnakeCaseUnitTest extends AbstractSniffUnitTest
      *
      * The key of the array should represent the line number and the value
      * should represent the number of warnings that should occur on that line.
-     *
-     * @return [int => int]
      */
-    public function getWarningList()
+    public function getWarningList(): array
     {
         return [];
     }

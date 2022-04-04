@@ -37,8 +37,6 @@ class UseStatementsAlphabeticallyOrderedSniff implements Sniff
     /**
      * @param File $phpcs_file
      * @param int|bool $stack_ptr
-     *
-     * @return void
      */
     public function process(File $phpcs_file, $stack_ptr): void
     {
@@ -113,8 +111,6 @@ class UseStatementsAlphabeticallyOrderedSniff implements Sniff
      *
      * @param File $phpcs_file The file where the token was found.
      * @param int  $stack_ptr the current position in the stack
-     *
-     * @return void
      */
     private function createAndCheckStatements(File $phpcs_file, $stack_ptr): void
     {

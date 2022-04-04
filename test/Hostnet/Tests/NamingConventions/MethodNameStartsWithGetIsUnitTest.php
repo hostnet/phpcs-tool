@@ -21,7 +21,7 @@ class MethodNameStartsWithGetIsUnitTest extends AbstractSniffUnitTest
      *
      * @return array(int => int)
      */
-    public function getErrorList($filename = null)
+    public function getErrorList($filename = null): array
     {
         return [13 => 1, 17 => 1, 35 => 1, 39 => 1, 43 => 1, 49 => 1, 55 => 1, 59 => 1, 73 => 1, 78 => 1, 83 => 1];
     }
@@ -34,7 +34,7 @@ class MethodNameStartsWithGetIsUnitTest extends AbstractSniffUnitTest
      *
      * @return array(int => int)
      */
-    public function getWarningList()
+    public function getWarningList(): array
     {
         return [];
     }

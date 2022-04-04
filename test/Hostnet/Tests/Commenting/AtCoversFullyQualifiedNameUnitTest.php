@@ -21,7 +21,7 @@ class AtCoversFullyQualifiedNameUnitTest extends AbstractSniffUnitTest
      *
      * @return array(int => int)
      */
-    public function getErrorList($filename = '')
+    public function getErrorList($filename = ''): array
     {
         $list = [
             'AtCoversFullyQualifiedNameUnitTest.php.0.inc' => [
@@ -45,7 +45,7 @@ class AtCoversFullyQualifiedNameUnitTest extends AbstractSniffUnitTest
      *
      * @return array(int => int)
      */
-    public function getWarningList()
+    public function getWarningList(): array
     {
         return [];
     }

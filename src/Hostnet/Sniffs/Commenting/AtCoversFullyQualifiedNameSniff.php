@@ -14,8 +14,9 @@ use PHP_CodeSniffer\Standards\PEAR\Sniffs\Commenting\FileCommentSniff;
  */
 class AtCoversFullyQualifiedNameSniff extends FileCommentSniff
 {
-    const ERROR_TYPE    = 'AtCoversNeedsFQCN';
-    const ERROR_MESSAGE = 'Covers annotation should use fully qualified class name (it should start with a "\") "%s"';
+    private const ERROR_TYPE    = 'AtCoversNeedsFQCN';
+    private const ERROR_MESSAGE =
+        'Covers annotation should use fully qualified class name (it should start with a "\") "%s"';
 
     /**
      * @return int[]

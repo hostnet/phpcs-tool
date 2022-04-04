@@ -23,7 +23,7 @@ class ProtectedPropertiesAreNotAllowedUnitTest extends AbstractSniffUnitTest
      *
      * @return array(int => int)
      */
-    public function getErrorList($filename = null)
+    public function getErrorList($filename = null): array
     {
         return [9 => 1, 23 => 1, 25 => 1, 27 => 1, 30 => 1, 32 => 2];
     }
@@ -36,7 +36,7 @@ class ProtectedPropertiesAreNotAllowedUnitTest extends AbstractSniffUnitTest
      *
      * @return array(int => int)
      */
-    public function getWarningList()
+    public function getWarningList(): array
     {
         return [];
     }
