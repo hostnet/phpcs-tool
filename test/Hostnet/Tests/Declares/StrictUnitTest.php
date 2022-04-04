@@ -25,7 +25,7 @@ class StrictUnitTest extends AbstractSniffUnitTest
      * @param string $test_file
      * @return array <int, int>
      */
-    public function getErrorList($test_file = '')
+    public function getErrorList($test_file = ''): array
     {
         if ($test_file === 'StrictUnitTest.1.inc') {
             return [1 => 1];
@@ -57,7 +57,7 @@ class StrictUnitTest extends AbstractSniffUnitTest
      *
      * @return array<int, int>
      */
-    public function getWarningList()
+    public function getWarningList(): array
     {
         return [];
     }

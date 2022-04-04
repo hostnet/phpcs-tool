@@ -115,8 +115,6 @@ class FileCommentCopyrightSniff implements Sniff
      * @param File $phpcs_file The file being scanned.
      * @param int $stack_ptr The position of the current token in the stack passed in $tokens.
      * @param int $comment_start Position in the stack where the comment started.
-     *
-     * @return void
      */
     private function processCopyrightTags(File $phpcs_file, $stack_ptr, $comment_start): void
     {
@@ -275,8 +273,6 @@ class FileCommentCopyrightSniff implements Sniff
      *
      * @param File $phpcs_file
      * @param array $tags
-     *
-     * @return void
      */
     protected function processCopyright(File $phpcs_file, array $tags): void
     {

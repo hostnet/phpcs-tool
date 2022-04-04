@@ -18,7 +18,7 @@ class FileCommentCopyrightUnitTest extends AbstractSniffUnitTest
      *
      * @return array empty list.
      */
-    public function getErrorList($filename = '')
+    public function getErrorList($filename = ''): array
     {
         $list = [
             'FileCommentCopyrightUnitTest.1.inc'  => [
@@ -67,7 +67,7 @@ class FileCommentCopyrightUnitTest extends AbstractSniffUnitTest
      *
      * @return array(int => int)
      */
-    public function getWarningList($filename = '')
+    public function getWarningList($filename = ''): array
     {
         return [];
     }

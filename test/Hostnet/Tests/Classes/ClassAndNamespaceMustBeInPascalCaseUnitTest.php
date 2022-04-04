@@ -20,10 +20,8 @@ class ClassAndNamespaceMustBeInPascalCaseUnitTest extends AbstractSniffUnitTest
      * should represent the number of errors that should occur on that line.
      *
      * @param string $filename
-     *
-     * @return [int => int]
      */
-    public function getErrorList($filename = null)
+    public function getErrorList($filename = null): array
     {
         switch ($filename) {
             case 'ClassAndNamespaceMustBeInPascalCaseUnitTest.0.inc':
@@ -48,10 +46,8 @@ class ClassAndNamespaceMustBeInPascalCaseUnitTest extends AbstractSniffUnitTest
      * should represent the number of warnings that should occur on that line.
      *
      * @param string $filename
-     *
-     * @return [int => int]
      */
-    public function getWarningList($filename = null)
+    public function getWarningList($filename = null): array
     {
         return [];
     }

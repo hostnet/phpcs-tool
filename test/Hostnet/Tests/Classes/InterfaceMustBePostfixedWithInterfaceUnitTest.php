@@ -20,10 +20,8 @@ class InterfaceMustBePostfixedWithInterfaceUnitTest extends AbstractSniffUnitTes
      * should represent the number of errors that should occur on that line.
      *
      * @param string $filename
-     *
-     * @return [int => int]
      */
-    public function getErrorList($filename = null)
+    public function getErrorList($filename = null): array
     {
         switch ($filename) {
             case 'InterfaceMustBePostfixedWithInterfaceUnitTest.0.inc':
@@ -42,10 +40,8 @@ class InterfaceMustBePostfixedWithInterfaceUnitTest extends AbstractSniffUnitTes
      *
      * The key of the array should represent the line number and the value
      * should represent the number of warnings that should occur on that line.
-     *
-     * @return [int => int]
      */
-    public function getWarningList()
+    public function getWarningList(): array
     {
         return [];
     }

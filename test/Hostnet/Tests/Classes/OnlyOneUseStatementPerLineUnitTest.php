@@ -22,7 +22,7 @@ class OnlyOneUseStatementPerLineUnitTest extends AbstractSniffUnitTest
      *
      * @return array(int => int)
      */
-    public function getErrorList($filename = null)
+    public function getErrorList($filename = null): array
     {
         return [4 => 1, 5 => 1, 7 => 1];
     }
@@ -35,7 +35,7 @@ class OnlyOneUseStatementPerLineUnitTest extends AbstractSniffUnitTest
      *
      * @return array(int => int)
      */
-    public function getWarningList()
+    public function getWarningList(): array
     {
         return [];
     }

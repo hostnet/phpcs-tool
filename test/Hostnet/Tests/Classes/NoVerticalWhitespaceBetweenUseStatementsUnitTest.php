@@ -21,7 +21,7 @@ class NoVerticalWhitespaceBetweenUseStatementsUnitTest extends AbstractSniffUnit
      *
      * @return array(int => int)
      */
-    public function getErrorList($filename = null)
+    public function getErrorList($filename = null): array
     {
         switch ($filename) {
             case 'NoVerticalWhitespaceBetweenUseStatementsUnitTest.0.inc':
@@ -43,7 +43,7 @@ class NoVerticalWhitespaceBetweenUseStatementsUnitTest extends AbstractSniffUnit
      *
      * @return array(int => int)
      */
-    public function getWarningList()
+    public function getWarningList(): array
     {
         return [];
     }

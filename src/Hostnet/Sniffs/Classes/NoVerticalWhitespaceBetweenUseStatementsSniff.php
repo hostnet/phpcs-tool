@@ -25,8 +25,6 @@ class NoVerticalWhitespaceBetweenUseStatementsSniff implements Sniff
     /**
      * @param File $phpcs_file
      * @param int|bool $stack_ptr
-     *
-     * @return void
      */
     public function process(File $phpcs_file, $stack_ptr): void
     {
