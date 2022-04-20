@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
 <ruleset name="HostnetExperimental">
     <description>The future Hostnet coding standard.</description>
-    <rule ref="Hostnet"/>
+    <rule ref="Hostnet-Level-2"/>
 </ruleset>

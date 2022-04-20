@@ -201,27 +201,6 @@
     <!-- Require use of short versions of scalar types (i.e. int instead of integer) -->
     <rule ref="SlevomatCodingStandard.TypeHints.LongTypeHints"/>
 
-    <rule ref="SlevomatCodingStandard.Classes.ClassConstantVisibility"/>
-
-    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
-        <exclude phpcbf-only="true" name="SlevomatCodingStandard.Namespaces.UnusedUses.UnusedUse"/>
-        <properties>
-            <property name="searchAnnotations" value="true"/>
-        </properties>
-    </rule>
-
-    <rule ref="SlevomatCodingStandard.TypeHints">
-        <exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint"/>
-        <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint"/>
-        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification"/>
-        <exclude name="SlevomatCodingStandard.TypeHints.DisallowArrayTypeHintSyntax.DisallowedArrayTypeHintSyntax"/>
-        <exclude name="SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue.NullabilityTypeMissing"/>
-        <exclude name="SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint"/>
-        <exclude name="SlevomatCodingStandard.Commenting.UselessFunctionDocComment"/>
-    </rule>
-
-    <rule ref="SlevomatCodingStandard.Commenting.UselessInheritDocComment"/>
-
     <!-- Require one space between typehint and variable, require no space between nullability sign and typehint -->
     <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
         <properties>
