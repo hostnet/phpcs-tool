@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="Hostnet PHPCodeSniffer Standard">
-  <rule ref="Hostnet"/>
+  <rule ref="HostnetExperimental"/>
   <!-- Copied from mediawiki-codesniffer -->
   <exclude-pattern>src/Hostnet/Sniffs/Classes/MultipleEmptyLinesSniff.php</exclude-pattern>
   <!-- Copied from squizlabs/php_codesniffer -->
