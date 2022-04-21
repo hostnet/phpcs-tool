@@ -3,7 +3,6 @@
     <description>Hostnet coding standard, supplemented with rules for useless code.</description>
     <rule ref="Hostnet"/>
     <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
-        <exclude phpcbf-only="true" name="SlevomatCodingStandard.Namespaces.UnusedUses.UnusedUse"/>
         <properties>
             <property name="searchAnnotations" value="true"/>
         </properties>
