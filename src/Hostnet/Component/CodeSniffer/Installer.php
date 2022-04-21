@@ -46,18 +46,22 @@ class Installer implements PluginInterface, EventSubscriberInterface
 
         self::configure();
 
-        $filesystem->mkdir($vendor_dir . '/Hostnet');
+        foreach ([
+                'Hostnet',
+                'HostnetPaths',
+                'Hostnet-Level-1',
+                'Hostnet-Level-2',
+                'HostnetExperimental',
+            ] as $ruleset
+        ) {
+            $filesystem->mkdir($vendor_dir . '/' . $ruleset);
+            $filesystem->copy(
+                __DIR__ . '/../../../' . $ruleset . '/ruleset.xml',
+                $vendor_dir . '/' . $ruleset . '/ruleset.xml'
+            );
+        }
+
         $filesystem->symlink(__DIR__ . '/../../Sniffs', $vendor_dir . '/Hostnet/Sniffs');
-        $filesystem->copy(__DIR__ . '/../../ruleset.xml', $vendor_dir . '/Hostnet/ruleset.xml');
-
-        $filesystem->mkdir($vendor_dir . '/HostnetPaths');
-        $filesystem->copy(__DIR__ . '/../../../HostnetPaths/ruleset.xml', $vendor_dir . '/HostnetPaths/ruleset.xml');
-
-        $filesystem->mkdir($vendor_dir . '/HostnetExperimental');
-        $filesystem->copy(
-            __DIR__ . '/../../../HostnetExperimental/ruleset.xml',
-            $vendor_dir . '/HostnetExperimental/ruleset.xml'
-        );
     }
 
     public function activate(Composer $composer, IOInterface $io): void
