@@ -30,7 +30,6 @@
 
     <rule ref="Generic.Formatting.MultipleStatementAlignment">
         <properties>
-            <property name="ignoreMultiLine" value="true"/>
             <property name="error" value="true"/>
         </properties>
     </rule>
@@ -169,9 +168,7 @@
     <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
         <exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.IncorrectWhitespaceBeforeDeclare"/>
         <properties>
-            <property name="newlinesCountBetweenOpenTagAndDeclare" value="1"/>
             <property name="spacesCountAroundEqualsSign" value="0"/>
-            <property name="newlinesCountAfterDeclare" value="2"/>
         </properties>
     </rule>
 
