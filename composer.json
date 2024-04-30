@@ -9,7 +9,7 @@
         "hostnet/path-composer-plugin-lib": "^1.0.5",
         "slevomat/coding-standard":         "^8.6.2",
         "squizlabs/php_codesniffer":        "^3.6.2",
-        "symfony/filesystem":               "^4.0||^5.0"
+        "symfony/filesystem":               "^4.0||^5.0||^6.0||^7.0"
     },
     "require-dev": {
         "composer/composer": "^2.1.14",
