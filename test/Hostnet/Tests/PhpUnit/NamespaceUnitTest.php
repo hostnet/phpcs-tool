@@ -30,7 +30,6 @@ class NamespaceUnitTest extends AbstractSniffUnitTest
      * should represent the number of warnings that should occur on that line.
      *
      * @param string $filename
-     * @return array
      */
     public function getWarningList($filename = null): array
     {
