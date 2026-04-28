@@ -14,7 +14,7 @@ use PHP_CodeSniffer\Sniffs\Sniff;
  */
 class VariableAndPropertyMustBeInSnakeCaseSniff implements Sniff
 {
-    private const SUPER_GLOBALS = [
+    private const array SUPER_GLOBALS = [
         'GLOBALS',
         '_SERVER',
         '_GET',

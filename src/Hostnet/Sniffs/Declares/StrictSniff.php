@@ -15,9 +15,9 @@ use PHP_CodeSniffer\Sniffs\Sniff;
  */
 class StrictSniff implements Sniff
 {
-    private const ERROR = 'declare(strict_types = 1) not found';
+    private const string ERROR = 'declare(strict_types = 1) not found';
 
-    private const R_VALUE = [
+    private const array R_VALUE = [
         T_LNUMBER,                    //integers
         T_STRING,                     //identifiers
         T_NUM_STRING,                 // numeric array index inside string
