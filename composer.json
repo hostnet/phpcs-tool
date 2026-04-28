@@ -13,7 +13,7 @@
     },
     "require-dev": {
         "composer/composer": "^2.1.14",
-        "phpunit/phpunit":   "^9.5.10"
+        "phpunit/phpunit":   "^11.5.55"
     },
     "autoload": {
         "psr-0": {

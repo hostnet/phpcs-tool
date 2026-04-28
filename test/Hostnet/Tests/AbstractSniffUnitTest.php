@@ -32,10 +32,7 @@ abstract class AbstractSniffUnitTest extends CopiedAbstractSniffUnitTest
         $GLOBALS['PHP_CODESNIFFER_FIXABLE_CODES']                   = [];
 
         parent::setUp();
-    }
 
-    public function doesNotPerformAssertions(): bool
-    {
-        return true;
+        $this->expectNotToPerformAssertions();
     }
 }

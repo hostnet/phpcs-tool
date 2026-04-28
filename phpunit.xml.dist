@@ -8,6 +8,8 @@
   <testsuites>
     <testsuite name="hostnet/phpcs-tool test suite">
       <directory>./test/</directory>
+      <exclude>./test/Hostnet/Tests/AbstractSniffUnitTest.php</exclude>
+      <exclude>./test/Hostnet/Tests/CopiedAbstractSniffUnitTest.php</exclude>
     </testsuite>
   </testsuites>
 </phpunit>
