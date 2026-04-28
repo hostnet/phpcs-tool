@@ -7,10 +7,9 @@ declare(strict_types=1);
 namespace Hostnet\Tests\Classes;
 
 use Hostnet\Tests\AbstractSniffUnitTest;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hostnet\Sniffs\Classes\UseStatementsAlphabeticallyOrderedUnitTest
- */
+#[CoversClass(\Hostnet\Sniffs\Classes\UseStatementsAlphabeticallyOrderedUnitTest::class)]
 class UseStatementsAlphabeticallyOrderedUnitTest extends AbstractSniffUnitTest
 {
     /**

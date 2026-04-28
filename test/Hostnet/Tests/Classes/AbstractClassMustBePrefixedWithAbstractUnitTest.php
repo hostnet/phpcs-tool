@@ -7,10 +7,9 @@ declare(strict_types=1);
 namespace Hostnet\Tests\Classes;
 
 use Hostnet\Tests\AbstractSniffUnitTest;
+use PHPUnit\Framework\Attributes\CoversClass;
 
-/**
- * @covers \Hostnet\Sniffs\Classes\AbstractClassMustBePrefixedWithAbstractSniff
- */
+#[CoversClass(\Hostnet\Sniffs\Classes\AbstractClassMustBePrefixedWithAbstractSniff::class)]
 class AbstractClassMustBePrefixedWithAbstractUnitTest extends AbstractSniffUnitTest
 {
     /**
