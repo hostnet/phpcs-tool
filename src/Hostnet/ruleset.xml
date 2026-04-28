@@ -22,7 +22,6 @@
     <rule ref="Generic.Files.OneClassPerFile"/>
     <rule ref="Generic.Files.OneInterfacePerFile"/>
 
-    <rule ref="Generic.Functions.CallTimePassByReference"/>
     <rule ref="Generic.Metrics.NestingLevel"/>
 
     <rule ref="Generic.PHP.ForbiddenFunctions"/>
@@ -240,9 +239,6 @@
     <!-- Forbid class being in a file with different name -->
     <rule ref="Squiz.Classes.ClassFileName"/>
 
-    <!-- Forbid duplicate properties -->
-    <rule ref="Squiz.Classes.DuplicateProperty"/>
-
     <!-- Force `self::` for self-reference, force lower-case self, forbid spaces around `::` -->
     <rule ref="Squiz.Classes.SelfMemberReference"/>
 
@@ -298,7 +294,7 @@
     <rule ref="Squiz.WhiteSpace.FunctionOpeningBraceSpace"/>
 
     <!-- Require space after language constructs -->
-    <rule ref="Squiz.WhiteSpace.LanguageConstructSpacing"/>
+    <rule ref="Generic.WhiteSpace.LanguageConstructSpacing"/>
 
     <!-- Require space around logical operators -->
     <rule ref="Squiz.WhiteSpace.LogicalOperatorSpacing"/>
