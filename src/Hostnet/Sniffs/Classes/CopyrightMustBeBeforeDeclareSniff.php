@@ -11,7 +11,7 @@ use PHP_CodeSniffer\Sniffs\Sniff;
 
 class CopyrightMustBeBeforeDeclareSniff implements Sniff
 {
-    private const ERROR = 'declare(strict_types=1) should be after the copyright statement';
+    private const string ERROR = 'declare(strict_types=1) should be after the copyright statement';
 
     /**
      * {@inheritdoc}

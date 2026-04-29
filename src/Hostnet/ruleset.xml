@@ -22,7 +22,6 @@
     <rule ref="Generic.Files.OneClassPerFile"/>
     <rule ref="Generic.Files.OneInterfacePerFile"/>
 
-    <rule ref="Generic.Functions.CallTimePassByReference"/>
     <rule ref="Generic.Metrics.NestingLevel"/>
 
     <rule ref="Generic.PHP.ForbiddenFunctions"/>
@@ -122,13 +121,10 @@
     <!-- Forbid useless comments -->
     <rule ref="SlevomatCodingStandard.Commenting.ForbiddenComments">
         <properties>
-            <property
-                    name="forbiddenCommentPatterns"
-                    type="array"
-                    value="
-                    ~^Created by \S+\.\z~i,
-                    ~^\S+ [gs]etter\.\z~i,
-                "/>
+            <property name="forbiddenCommentPatterns" type="array">
+                <element value="~^Created by \S+\.\z~i"/>
+                <element value="~^\S+ [gs]etter\.\z~i"/>
+            </property>
         </properties>
     </rule>
 
@@ -175,20 +171,17 @@
     <!-- Forbid useless annotations - Git and LICENCE file provide more accurate information -->
     <rule ref="SlevomatCodingStandard.Commenting.ForbiddenAnnotations">
         <properties>
-            <property
-                    name="forbiddenAnnotations"
-                    type="array"
-                    value="
-                    @api,
-                    @author,
-                    @category,
-                    @created,
-                    @license,
-                    @package,
-                    @since,
-                    @subpackage,
-                    @version
-                "
+            <property name="forbiddenAnnotations" type="array">
+                <element value="@api" />
+                <element value="@author" />
+                <element value="@category" />
+                <element value="@created" />
+                <element value="@license" />
+                <element value="@package" />
+                <element value="@since" />
+                <element value="@subpackage" />
+                <element value="@version" />
+            </property>
             />
         </properties>
     </rule>
@@ -246,9 +239,6 @@
     <!-- Forbid class being in a file with different name -->
     <rule ref="Squiz.Classes.ClassFileName"/>
 
-    <!-- Forbid duplicate properties -->
-    <rule ref="Squiz.Classes.DuplicateProperty"/>
-
     <!-- Force `self::` for self-reference, force lower-case self, forbid spaces around `::` -->
     <rule ref="Squiz.Classes.SelfMemberReference"/>
 
@@ -304,7 +294,7 @@
     <rule ref="Squiz.WhiteSpace.FunctionOpeningBraceSpace"/>
 
     <!-- Require space after language constructs -->
-    <rule ref="Squiz.WhiteSpace.LanguageConstructSpacing"/>
+    <rule ref="Generic.WhiteSpace.LanguageConstructSpacing"/>
 
     <!-- Require space around logical operators -->
     <rule ref="Squiz.WhiteSpace.LogicalOperatorSpacing"/>
